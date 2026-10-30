@@ -56,14 +56,20 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
+FETCH_LOG: list[str] = []
+
+
 def get(url: str, **kw) -> requests.Response | None:
     try:
         r = SESSION.get(url, timeout=TIMEOUT, **kw)
-        log(f"GET {url} -> {r.status_code} ({len(r.content)} bytes)")
+        line = f"GET {url} -> {r.status_code} ({len(r.content)} bytes) {r.headers.get('content-type','')}"
+        log(line)
+        FETCH_LOG.append(line)
         if r.status_code == 200:
             return r
     except requests.RequestException as e:
         log(f"GET {url} failed: {e}")
+        FETCH_LOG.append(f"GET {url} -> EXC {e}")
     return None
 
 
@@ -314,7 +320,11 @@ def extract(content: bytes, race: dict, source_url: str) -> RaceResult | None:
     res = None
     if stripped.startswith("{") or stripped.startswith("["):
         try:
-            res = extract_from_json(json.loads(text), race, rx)
+            doc = json.loads(text)
+            if race["source"]["adapter"] == "va":
+                res = parse_va_ballot_items(doc, race, rx)
+            if res is None:
+                res = extract_from_json(doc, race, rx)
         except json.JSONDecodeError:
             res = None
     if res is None and "<" in stripped[:200]:
@@ -323,6 +333,50 @@ def extract(content: bytes, race: dict, source_url: str) -> RaceResult | None:
         res.source_url = source_url
     return res
 
+
+
+# --------------------------------------------------------------------------- #
+# Virginia (Enhanced Voting ENR) — structured parser
+# --------------------------------------------------------------------------- #
+VA_BALLOT_ITEMS = "https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items"
+
+
+def _en(name_list) -> str:
+    if isinstance(name_list, list):
+        for x in name_list:
+            if isinstance(x, dict) and x.get("languageId") == "en":
+                return x.get("text", "")
+        return name_list[0].get("text", "") if name_list and isinstance(name_list[0], dict) else ""
+    return str(name_list or "")
+
+
+def parse_va_ballot_items(doc: dict, race: dict, contest_rx: re.Pattern) -> RaceResult | None:
+    items = doc.get("data") if isinstance(doc, dict) else None
+    if not isinstance(items, list):
+        return None
+    for it in items:
+        title = _en(it.get("name"))
+        if not contest_rx.search(title):
+            continue
+        res = RaceResult()
+        opts = ((it.get("summaryResults") or {}).get("ballotOptions")) or []
+        out = []
+        for c in race["candidates"]:
+            votes = None
+            for o in opts:
+                if text_matches_candidate(_en(o.get("name")), c):
+                    votes = to_int(str(o.get("voteCount", "")))
+                    break
+            out.append(asdict(CandResult(c["name"], c["party"], votes, c.get("incumbent", False))))
+        res.candidates = out
+        rs = it.get("reportingStatus") or {}
+        res.precincts_reporting = rs.get("reportingUnits")
+        res.precincts_total = rs.get("totalUnits")
+        if res.precincts_total:
+            res.pct_reported = round((res.precincts_reporting or 0) / res.precincts_total * 100, 1)
+        res.source_updated = rs.get("asOf")
+        return res
+    return None
 
 # --------------------------------------------------------------------------- #
 # State adapters: return a list of candidate documents (url, bytes) to try, in order.
@@ -418,6 +472,7 @@ def adapter_va(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
     slug = "2026-November-General"
     base = "https://enr.elections.virginia.gov"
     api_guesses = [
+        VA_BALLOT_ITEMS,
         f"{base}/results/public/api/elections/virginia/{slug}",
         f"{base}/results/public/api/elections/virginia/{slug}/contests",
         f"{base}/results/public/api/elections/virginia/{slug}/results",
@@ -487,7 +542,7 @@ def adapter_tx(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
         if not jr:
             continue
         if probe:
-            save_probe("tx_bundle_" + re.sub(r"[^A-Za-z0-9]+", "_", js_url)[-60:] + ".js", jr.content[:400000])
+            save_probe("tx_bundle_" + re.sub(r"[^A-Za-z0-9]+", "_", js_url)[-60:] + ".js", jr.content)
         for m in re.finditer(r"""["'`]((?:https?://[^"'`\s]+)?/?(?:static/data|api)/[^"'`\s]{3,200})["'`]""", jr.text):
             u = m.group(1)
             if "${" in u or "{" in u:
@@ -648,6 +703,8 @@ def main():
         "feed_errors": errors,
         "races": out_races,
     }
+    if args.probe:
+        save_probe("fetch_log.txt", "\n".join(FETCH_LOG))
     if args.dry_run:
         print(json.dumps(out, indent=2))
     else:

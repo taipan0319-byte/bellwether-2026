@@ -28,11 +28,17 @@ MT_HTML = """<html><body><table><tr><td colspan=3>UNITED STATES REPRESENTATIVE D
 <tr><td>SAM FORSTAG</td><td>DEM</td><td>145,001</td><td>47.8%</td></tr>
 <tr><td>NICK SHEEDY</td><td>LIB</td><td>6,120</td><td>2.0%</td></tr></table></body></html>"""
 
-VA_JSON = {"ballotItems": [
-  {"name": "Member House of Representatives (01)", "precinctsReporting": 180, "precinctsParticipating": 212,
-   "ballotOptions": [{"name": "Robert J. Wittman", "politicalParty": "Republican", "voteCount": 201345},
-                     {"name": "Shannon L. Taylor", "politicalParty": "Democratic", "voteCount": 188902}]},
-  {"name": "Member House of Representatives (02)", "ballotOptions": [{"name": "Jennifer Kiggans", "voteCount": 1}]}]}
+# Mirrors the real Enhanced Voting ballot-items response shape (verified Oct 29, 2026)
+VA_JSON = {"data": [
+  {"name": [{"languageId": "en", "text": "Member, House of Representatives (1st District)"}],
+   "reportingStatus": {"reportingUnits": 180, "totalUnits": 212, "asOf": "2026-11-03T01:00:00Z"},
+   "summaryResults": {"ballotOptions": [
+     {"name": [{"languageId": "en", "text": "Robert J. Wittman"}], "voteCount": 201345},
+     {"name": [{"languageId": "en", "text": "Shannon L. Taylor"}], "voteCount": 188902}]}},
+  {"name": [{"languageId": "en", "text": "Member, House of Representatives (2nd District)"}],
+   "reportingStatus": {"reportingUnits": 1, "totalUnits": 8},
+   "summaryResults": {"ballotOptions": [{"name": [{"languageId": "en", "text": "Jennifer Kiggans"}], "voteCount": 1}]}}],
+  "totalRecordCount": 2}
 
 TX_JSON = {"races": [
   {"officeName": "U. S. Representative District 35", "precinctsReported": 500, "precinctsTotal": 612,

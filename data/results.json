@@ -1,14 +1,208 @@
 {
-  "generated_at": null,
+  "generated_at": "2026-10-30T04:07:15+00:00",
   "election_date": "2026-11-03",
   "status": "pre-election",
+  "feed_errors": 5,
   "races": {
-    "FL-25": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
-    "MI-04": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
-    "VA-01": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
-    "TX-35": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
-    "TX-01": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
-    "TX-15": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
-    "MT-01": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null}
+    "FL-25": {
+      "status": "not_started",
+      "source_status": "ok",
+      "source_updated": "2026-10-30T04:05:07+00:00",
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Jared Moskowitz",
+          "party": "DEM",
+          "votes": 0,
+          "incumbent": true
+        },
+        {
+          "name": "Scott Singer",
+          "party": "REP",
+          "votes": 0,
+          "incumbent": false
+        },
+        {
+          "name": "Peter Jassenoff",
+          "party": "LPF",
+          "votes": 0,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": "https://floridaelectionwatch.gov/FederalOffices/USRepresentative"
+    },
+    "MI-04": {
+      "status": "not_started",
+      "source_status": "error",
+      "source_updated": null,
+      "precincts_reporting": 0,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Bill Huizenga",
+          "party": "REP",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Sean McCann",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": "Could not read MI feed (0 documents tried). Showing last good data.",
+      "source_url": null
+    },
+    "VA-01": {
+      "status": "not_started",
+      "source_status": "ok",
+      "source_updated": "2026-10-30T04:07:12+00:00",
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Rob Wittman",
+          "party": "REP",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Shannon Taylor",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": "https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items"
+    },
+    "TX-35": {
+      "status": "not_started",
+      "source_status": "error",
+      "source_updated": null,
+      "precincts_reporting": 0,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Carlos De La Cruz",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Johnny Garcia",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": "Could not read TX feed (0 documents tried). Showing last good data.",
+      "source_url": null
+    },
+    "TX-01": {
+      "status": "not_started",
+      "source_status": "error",
+      "source_updated": null,
+      "precincts_reporting": 0,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Nathaniel Moran",
+          "party": "REP",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Yolanda Prince",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Sonia Canchola",
+          "party": "IND",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": "Could not read TX feed (0 documents tried). Showing last good data.",
+      "source_url": null
+    },
+    "TX-15": {
+      "status": "not_started",
+      "source_status": "error",
+      "source_updated": null,
+      "precincts_reporting": 0,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Monica De La Cruz",
+          "party": "REP",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Bobby Pulido",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": "Could not read TX feed (0 documents tried). Showing last good data.",
+      "source_url": null
+    },
+    "MT-01": {
+      "status": "not_started",
+      "source_status": "error",
+      "source_updated": null,
+      "precincts_reporting": 0,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Aaron Flint",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Sam Forstag",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Nick Sheedy",
+          "party": "LIB",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": "Could not read MT feed (0 documents tried). Showing last good data.",
+      "source_url": null
+    }
   }
 }

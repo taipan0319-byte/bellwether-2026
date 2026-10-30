@@ -1,0 +1,14 @@
+{
+  "generated_at": null,
+  "election_date": "2026-11-03",
+  "status": "pre-election",
+  "races": {
+    "FL-25": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
+    "MI-04": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
+    "VA-01": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
+    "TX-35": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
+    "TX-01": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
+    "TX-15": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null},
+    "MT-01": {"status": "not_started", "source_status": "pending", "source_updated": null, "precincts_reporting": 0, "precincts_total": null, "pct_reported": null, "called": null, "winner": null, "candidates": [], "error": null}
+  }
+}

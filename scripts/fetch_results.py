@@ -122,6 +122,7 @@ class RaceResult:
 NUM_RE = re.compile(r"(?<![\d.])\d{1,3}(?:,\d{3})+(?![\d.])|(?<![\d.,])\d+(?![\d.,%])")
 PCT_RE = re.compile(r"(\d{1,3}(?:\.\d+)?)\s*%")
 PRECINCT_RES = [
+    re.compile(r"Precincts Fully:\s*(\d+)\s*/\s*(\d+)", re.I),
     re.compile(r"Counties:\s*(\d+)\s*/\s*(\d+)", re.I),
     re.compile(r"(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)\s*(?:precincts|polling (?:places|locations)|vote centers)", re.I),
     re.compile(r"precincts?\s*(?:reporting|reported|complete)[^0-9]{0,40}(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)", re.I),
@@ -238,8 +239,13 @@ def extract_from_html(html: str, race: dict, contest_rx: re.Pattern) -> RaceResu
             votes = max(big) if big else None
         out.append(asdict(CandResult(c["name"], c["party"], votes, c.get("incumbent", False))))
     res.candidates = out
+    # Reporting status: look first in the text immediately preceding the first candidate row
+    # (between the contest heading and the candidates), then the contest container, then the page.
+    near = " ".join(reversed([str(x) for x in found[0].find_all_previous(string=True, limit=80)]))
+    res.precincts_reporting, res.precincts_total, res.pct_reported = parse_precincts(near[-1500:])
     ctext = container.get_text(" ", strip=True) if container is not soup else soup.get_text(" ", strip=True)
-    res.precincts_reporting, res.precincts_total, res.pct_reported = parse_precincts(ctext)
+    if res.pct_reported is None:
+        res.precincts_reporting, res.precincts_total, res.pct_reported = parse_precincts(ctext)
     if res.pct_reported is None and container is not soup:
         # reporting status is often in a page header outside the contest block
         res.precincts_reporting, res.precincts_total, res.pct_reported = parse_precincts(soup.get_text(" ", strip=True))
@@ -495,16 +501,20 @@ def adapter_mi(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
                 txt = o.get_text(" ", strip=True)
                 if re.search(r"11/0?3/2026", txt):
                     ids.append(o.get("value"))
+            probe_only = False
             if probe and not ids:
                 # validate the parser against the most recent election available
                 first = [o.get("value") for o in sel.find_all("option") if (o.get("value") or "0") != "0"]
                 ids = first[:1]
+                probe_only = True
                 log(f"MI: Nov 3 2026 not listed yet; probing with election id {ids}")
+            if not ids:
+                log("MI: Nov 3 2026 election not listed on MVIC yet")
     for eid in ids:
         u = f"{base}/VoteHistory/GetCountyVoteRecords?electionId={eid}"
         r = get(u, headers={"X-Requested-With": "XMLHttpRequest", "Referer": f"{base}/votehistory/"})
         if r:
-            docs.append((u, r.content))
+            docs.append((u + ("#probe-only" if probe_only else ""), r.content))
             if probe:
                 save_probe(f"mi_county_vote_records_{eid}.html", r.content)
     # legacy election-night site (blocked from some networks; kept as a fallback)
@@ -597,13 +607,17 @@ def adapter_tx(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
     consts = gj(f"{base}/ElectionConstants_{vno}.json") if vno else None
     election_ids = []
     if consts:
+        def is_2026_general(node) -> bool:
+            return bool(node.get("ID")) and str(node.get("Y", "")) == "2026" and (
+                str(node.get("ET", "")).upper() == "G" or re.search(r"general", str(node.get("N", "")), re.I))
         cur = consts.get("currentelectionInfo") or {}
-        if cur.get("ID"):
+        if is_2026_general(cur):
             election_ids.append(cur["ID"])
+        else:
+            log(f"TX: current election is {cur.get('N')!r} — not the 2026 general; waiting for SOS to switch")
         for _, node in walk_json(consts):
-            if isinstance(node, dict) and node.get("ID") and re.search(r"general", json.dumps(node), re.I) and re.search(r"2026", json.dumps(node)):
-                if node["ID"] not in election_ids:
-                    election_ids.append(node["ID"])
+            if isinstance(node, dict) and is_2026_general(node) and node["ID"] not in election_ids:
+                election_ids.append(node["ID"])
     for eid in election_ids[:3]:
         ev = gj(f"{base}/election/{eid}/Version.json")
         evno = (ev or {}).get("___versionNo") or (ev or {}).get("versionNo")
@@ -698,8 +712,11 @@ def adapter_mt(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
                         page.wait_for_timeout(2500)
                         html = page.content()
                         FETCH_LOG.append(f"PW  {u} -> {page.url} ({len(html)} chars)")
-                        if "electionresults.mt.gov" in page.url and "Just a moment" not in html:
-                            docs.append((u, html.encode("utf-8")))
+                        is_general = bool(re.search(r"General Election", html, re.I) and "2026" in html)
+                        if "electionresults.mt.gov" in page.url and "Just a moment" not in html and (is_general or probe):
+                            if not is_general:
+                                log("MT: page is not the 2026 general (probe only) — not used for results")
+                            docs.append((u, html.encode("utf-8")) if is_general else (u + "#probe-only", html.encode("utf-8")))
                             if probe:
                                 save_probe("mt_pw_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".html", html)
                     except Exception as e:
@@ -715,7 +732,8 @@ def adapter_mt(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
                         page.wait_for_timeout(1000)
                     html = page.content()
                     FETCH_LOG.append(f"PW  {u} -> {len(html)} chars; challenge={'Just a moment' in html}")
-                    if "Just a moment" in html:
+                    if "Just a moment" in html or not (re.search(r"General Election", html, re.I) and "2026" in html):
+                        FETCH_LOG.append(f"PW  {u} skipped (not the 2026 general)")
                         continue
                     docs.append((u, html.encode("utf-8")))
                     if probe:
@@ -790,6 +808,8 @@ def main():
             prior = prev.get("races", {}).get(rid, {})
             result: RaceResult | None = None
             for url, content in docs:
+                if url.endswith("#probe-only"):
+                    continue
                 try:
                     cand = extract(content, race, url)
                 except Exception as e:

@@ -212,7 +212,7 @@
       ],
       "source": {
         "adapter": "mt",
-        "contest_pattern": "(UNITED STATES|U\\.?S\\.?) REPRESENTATIVE.*(DISTRICT\\s*1\\b|WESTERN)"
+        "contest_pattern": "(UNITED STATES|U\\.?S\\.?)\\s*REPRESENTATIVE.*(1ST CONGRESSIONAL|DISTRICT\\s*1\\b|WESTERN)"
       }
     }
   ],

@@ -47,14 +47,23 @@ jobs:
             python3 scripts/fetch_results.py
           fi
 
-      - name: Upload probe artifact
+      - name: Publish probe output to probe-data branch
         if: ${{ inputs.probe }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: probe-${{ github.run_id }}
-          path: probe/
-          if-no-files-found: ignore
-          retention-days: 7
+        run: |
+          set -e
+          [ -d probe ] || { echo "no probe output"; exit 0; }
+          git config user.name "results-bot"
+          git config user.email "results-bot@users.noreply.github.com"
+          tmp=$(mktemp -d)
+          cp -r probe/. "$tmp"/
+          git fetch origin probe-data || true
+          git checkout -B probe-data
+          git rm -rq --cached . || true
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -r "$tmp"/. .
+          git add -A
+          git commit -m "probe $(date -u +'%Y-%m-%d %H:%M UTC')" || true
+          git push -f origin probe-data
 
       - name: Commit results
         run: |

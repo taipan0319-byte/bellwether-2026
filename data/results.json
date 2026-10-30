@@ -1,13 +1,13 @@
 {
-  "generated_at": null,
+  "generated_at": "2026-10-30T04:40:12+00:00",
   "election_date": "2026-11-03",
   "status": "pre-election",
-  "feed_errors": 0,
+  "feed_errors": 5,
   "races": {
     "FL-25": {
       "status": "not_started",
-      "source_status": "pending",
-      "source_updated": null,
+      "source_status": "ok",
+      "source_updated": "2026-10-30T04:39:17+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -17,24 +17,24 @@
         {
           "name": "Jared Moskowitz",
           "party": "DEM",
-          "votes": null,
+          "votes": 0,
           "incumbent": true
         },
         {
           "name": "Scott Singer",
           "party": "REP",
-          "votes": null,
+          "votes": 0,
           "incumbent": false
         },
         {
           "name": "Peter Jassenoff",
           "party": "LPF",
-          "votes": null,
+          "votes": 0,
           "incumbent": false
         }
       ],
       "error": null,
-      "source_url": null
+      "source_url": "https://floridaelectionwatch.gov/FederalOffices/USRepresentative"
     },
     "MI-04": {
       "status": "not_started",
@@ -64,29 +64,29 @@
     },
     "VA-01": {
       "status": "not_started",
-      "source_status": "pending",
-      "source_updated": null,
-      "precincts_reporting": null,
-      "precincts_total": null,
-      "pct_reported": null,
+      "source_status": "ok",
+      "source_updated": "2026-10-30T04:39:43+00:00",
+      "precincts_reporting": 0,
+      "precincts_total": 18,
+      "pct_reported": 0.0,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Rob Wittman",
           "party": "REP",
-          "votes": null,
+          "votes": 0,
           "incumbent": true
         },
         {
           "name": "Shannon Taylor",
           "party": "DEM",
-          "votes": null,
+          "votes": 0,
           "incumbent": false
         }
       ],
       "error": null,
-      "source_url": null
+      "source_url": "https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items"
     },
     "TX-35": {
       "status": "not_started",

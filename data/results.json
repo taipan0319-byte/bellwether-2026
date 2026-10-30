@@ -203,6 +203,32 @@
       ],
       "error": null,
       "source_url": null
+    },
+    "VA-02": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Jen Kiggans",
+          "party": "REP",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Elaine Luria",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
     }
   }
 }

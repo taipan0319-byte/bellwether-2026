@@ -94,6 +94,35 @@
       }
     },
     {
+      "id": "VA-02",
+      "state": "VA",
+      "district": 2,
+      "label": "Virginia 2nd",
+      "region": "Hampton Roads \u2014 Virginia Beach, Chesapeake, Suffolk, Eastern Shore",
+      "polls_close_et": "19:00",
+      "seat_status": "Held by Republican Jen Kiggans (since 2023); flipped R\u2192D\u2192R since 2016",
+      "rating": "Toss-up (Cook) \u2014 Kiggans\u2013Luria rematch",
+      "baseline": "Cook PVI EVEN; Kiggans ~51\u201347 (2024); Harris lost district by <1 pt; Spanberger 53% (2025)",
+      "watch_for": "The purest 50/50 seat on the board and the first to report \u2014 direction of the night, not its size.",
+      "candidates": [
+        {
+          "name": "Jen Kiggans",
+          "party": "REP",
+          "incumbent": true
+        },
+        {
+          "name": "Elaine Luria",
+          "party": "DEM",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "va",
+        "contest_pattern": "House of Representatives\\s*\\(2nd District\\)",
+        "units_label": "localities"
+      }
+    },
+    {
       "id": "TX-35",
       "state": "TX",
       "district": 35,

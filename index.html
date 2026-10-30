@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2026 Bellwether Watch</title>
-<meta name="description" content="Election-night tracker for seven bellwether U.S. House races: FL-25, MI-04, VA-01, TX-35, TX-01, TX-15, MT-01.">
+<meta name="description" content="Election-night tracker for seven bellwether U.S. House races: FL-25, MI-04, VA-01, VA-02, TX-35, TX-01, TX-15, MT-01.">
 <style>
   :root{
     --bg:#fcfcfb; --surface:#ffffff; --ink:#1b1d21; --ink-2:#4b5059; --ink-3:#7a808a;
@@ -78,7 +78,7 @@
 <body>
 <header>
   <h1>2026 Bellwether Watch</h1>
-  <p class="sub">Seven U.S. House races that signal where control of Congress is heading — Election Day Nov. 3, 2026</p>
+  <p class="sub">Eight U.S. House races that signal where control of Congress is heading — Election Day Nov. 3, 2026</p>
   <div class="meta">
     <span><span id="feedDot" class="dot off"></span><span id="feedState">Loading…</span></span>
     <span id="updated"></span>
@@ -192,9 +192,9 @@
       const parts=[];
       parts.push(`<b>${repCalled+demCalled} of ${totalRaces} called</b>, ${reporting} still counting.`);
       if(flips.length) parts.push(`Flips: ${flips.join(', ')}.`);
-      if(demTaking>=4) parts.push('Democrats are winning or leading in a majority of these bellwethers — consistent with a Democratic House.');
-      else if(gopHolding>=6) parts.push('Republicans are holding nearly the whole board — consistent with the GOP keeping the House.');
-      else parts.push('Mixed board so far — margins matter more than wins; watch TX-15, FL-25 and MI-04.');
+      if(demTaking>=5) parts.push('Democrats are winning or leading in a majority of these bellwethers — consistent with a Democratic House.');
+      else if(gopHolding>=7) parts.push('Republicans are holding nearly the whole board — consistent with the GOP keeping the House.');
+      else parts.push('Mixed board so far — margins matter more than wins; watch VA-02, TX-15, FL-25 and MI-04.');
       text=parts.join(' ');
     }
     el('#reading').innerHTML=text;

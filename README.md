@@ -1,11 +1,12 @@
 # 2026 Bellwether Watch
 
-Election-night dashboard for seven U.S. House races tracked as bellwethers for control of Congress:
+Election-night dashboard for eight U.S. House races tracked as bellwethers for control of Congress:
 
 | Race | Matchup | Polls close (CT) | Source |
 |---|---|---|---|
 | FL-25 | Jared Moskowitz (D, inc.) vs. Scott Singer (R) | 6:00 PM | Florida Division of Elections |
 | VA-01 | Rob Wittman (R, inc.) vs. Shannon Taylor (D) | 6:00 PM | Virginia Dept. of Elections |
+| VA-02 | Jen Kiggans (R, inc.) vs. Elaine Luria (D) — rematch | 6:00 PM | Virginia Dept. of Elections |
 | MI-04 | Bill Huizenga (R, inc.) vs. Sean McCann (D) | 7:00 PM | Michigan SOS |
 | TX-01 | Nathaniel Moran (R, inc.) vs. Yolanda Prince (D) | 7:00 PM | Texas SOS |
 | TX-15 | Monica De La Cruz (R, inc.) vs. Bobby Pulido (D) | 7:00 PM | Texas SOS |

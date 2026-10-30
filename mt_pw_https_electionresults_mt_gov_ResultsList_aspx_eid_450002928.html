@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="en"><head><title>
+	Montana Secretary of State
+</title><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta content="text/html; charset=windows-1252" http-equiv="Content-Type"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"><link href="/Styles/styles.css" rel="stylesheet"><link href="/Styles/stylesmobile.css" rel="stylesheet"><link href="/Styles/sidemenu.css" rel="stylesheet"><link href="/Styles/font_PT_Sans.css" rel="stylesheet">
+    
+    <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-L5D3773CHS&amp;cx=c&amp;_slc=1"></script><script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="/Scripts/jquery/jquery-3.6.0.min.js"></script>
+
+    <script src="/Scripts/Chart.min.js"></script>
+    <script src="/Scripts/utils.js"></script>
+    <!-- Twitter Widget -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function ()
+            { (i[r].q = i[r].q || []).push(arguments) }
+
+            , i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-31899828-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <script>
+        var ServiceRoot = 'https://esersws.mt.gov/';
+        var Maps = {};
+        var Bound = {};
+        var mapBuilt = [];
+
+        window.onload = function () {
+            //WatchList = document.getElementById("hidWatchedRaces");
+            //var temp = document.cookie;
+            var WatchList = getCookie("MTTracked");
+            if (WatchList === undefined) { WatchList = ""; }
+
+            var checked = WatchList.split("_");
+            for (var i = 0; i < checked.length; i++) {
+                var checkbox = document.getElementById("chk-" + checked[i]);
+                if (checkbox !== null) { checkbox.checked = true; }
+            };
+        };
+    </script>
+    
+</head>
+<body>
+    <form method="post" action="./ResultsList.aspx?eid=450002928" id="ctl01">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="ieMd3sA/rduFvCc1+aOYDCXd73y9rP2HM46NFju4zf5pa2ZLK/2DSvXMhPW4+E5Bp/Nhe/4LbzeuFQnQMoa+7MRQFPWEyBbDIknTtrwGld6g0X1+B2J3LKxoDquDJGV+hWXDM2MlYeBfXix3V9mzqV6DPZG5NGNj1Vp6rDwib4sZqZtDerP1HoFpJ7eXGsx9VsvXO5vMBmmy3yxwX+4eNSRRc3VDTfWDFSQqBWo0LlN3rTs4NzZjijVl7BZQqZpPOaV4pzjie+tARhz+kBL6VAlG5SuShcrR3Zje8SVJlVJDvzQu6otLgdNHp/p7Mj2Bev59YBljYAVDq4TsLOOi3IMd3S1j++tNaovKQv8ExZGgoJoLzfVo28UCO6yxtjvEAS7tuN5+gX5lfzUKArwaUTEQVS7Ut/qlmMQpK87EPauE1ruEUHAPLJrSXUSODa4dBs8Sk7hpnr3m37qFzLvSEJKJNdppToslLv2Ca5JQJ2uVjCqYaP8i+xVEt/pt32H4R8C6Dec7KzliHnR7JY2BaVkr5rnnR954AiaGvaz4OzN87vlVc/1K83OFQO87zmQTiZ80mLd6BnEbDECnY9U+290KGCNeJdjppfdUYdCR+jv18jd+jl+EnUoJHOJ0uky0+hA6TkCiynsUtFrMhCK9VA5b3cBsl9nk0mWk7cjpE8LpaIRv3hrkA68+K7Tlkrnvefb4GWy/1JCKU9WDr/CzsJLlQyYJufKaUh6bINEFF2xkw8HeA8vU2+JpAfR4uocg3FqyUBXdWF7TEf9HO6gg445fX190nD3VlaQKlcErj3xY4EEZGIZEchR3UyNJE3iJNF6Cfxbs7Ww+J59lbn4wFKevU1shgd2V7+jwNmCGtz6DkJPR8eJSEhNPoSZ6QWqCVb24ccXrFK9/IU+XXN0njiT4zXwICOl1B+DMwHsrb91CDP2Ol1K1+n3WLnfi1ozs7sv2q0uCl90+em/78wSXBBHGr8/MuW2i4MEnl5XM1pHLDIAGP3Yvljmd4AwRemrwpyd4FUGHEZSd/8LjIr6hy7OTBnk6jf1iNeMS+kl8z85Urt74QgprfIgJjZQUbmypxfv2gMBdKyW/JYuwQ7vJoPczKIgwZATwbBnLqdUHlGM7DwAY2Sph93hAhox6C8ozLD75df8n5ExpN0sg70ON0dDdzpe62dXFMpgXbf9+MwP4iCR0kNbm4O396iKWvqTh6LJ/IMxDm83eu6QqVGuUwGB4066TQLhxuDgRAFJfUnMyOmiqQljucYlMJb7RzaXmqqnHRotRnUK/xnNLH1tJo3PSKQC2nHeBpaeD2q+nOoN5baq2FmLkwrYqHp200mZez9tEYUE+XArQ4Z3KXUSTuOzdq+gzxqTvv3jnjffGPJ6lG77aewvWhA/26drWyzvZ6ozeB396oD5gUvI74KvMprZfZKc5FN4uhcnxADhkKB7rDBqPlC+OH4kHw0k3iX1mTqZSvQO2ZujPiwyBbjmf3aOkOkb1ZxO0gMTodmM3zQ9oFnACTsl/h3Fy2TwnaFMrgWRRHZfSoMPh+I9L/0lpyd61311udD4mrRe4X5IPmB6FFOKhLHpiVN5MMY+FqWim3MK5Tjpz5mk9hM2vPYg8/bHc1SZipFRDLMYDayjR5/9JmHG3D4VwpZxztdkAljmI4FhgKtllFRkixU2yA5JmlZ7kildOn3jSvXETcASK7JqzsNhkUpy7c+XBonwZW2rl9U0qFbYtumY6CSp6B2y4PQrzQ5bEeJmeKO9sZi9lBY2rPZ71i6MXWoKHoxWi2bkhcUw+UKuef3TC3IabaJcpCZnln8HpZLFU9QwWr1m2EZCFlCMBvkDuggSuN6xazMNge/1vKKXKnnhGThqvx6N9pME/XPV/w9C4VIyCRVtYuAKBc5Xjxm1aReU+TDqjqmYmeXwlcBl+gkF2/I4ecM6eEmVP19T2tFSONgEoVebtQOzwn2mSAMrwm56swqJCRsKma2CzrX297Uv2PWhz0kCdML/HT9evsDCb1T6gu2mPsU9DEsMTGheQynD21qsHKRgXYOTP/CU0CdfD+dRiF54vjGuoScwL6H6IaEySzXX89dzdKqJlvp/eCE6NFr6B+N56o7kG/Vj7JaShq3H+ScL+wbmuYSq7SbCIf2Nc/AWTqTt72aq1CLGbCSwNTYOckooxGnqdi6sfkL0U+1XDBtIWGo0lq4G6tOAKrRArjsgCC60RmAtIb+DBSCa2AKlz3f/inRROVQV8Ak7hPDhwk9KdYM3+0rr5RIdYW1TArwObozvDYt/iG1oAkkw3WG5GJz+BD+nz23z/8cxHRqnhZvYWx9Qaz3UJwcPXsc0G/+NPzr8qidHqIuSpTC9wA8Dki7k0OnCpw9tlw3dXLknmQmlkGkfltNkDXnmbhez6qGzcfvut5QKsMsrdMAQHHLwzpiRheJIq+XsTMWBQpEnDxdk5O/ij1KOx7zG/YqGNpQmf1BO8uV9meM3i/OP64NRN8Lb7hJP/oFnQHxXvQNW7FRBkV4Vf6LzzO5FrYPy1OtVaZCx1W7AVuFOU2FITEWITXLQ/euGsIvZJcuRTE6VwSqFaNGFHQ3nxcXRl2tFUH2SCAp2fIWI9shMc+k4x6Jok9il/+JTCk5CRxKQbtelzpsb75HNRzmCDBq8n4xfIywGfwgkzVl3KUG2u0/3ephWIoQR9Iw67xg2dIz58dcPhW+3tCHawlfGCLK8Bff6DGt8lzaymQkp4p8hIs5tJyc2iR8npCI5+p6RNNzSuIZg9dLXT1ByJySRbZS4NMgvPCv08re6Ea0GvGZNYAJsWTddFxdmCQRtVbL4GxYhhNBnHuqE86YgyKwhwJyjKfkRNOXi5i5srAA+IGxP5pSbDQYNu7RlYNMl2aaZfFjpMF0mO257gMnEeJRh2HoPuZVOqUiJ2veBKwBOiHJasJYV0Nn+YyTBJG7Afr8/Ywl0EO/YKPHOqvL+hkoOFc8XrHxUQa/UEPo17d2H3HxZmQs+hjlY6CSyClPZ6GWjAdkGAjuHQU8M4cfdzJY8uyCVbeahalz2tB9yd3NmBsAVydBoCrmiTPEH4BjODao1Vly4D3Yaz8TD1CFpPhXu/KMkcccIC2ZdF0q+l/O2+lbu9q7cX31z7dL2TXjQiN5kuUA7rRkJbbZOvd3VVTBkukYHIDspipaQbbeUKNd5SuaPv4bn8Xw9hmTWIn1Sx6+LVDWec8V7zB+epBc1aS4M5+gjzBgrKKvKPCfWaDcOfVuafYO4iQ8yJmcqGQVQwnsS6zHjyOsBCgnY3yZsiKMsDemRcIHNbhfCbgZJHQMC+FJKOmw3ev221SKxoxB/q6q3xTh7Waj7eHMAMu13yjcrwLWknnF6ZDpNgzKvL/6YbtwjjAq9CRmy2+aP/ZyguTHPPWi1L2vxprxC9G7AmZUd3I3XIF95RQZhReUQ9Kp40fqyL36/Ya8+qofi6z4bPIUvNUg2QV8WgCYFC2e0bMJsEaKPQxXqC36Y8erLcAQX0I8VZUTWDAwUyvr+eJEX35F9l9Dto0NGg0QAbH96GQtSWuKx0NsG0+/P0iYAx+bwZRYC5zvob0RjCnbg5P/SHgDf+93BBWLSk1CxDr59AUZFhMnokIUqxle/vkxa+gYE/vg65/2B9w8w5XgFnWn3LfT9VI7/4+JlIK+ej3WGb8xPaSsG6roYBuRAWuH7BK38HWHcnWG12+ByVUI6A+5G7XDQGMrYD6xV/A+A0iZG9eQiwIsEStx+mxnoPyqUOfIAFLPJobbO75H4y6UHWsYNii4OCTuzkEPzdHbp22iuusLO9EH/fIcNRP0SYiZkWUZ16t2zEeaDnJuhBLNd5SQNtx9r6dSYZeLO4yIvKt0vpcwQ+47pUwLS/Hzd4cH6BAtlGrd19qhS0HN1UZht4pbBmoW4Qu16g8iwMUBqvXBM+9Xsai5kVTze2WF1FizffH7CWsUV7ReXpv5XQwDFlyWx0iiM+wmmpiytqt0btxySkdWTaSJg9ga2Kn+I1sA3JdHL1MfY/CHOSg0xjTwkYwMgL2dKMd+6rQOyVnqwX9HbO34BdNbG2uPSuQaiOpHC1x5m4Rme0U3JFlyUSbd0GHBjFfSqgitydQ3N/MMqrGb/hp9eUOHj85UmsEqF72cxFnIVRrSJwHraYpPkxBjqEL4ddZS0nwh3ODvt5yw3lsgFHE5nH8D7PCV9bJ06Db9p6SAlyUgi8eDxN7Edm54HQbE4RpxMysE6tNn02hhsXeaM5Kw4toG9X0etWKHx04NLjnWIN+acfOPtsSEHbWPEBCvHhmTK1fEJPjQE9cKCf8ia9HPrSoxExKB1bO9vngOQCTHrDVgXPoPj/3d9n8K37vrY//qCXOe2PM2wGPbHV4Rm+nRPNwPJT68228+Un1LYuYW/FuNm+R9048XiWFALcvw0gf32eKt5zub7yxQUwKgWIAOeK/0hPOECltWRhS+JM/ANj9r9KBzKrWaLbdSGWBTE98tIgPNOSGftNLtTy7TqBP5VRWbgWz83kEiPhSeCqp9ri2xHzJgxKEwAW1sfIGFjQi/TTbQKucqVdc/2rughvr+A/5WgXqkVqC60/S5mXVdwx2/zGB+Cw4neCh2ti28dyfoREWazbgWvj4OOGe72EcUU293z2N+im5FovSGNVYwfQ9sTg7tp41v7ZPpwwxZx/UiSPKEbAzsOwWuNFcism9BdtIwj+1gCRTjmwmUpsoQXaV1pwFr/6I+R6a6CR89dQ9boYcsgVEgz0zvggPxzzb/iT0zNRsy5DBzRL0KqRZUgNsEBOOLRAcJu9WbaPbTf4X5Tg2FBZIAupKuNfyLclnrWK7BInmuQGGsGMknW9kmJC9ykC/6zxz+Fhkb5lfs077pWjOyYfUbaBUIm8cdoXws8L65PhgwZcPugNQ15gsMNDvHQeGRppugIxIoKNratdZjWdfl1s0N9EHJliuU9ijPPhtdb68zOnef3bDB50POnaYX0SZWkhpnyl11xE5TfSZjhifUK3VOSk3HbPWE48qTvZSYOqlCqbWw9ACBXV7pxwATtaSYxtRAxrXWbrkEQ3rVdvb1hVVXHrE9RHnA==">
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="638F680F">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="7J03xOdIKVxZiJtNSqwDibMWbkUwhimPJDH3jlGk3q4iPR5XRcZNoUOyEIW40DZCRKw/rq6vM4+FaLefFoE2QRMr2V46nlg8uUGEHgTfiMW/hQT636zG5MdiCPLKoPnett8AyXkOSSKXx0nOWSlGnw==">
+</div>
+        
+        <input type="hidden" name="ctl00$hidElectionType" id="hidElectionType" value="Primary">
+        <input type="hidden" name="ctl00$hidElectionDate" id="hidElectionDate" value="6/2/2026 11:59:00 PM">
+        <div id="fader"><h1>Preparing Export...</h1></div>
+        <div class="outside-wrapper">
+            <div class="top-bluebar">
+                <div>
+                    
+                    
+                </div>
+                <div>
+                    
+                </div>
+                <div class="last-updated">
+                    Results last updated: 6/29/2026 1:50:32 PM MT
+                </div>
+            </div>
+            <!--End Top Blue Bar-->
+            <div class="top-header">
+                <div id="pnlHeader" class="section group">
+	
+                    <div class="col desktop" style="padding: 3px 0 0 8px;">
+                        <img alt="Montana State Seal" src="/Images/State-Seal.png" style="height: 78px;" title="Montana State Seal">
+                    </div>
+                    <div class="col mobile" style="padding: 3px 0 0 8px;">
+                        <img alt="Montana State Seal" src="/Images/State-Seal.png" style="height: 59px;" title="Montana State Seal">
+                    </div>
+                    <div class="header-banner">TEST</div>
+                    <div class="col top-header-box2">
+                        
+    <div class="dropdown mtc-icon-position">
+        <img class="share-icon dropbtn" alt="" title="Share" src="Images/my-tracked-contests-icon.png">
+        <div class="dropdown-content">
+            <div class="share-header">SHARE ON</div>
+            <div class="facebook">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://electionresults.mt.gov/ResultsList.aspx?eid=450002928" target="_blank"><img alt="Share on Facebook" title="Facebook" src="Images/facebook-icon.png"></a>
+            </div>
+            <div class="twitter">
+                <a href="https://twitter.com/intent/tweet?text=https://electionresults.mt.gov/ResultsList.aspx?eid=450002928&amp;hashtags=Vote" target="_blank"><img alt="Share on Twitter" title="Twitter" src="Images/twitter-icon.png"></a>
+            </div>
+        </div>
+    </div>
+    <h2>
+        <a id="NavLinks_lnkTracked" href="MyTrackedContests.aspx?eid=450002928">My Tracked Contests</a>
+    </h2>
+    <h3>
+        <a id="NavLinks_lnkHome" href="Default.aspx?eid=450002928">Home</a>
+    </h3>
+
+                    </div>
+                    <!--End top-header-box2-->
+                
+</div>
+                <!--End Section Group-->
+            </div>
+            <!--End Top Header-->
+            <div class="header-box-wrapper">
+                <div class="section group">
+                    <div class="col header-box1">
+                        <h1>2026</h1>
+                        <h2>Primary Election - June 2, 2026</h2>
+                    </div>
+                    <!--End Header Box 1-->
+                    <div class="col header-box2">
+                        <div class="header-box-content-top">
+                            <h1>
+                                <a id="lnkVoterTurnout" class="button" href="VoterTurnoutDetails.aspx?map=TURN&amp;eid=450002928">Statewide Voter Turnout</a>
+                            </h1>
+                        </div>
+                        <!--End header-box2-content-top-->
+                        <div class="header-box-content-bottom">
+                            
+                            <div class="animate-position desktop">
+                                <div style="height: 150px"><canvas id="voter-turnout" voterturnout="300011" votertotal="491196" width="125" height="150" style="display: block; box-sizing: border-box; height: 150px; width: 125px;"></canvas><div class="dough-percent"><span class="int">37</span><span class="dec">.92%</span></div></div>
+                            </div>
+                            <!--End Animate Position-->
+                            <div class="animate-position mobile" style="margin-top: -6px;">
+                                <div><canvas id="voter-turnout-mobile" voterturnout="300011" votertotal="491196" width="55" height="75" style="display: block; box-sizing: border-box; height: 75px; width: 55px;"></canvas><div class="dough-percent"><span class="int">37</span><span class="dec">.92%</span></div></div>
+                            </div>
+                            <!--End Animate Position-->
+                        </div>
+                        <!--End header-box-content-bottom-->
+                        <div class="header-box-content-reg">
+                            <h2>Total Turnout <span>300,011</span><br>Registered Voters <span style="color: white;">791,207</span></h2>
+                        </div>
+                    </div>
+                    <!--End Header Box 2-->
+                    <div class="col header-box3">
+                        <div class="header-box-content-top">
+                            <h1>
+                                <a id="lnkPrecinctsReporting" class="button" href="VoterTurnoutDetails.aspx?map=PREC&amp;eid=450002928">Precincts Fully Reported</a>
+                            </h1>
+                        </div>
+                        <!--End header-box2-content-top-->
+                        <div class="header-box-content-bottom">
+                            
+                            <div class="animate-position desktop">
+                                <div style="height: 150px"><canvas id="precinct-reported" precinctsreported="728" precinctspartial="0" precinctsnotreported="0" width="125" height="150" style="display: block; box-sizing: border-box; height: 150px; width: 125px;"></canvas><div class="dough-percent"><span class="int">100</span><span class="dec">.0%</span></div></div>
+                            </div>
+                            <!--End Animate Position-->
+                            <div class="animate-position mobile">
+                                <div><canvas id="precinct-reported-mobile" precinctsreported="728" precinctspartial="0" precinctsnotreported="0" width="55" height="75" style="display: block; box-sizing: border-box; height: 75px; width: 55px;"></canvas><div class="dough-percent"><span class="int">100</span><span class="dec">.0%</span></div></div>
+                            </div>
+                            <!--End Animate Position-->
+                        </div>
+                        <!--End header-box-content-bottom-->
+                        <div class="header-box-content-reg header-box-content-prec">
+                            <h2><div class="colordisc-yellow"></div>Partially <span style="color: #FFFF00;">0</span><br><div class="colordisc-orange"></div>Fully <span>728</span></h2>
+                        </div>
+                    </div>
+                    <div id="chartjs-tooltip"></div>
+                    <!--End Header Box 3-->
+                </div>
+                <!--End Section Group-->
+                
+            </div>
+            <!--End Header Box Wrapper-->
+            <!--Main Content-->
+            
+    <div class="wrapper-inside" style="padding-bottom: 10px;">
+        <div class="display-results-box-wrapper"><h1 style="text-align: center; padding-bottom: 8px;">Results by County</h1></div>
+    
+        <div id="MainContent_pnlCountyList" class="county-export-list">
+	<div class="county-list"><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=01&amp;eid=450002928&amp;map=CTY">Beaverhead</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=02&amp;eid=450002928&amp;map=CTY">Big Horn</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=03&amp;eid=450002928&amp;map=CTY">Blaine</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=04&amp;eid=450002928&amp;map=CTY">Broadwater</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=05&amp;eid=450002928&amp;map=CTY">Carbon</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=06&amp;eid=450002928&amp;map=CTY">Carter</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=07&amp;eid=450002928&amp;map=CTY">Cascade</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=08&amp;eid=450002928&amp;map=CTY">Chouteau</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=09&amp;eid=450002928&amp;map=CTY">Custer</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=10&amp;eid=450002928&amp;map=CTY">Daniels</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=11&amp;eid=450002928&amp;map=CTY">Dawson</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=12&amp;eid=450002928&amp;map=CTY">Deer Lodge</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=13&amp;eid=450002928&amp;map=CTY">Fallon</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=14&amp;eid=450002928&amp;map=CTY">Fergus</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=15&amp;eid=450002928&amp;map=CTY">Flathead</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=16&amp;eid=450002928&amp;map=CTY">Gallatin</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=17&amp;eid=450002928&amp;map=CTY">Garfield</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=18&amp;eid=450002928&amp;map=CTY">Glacier</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=19&amp;eid=450002928&amp;map=CTY">Golden Valley</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=20&amp;eid=450002928&amp;map=CTY">Granite</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=21&amp;eid=450002928&amp;map=CTY">Hill</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=22&amp;eid=450002928&amp;map=CTY">Jefferson</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=23&amp;eid=450002928&amp;map=CTY">Judith Basin</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=24&amp;eid=450002928&amp;map=CTY">Lake</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=25&amp;eid=450002928&amp;map=CTY">Lewis &amp; Clark</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=26&amp;eid=450002928&amp;map=CTY">Liberty</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=27&amp;eid=450002928&amp;map=CTY">Lincoln</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=28&amp;eid=450002928&amp;map=CTY">Madison</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=29&amp;eid=450002928&amp;map=CTY">McCone</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=30&amp;eid=450002928&amp;map=CTY">Meagher</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=31&amp;eid=450002928&amp;map=CTY">Mineral</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=32&amp;eid=450002928&amp;map=CTY">Missoula</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=33&amp;eid=450002928&amp;map=CTY">Musselshell</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=34&amp;eid=450002928&amp;map=CTY">Park</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=35&amp;eid=450002928&amp;map=CTY">Petroleum</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=36&amp;eid=450002928&amp;map=CTY">Phillips</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=37&amp;eid=450002928&amp;map=CTY">Pondera</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=38&amp;eid=450002928&amp;map=CTY">Powder River</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=39&amp;eid=450002928&amp;map=CTY">Powell</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=40&amp;eid=450002928&amp;map=CTY">Prairie</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=41&amp;eid=450002928&amp;map=CTY">Ravalli</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=42&amp;eid=450002928&amp;map=CTY">Richland</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=43&amp;eid=450002928&amp;map=CTY">Roosevelt</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=44&amp;eid=450002928&amp;map=CTY">Rosebud</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=45&amp;eid=450002928&amp;map=CTY">Sanders</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=46&amp;eid=450002928&amp;map=CTY">Sheridan</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=47&amp;eid=450002928&amp;map=CTY">Silver Bow</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=48&amp;eid=450002928&amp;map=CTY">Stillwater</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=49&amp;eid=450002928&amp;map=CTY">Sweet Grass</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=50&amp;eid=450002928&amp;map=CTY">Teton</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=51&amp;eid=450002928&amp;map=CTY">Toole</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=52&amp;eid=450002928&amp;map=CTY">Treasure</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=53&amp;eid=450002928&amp;map=CTY">Valley</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=54&amp;eid=450002928&amp;map=CTY">Wheatland</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=55&amp;eid=450002928&amp;map=CTY">Wibaux</a></div><div class="county-export-listitem"><a href="ResultsSW.aspx?type=CTYALL&amp;cty=56&amp;eid=450002928&amp;map=CTY">Yellowstone</a></div></div>
+</div>
+
+    </div>
+
+            
+            <input type="button" class="button" value="Election Resources" onclick="Show_Div(Div_1)">
+            <div id="Div_1" style="display: none;" class="slidingDiv">
+                <ul style="margin: 16px 15% 16px 15%; padding: 0;">
+                    <li>
+                        <a id="lnkCountyList" href="ResultsList.aspx?eid=450002928">Results By County</a>
+                    </li>
+                    <li>
+                        <a id="lnkERVoterTurnout" href="VoterTurnoutDetails.aspx?eid=450002928">Voter Turnout</a>
+                    </li>
+                    <li>
+                        <a id="lnkRecount" href="ResultsSW.aspx?type=RECOUNT&amp;eid=450002928">Potential Recount Races</a>
+                    </li>
+                    <li>
+                        <a id="lnkResultsExport" href="ResultsExport.aspx?eid=450002928">Statewide and County Exports</a>
+                    </li>
+                </ul>
+                <div class="disclaimer">
+                    Write-in results are not reported on this site. Unofficial write-in results for statewide or state district offices may be obtained from <a href="mailto:soselections@mt.gov" style="font-weight:bold;">soselections@mt.gov</a> after election day as counties finalize write-in totals. Unofficial write-in results for county and precinct offices may be obtained from the county election office.  Please note write-in votes are not considered in whether a precinct is marked as complete.                      
+                </div>
+                <div class="disclaimer">
+                    Election Night Results Reporting is a free service provided by the Office of Montana Secretary of State Christi Jacobsen in cooperation with Montana's Clerks &amp; Recorders and Election Administrators.
+                </div>
+                <div class="contact-info">Montana Secretary of State<br>P.O. Box 202801<br>Helena, MT 59620-2801<br><div class="contact-phone-number">406-444-9608 | <a href="http://sosmt.gov" style="font-weight:bold;">sosmt.gov</a> | Fax 406-444-2023</div></div>
+                <div class="resource-links">
+                    <a href="http://sosmt.gov/" target="_blank">Montana Secretary of State</a> | <a href="http://sosmt.gov/Elections/index.asp" target="_blank">Elections &amp; Government Services</a> | <a href="http://mt.gov/1240-X06.pdf" target="_blank">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        
+        <!--End Bottom Bluebar-->
+        
+        <!--End Outside Wrapper-->
+        <nav>
+            <a href="" id="menuToggle" title="show menu"><span class="navClosed"><em>show menu</em></span></a><h1>Election Results</h1><a href="/Default.aspx?eid=450002928" title="Home">Home</a><a href="/resultsSW.aspx?type=FED&amp;map=CTY&amp;eid=450002928" title="Federal">Federal</a><a href="/resultsSW.aspx?type=PSC&amp;map=CTY&amp;eid=450002928" title="Public Service Commissioner">Public Service Commissioner</a><a href="/resultsSW.aspx?type=SCJ&amp;map=CTY&amp;eid=450002928" title="State Supreme Court">State Supreme Court</a><a href="/resultsSW.aspx?type=JUD&amp;map=CTY&amp;eid=450002928" title="District Court Judge">District Court Judge</a><a href="/resultsSW.aspx?type=SENATE&amp;map=DIST&amp;eid=450002928" title="State Senate">State Senate</a><a href="/resultsSW.aspx?type=HOUSE&amp;map=DIST&amp;eid=450002928" title="State House">State House</a><a href="/VoterTurnoutDetails.aspx?map=TURN&amp;eid=450002928" title="Voter Turnout">Voter Turnout</a><a href="/VoterTurnoutDetails.aspx?map=PREC&amp;eid=450002928" title="Precincts Reporting">Precincts Reporting</a><a href="/ResultsSW.aspx?type=RECOUNT&amp;eid=450002928" title="Potential Recount Races">Potential Recount Races</a><a href="/ResultsList.aspx?eid=450002928" title="Results By County">Results By County</a><a href="/ResultsExport.aspx?eid=450002928" title="Statewide and County Exports">Statewide and County Exports</a>
+        </nav>
+    </form>
+    <script type="text/javascript">
+        function Show_Div(Div_id) {
+            if (false == $(Div_id).is(':visible')) {
+                $(Div_id).show(650);
+            }
+            else {
+                $(Div_id).hide(650);
+            }
+            return false;
+        }
+    </script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                $('#menuToggle').click(function (e) {
+                    var $parent = $(this).parent('nav');
+                    $parent.toggleClass('open');
+                    var navState = $parent.hasClass('open') ? 'hide' : 'show';
+                    $(this).attr('title', navState + ' navigation');
+                    setTimeout(function () {
+                        console.log('timeout set');
+                        $('#menuToggle > span').toggleClass('navClosed').toggleClass('navOpen');
+                    }, 200);
+                    e.preventDefault();
+                });
+            });
+        }(jQuery));
+        //@ sourceURL=pen.js
+    </script>
+    <script>
+        Chart.defaults.responsive = false;
+        //Chart.defaults.Doughnut.segmentShowStroke = false;
+        var chOptions = {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            layout: {
+                padding: {
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    bottom: 0
+                }
+            }
+        };
+
+        var turnout = document.getElementById("voter-turnout");
+        const turnoutChart = turnout.getContext("2d");
+
+        var voterTurnout = turnout.attributes["voterturnout"].value;
+        var totalVoters = turnout.attributes["votertotal"].value;
+        turnoutChart.canvas.width = 125;
+        turnoutChart.canvas.height = 150;
+
+        var turnoutdata = {
+            labels: ['Votes Cast', 'Votes Not Cast'],
+            datasets: [{
+                data: [voterTurnout, totalVoters],
+                backgroundColor: ['#FAA437', '#F2F2F2'],
+                cutout: '80%',
+                borderWidth: 0
+            }]
+        };
+
+        var turnoutDough = new Chart(turnoutChart, {
+            type: 'doughnut',
+            data: turnoutdata,
+            options: chOptions
+        });
+
+        var mobileTurnout = document.getElementById("voter-turnout-mobile");
+        const mobileTurnoutChart = mobileTurnout.getContext("2d");
+        mobileTurnoutChart.canvas.width = 55;
+        mobileTurnoutChart.canvas.height = 75;
+
+        var mobileTurnoutDough = new Chart(mobileTurnoutChart, {
+            type: 'doughnut',
+            data: turnoutdata,
+            options: chOptions
+        });
+
+        var prec = document.getElementById("precinct-reported"); //$('#precinct-reported');
+        var precinctsReported = prec.attributes["precinctsreported"].value;
+        var precinctsPartial = prec.attributes["precinctspartial"].value;
+        var precinctsTotal = prec.attributes["precinctsnotreported"].value;
+        const precChart = prec.getContext("2d");
+        precChart.canvas.width = 125;
+        precChart.canvas.height = 150;
+
+        var precinctData = {
+            labels: ["Precincts Reported", "Precincts Partially Reported", "Precincts Not Reported"],
+            datasets: [{
+                data: [precinctsReported, precinctsPartial, precinctsTotal],
+                backgroundColor: ["#FAA437", "#FFFF00", "#F2F2F2"],
+                cutout: '80%',
+                borderWidth: 0
+            }]
+        };           
+
+        var precDough = new Chart(precChart, {
+            type: 'doughnut',
+            data: precinctData,
+            options: chOptions
+        });
+
+        var mobilePrec = document.getElementById("precinct-reported-mobile");
+        const mobilePrecChart = mobilePrec.getContext("2d");
+        mobilePrecChart.canvas.width = 55;
+        mobilePrecChart.canvas.height = 75;
+
+        var mobilePrecDough = new Chart(mobilePrecChart, {
+            type: 'doughnut',
+            data: precinctData,
+            options: chOptions
+        });
+    </script>
+
+
+</body></html>

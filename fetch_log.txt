@@ -1,0 +1,66 @@
+GET https://floridaelectionwatch.gov/ -> 200 (26344 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/FederalOffices/USRepresentative -> 200 (176728 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140010 -> 200 (26253 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140020 -> 200 (29655 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140030 -> 200 (29357 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140040 -> 200 (26255 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140050 -> 200 (25479 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140060 -> 200 (27611 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140070 -> 200 (25472 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140080 -> 200 (25152 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140090 -> 200 (26756 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140110 -> 200 (25851 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140120 -> 200 (25487 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140130 -> 200 (25473 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140140 -> 200 (25595 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140150 -> 200 (26247 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140160 -> 200 (27026 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140170 -> 200 (25862 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140180 -> 200 (25466 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140190 -> 200 (25792 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140200 -> 200 (25091 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140210 -> 200 (26255 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/Downloads -> 200 (23959 bytes) text/html; charset=utf-8
+GET https://mvic.sos.state.mi.us/votehistory/Index?type=C&electionDate=11-3-2026 -> 200 (27989 bytes) text/html; charset=utf-8
+GET https://mvic.sos.state.mi.us/VoteHistory/GetCountyVoteRecords?electionId=706 -> 200 (878409 bytes) text/html; charset=utf-8
+GET https://mielections.us/election/results/2026GEN_CENR.html -> EXC HTTPSConnectionPool(host='mielections.us', port=443): Max retries exceeded with url: /election/results/2026GEN_CENR.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='mielections.us', port=443) at 0x7fd81e6614c0>, 'Connection to mielections.us timed out. (connect timeout=20)'))
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items -> 200 (259457 bytes) application/json; charset=utf-8
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General -> 200 (9064 bytes) application/json; charset=utf-8
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/contests -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/results -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/export/json -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/summary -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/virginia/elections/2026-November-General -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/virginia/elections/2026-November-General/contests -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/virginia/2026-November-General/summary.json -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items -> 200 (259457 bytes) application/json; charset=utf-8
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballotItems -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/2026-November-General/export/json -> 200 (13956 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/2026-November-General.json -> 200 (9684 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/2026-November-General -> 200 (13956 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/polyfills-2FSRUXKO.js -> 200 (9684 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/scripts-TTWY4XDY.js -> 200 (9684 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/main-SDUQU7SI.js -> 200 (9684 bytes) text/html
+GET https://results.texas-election.com/static/data/Version.json -> 200 (20 bytes) application/json
+GET https://results.texas-election.com/static/data/ElectionConstants_404.json -> 200 (5848 bytes) application/json
+GET https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY -> 403 (5890 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ResultsSW.aspx?type=FED -> 403 (5912 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ -> 403 (5912 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/Default.aspx -> 403 (5912 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY -> 403 (5976 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ResultsSW.aspx?type=FED -> 403 (5976 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ -> 403 (5976 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/Default.aspx -> 403 (5955 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY -> 403 (5933 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ResultsSW.aspx?type=FED -> 403 (5954 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ -> 403 (5933 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/Default.aspx -> 403 (5933 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY -> 403 (5613 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ResultsSW.aspx?type=FED -> 403 (5613 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/ -> 403 (5613 bytes) text/html; charset=UTF-8
+GET https://electionresults.mt.gov/Default.aspx -> 403 (5613 bytes) text/html; charset=UTF-8
+PW  landing -> https://sosmt.gov/elections/results/ (28886 chars)
+PW  https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY&eid=450002928 -> https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY&eid=450002928 (127022 chars)
+PW  https://electionresults.mt.gov/ResultsSW.aspx?type=FED&eid=450002928 -> https://electionresults.mt.gov/ResultsSW.aspx?type=FED&eid=450002928 (126966 chars)
+PW  https://electionresults.mt.gov/ResultsList.aspx?eid=450002928 -> https://electionresults.mt.gov/ResultsList.aspx?eid=450002928 (30759 chars)
+PW  https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY -> 377733 chars; challenge=False

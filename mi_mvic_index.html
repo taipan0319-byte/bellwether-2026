@@ -1,0 +1,462 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <!-- Digital Guidelines Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Load Modernizr v2.8.3 from Cloudflare CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <!-- jQuery 3.6.0 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- jquery-ui.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- jQuery Mask Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <!-- jquery-ui CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- moment.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+
+    <!-- Bootstrap v3.0.1 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css">
+
+    <!-- Bootstrap v3.0.1 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap.Datepicker v1.10.0 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Bootstrap.Datepicker v1.10.0 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Bootstrap.Toggle v2.2.2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <!-- Bootstrap.Toggle v2.2.2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <!-- Digital Guidelines CSS -->
+    <link rel="stylesheet" href="https://digitalguidelines.michigan.gov/cdn/3.2.0/som-components.css" integrity="sha384-Pp+1H0t7AJGZkZGeqxlQokBSSsbLYn8rzNPBPE/uKhhZOvCPpQLn2dn/TolY47tN" crossorigin="anonymous">
+
+    <!-- Digital Guidelines Fav Icon -->
+    <link rel="icon" type="image/png" href="https://www.michigan.gov/favicon.ico">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124923729-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-124923729-1');
+    </script>
+
+    <link href="/bundles/mvicCSS?v=9Ya19YxZETw_NIE2ks3dLxhS6rclxi005q9XXpSXR981" rel="stylesheet"/>
+
+    <script src="/bundles/scripts?v=y-7NzvJTCK2-DGXfoy7kGcreHLVIXYowAHqdIYIP9ns1"></script>
+
+    <script src="/bundles/errorhandlerJS?v=63t1NW4Y8rOsMimx-HwoTx0KthGeKXpqOHaXJV4lgkU1"></script>
+
+    <script src="/bundles/BingMapJS?v=EpXiDiRmN3dbTS8GyrGgU9yMt1-Y-lY68hfRtNPQ7pU1"></script>
+
+
+    <title>Election Results</title>
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WFQ4994');</script>
+    <!-- End Google Tag Manager -->
+    <script>
+        window._AutofillCallbackHandler = window._AutofillCallbackHandler || function () { }
+    </script>
+</head>
+<body>
+    <input type="hidden" name="__mvic_csrf_token" value="4XlFT740tCylP4vdvxtlSFE18/IBJblbXH3b/dVrDpw=" />
+    <noscript>
+        <img src="/Content/Images/DigitalGuidelineHeader.PNG" alt="page header" />
+    </noscript>
+    <!-- Modal for spinner when an action is occuring -->
+    <div id="SpinnerModal" class="modal" style="z-index: 1050" role="dialog" aria-label="in progress">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <!-- Modal content modal-lg-->
+                <div class="mmodal-content">
+                    <div class="loader">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!-- SOM Header -->
+        <div id="header">
+            <som-header app-name="Michigan Voter Information Center" department-name="Department of State" main-content-id="main-Content" home-link="/Home/Index">
+				<som-menu>
+					<som-menu-item>
+						<a href="/Home/Index">Home</a>
+					</som-menu-item>
+					<som-menu-item>
+						<a href="/Voter/Index">Your voter information</a>
+					</som-menu-item>
+					<som-menu-item>
+						<a href="/Home/VoteAtHome">Vote at home</a>
+					</som-menu-item>
+					<som-menu-item>
+						<a href="/Home/RegisterToVote">Register</a>
+					</som-menu-item>
+					<som-menu-item>
+						<a href="/Home/VoteInPerson">Vote in person</a>
+					</som-menu-item>
+					<som-menu-item>
+						<a href="/Home/AccessibleVoting">Accessible voting</a>
+					</som-menu-item>
+					<som-menu-item>
+						<a href="/Voter/index">Your polling place</a>
+					</som-menu-item>
+					<som-menu-item>
+						<a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/language-services">Language services (michigan.gov)</a>
+					</som-menu-item>
+											<som-menu-item class="d-block d-lg-none"><a rel="tag" href="/RegisterVoter/Index">Preregister or register to vote online</a></som-menu-item>
+						<som-menu-item class="d-block d-lg-none"><a rel="tag" href="/AVApplication/Index">Apply for an absentee ballot online</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/voters">Voter forms and publications</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a rel="tag" href="/Voter/Index/#yourclerk">Your clerk</a></som-menu-item>
+
+					<som-menu-item class="d-block d-lg-none"><a rel="tag" href="/CancellationNotice/Index/">Notice of cancellation</a></som-menu-item>
+					<strong class="d-block d-lg-none">Voter information</strong>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/voters/voter-registration-cancellation-procedures">Voter cancellation procedures</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/military-and-overseas-voters">Military and overseas voters</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/student-voting">Students</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="/Home/AccessibleVoting">Voters with disabilities</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/early-in-person-voting">Early voting</a></som-menu-item>
+					<strong class="d-block d-lg-none">About elections</strong>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/election-results-and-data">Election results and data</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/security">Election security</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting">How to vote in Michigan</a></som-menu-item>
+					<strong class="d-block d-lg-none">Resources</strong>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/pollworker">Become a poll worker</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/ballot-access">Candidate information</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a rel="noopener noreferrer" href="/VoterCount/Index">Voter registration statistics</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections">More election information</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/faqs">Frequently asked questions</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/language-services">Language services (michigan.gov)</a></som-menu-item>
+					<som-menu-item class="d-block d-lg-none"><a target="_blank" rel="noopener noreferrer" href="/Home/PrivacyNotice">Privacy notice</a></som-menu-item>
+				</som-menu>
+            </som-header>
+        </div>
+
+        <div class="sidenav container hidden-xs hidden-sm" data-navigation-type="primary" role="navigation" aria-label="Primary Menu">
+            <div id="sidenav">
+                <div class="row">
+					<div class="col">
+						<br />
+						<div class="nav-item"><a rel="tag" href="/RegisterVoter/Index">Preregister or register to vote online</a></div>
+							<div class="nav-item"><a rel="tag" href="/AVApplication/Index">Apply for an absentee ballot online</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/voters">Voter forms and publications</a></div>
+						<div class="nav-item"><a rel="tag" href="/Voter/Index/#yourclerk">Your clerk</a></div>
+						<div class="nav-item"><a rel="tag" href="/CancellationNotice/Index/">Notice of cancellation</a></div>
+							<div class="nav-item"><a rel="tag" href="/Voter/VoterSearch/">Subscribe to ballot notifications</a></div>
+							<div class="nav-item"><a rel="tag" href="/Voter/VoterSearchUnSubscribe/">Unsubscribe from ballot notification list</a></div>
+						
+						<br />
+						<strong>Voter information</strong>
+						<br />
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/early-in-person-voting">Early voting</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/military-and-overseas-voters">Military and overseas voters</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/student-voting">Students</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/voters/voter-registration-cancellation-procedures">Voter cancellation procedures</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="/Home/AccessibleVoting">Voters with disabilities</a></div>
+
+						<br />
+						<strong>About elections</strong>
+						<br />
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/election-results-and-data">Election results and data</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/security">Election security</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting">How to vote in Michigan</a></div>
+
+						<br />
+						<strong>Resources</strong>
+						<br />
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/pollworker">Become a poll worker</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/ballot-access">Candidate information</a></div>
+						<div class="nav-item"><a rel="noopener noreferrer" href="/VoterCount/Index">Voter registration statistics</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections">More election information</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/faqs">Frequently asked questions</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/language-services">Language services (michigan.gov)</a></div>
+						<div class="nav-item"><a target="_blank" rel="noopener noreferrer" href="/Home/PrivacyNotice">Privacy notice</a></div>
+					</div>
+                </div>
+            </div>
+        </div>
+
+        <main id="main-Content">
+            <noscript style="font-size: large; font-weight: bold;">
+                <br />Browsers that have javascript disabled will not be able to access some features of this site.<br /><br />
+            </noscript>
+			<div id="special-small-screen-links">
+				<span class="nav-item my-2"><a href="/RegisterVoter/Index"> Preregister or register to vote online</a></span>
+					<br />
+					<span class="nav-item my-2"><a href="/AVApplication/Index"> Apply for an absentee ballot online</a></span>
+				<br />
+				<span class="nav-item my-2">
+					<a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/voters">Get a printable application</a>
+				</span>
+				<br />
+				<span class="nav-item my-2"><a href="/Voter/Index/#yourclerk"> Your clerk</a></span>
+				<br />
+				<span class="nav-item my-2"><a rel="tag" href="/CancellationNotice/Index/">Notice of cancellation</a></span>
+					<br />
+					<span class="nav-item my-2"><a rel="tag" href="/Voter/VoterSearch/">Subscribe to ballot notifications</a></span>
+					<br />
+					<span class="nav-item my-2"><a rel="tag" href="/Voter/VoterSearchUnSubscribe/">Unsubscribe from ballot notification list</a></span>
+					<br />
+							</div>
+            <div id="body" class="container">
+                                    <div id="14-day-warning" class="row">
+                        <div class="col-xl-1 col-md-2 col-xs-4">
+                            <img src="/Content/Images/ExclamationPoint.jpg" alt="exclamation point" />
+                        </div>
+                        <div class="col-xl-11 col-md-10 col-xs-8">
+                            Because the next election is within the next 14 days, registering to vote through this website won't allow you to vote in the upcoming election. You can still vote in the upcoming election but you will need to take additional steps. Here’s how:
+                            <a href="/Home/RegisterToVote/#how" data-mce-href="~/Home/RegisterToVote/#how">Registering to Vote within 14 Days of Election</a>
+                        </div>
+                    </div>
+                
+<script src="/bundles/electionResultsJS?v=zILwWkDw4izHGxg3zBXFcNhJIE6VxxSBpxOl_6FL4KU1"></script>
+
+<link href="/bundles/voteHistoryCSS?v=0PiwYTHgdBCWLUb6EMH5228Arew-ZR09hKgI95wOHw01" rel="stylesheet"/>
+
+
+    <div class="row">
+        <h2 class="ccd-page-heading">Election Results</h2>
+    </div>
+<input id="PreLoad" name="PreLoad" type="hidden" value="True" /><input id="Type" name="Type" type="hidden" value="C" />    <div class="row">
+        <div id="election-results-type" class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="control-label text-uppercase" for="resultsType">Election Type Options</label>
+                        <select class="form-control text-uppercase" id="resultsType">
+                            <option selected>Choose Results Type...</option>
+                            <option value="1">County Results</option>
+                            <option value="2">Precinct by Precinct Results</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="election-date-selection" class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label Length="13" class="control-label text-uppercase " for="ElectionDateId">ELECTION DATE</label>
+                        <select class="form-control text-uppercase  text-uppercase full-width" data-val="true" data-val-number="The field ElectionDateId must be a number." id="ElectionDateId" name="ElectionDateId"><option value="0">SELECT</option>
+<option value="706">8/4/2026 STATE PRIMARY</option>
+<option value="705">5/5/2026 MAY CONSOLIDATED</option>
+<option value="708">2/3/2026 SPECIAL PRIMARY</option>
+<option value="699">11/5/2024 STATE GENERAL</option>
+<option value="698">8/6/2024 STATE PRIMARY</option>
+<option value="701">4/16/2024 SPECIAL GENERAL</option>
+<option value="696">2/27/2024 PRESIDENTIAL PRIMARY</option>
+<option value="700">1/30/2024 SPECIAL PRIMARY</option>
+<option value="691">11/8/2022 STATE GENERAL</option>
+<option value="690">8/2/2022 STATE PRIMARY</option>
+<option value="683">11/3/2020 STATE GENERAL</option>
+<option value="682">8/4/2020 STATE PRIMARY</option>
+<option value="680">3/10/2020 PRESIDENTIAL PRIMARY</option>
+<option value="684">1/7/2020 SPECIAL PRIMARY</option>
+<option value="676">11/6/2018 STATE GENERAL</option>
+<option value="675">8/7/2018 STATE PRIMARY</option>
+<option value="673">11/7/2017 NOVEMBER CONSOLIDATED</option>
+<option value="672">8/8/2017 AUGUST CONSOLIDATED</option>
+<option value="670">11/8/2016 STATE GENERAL</option>
+<option value="669">8/2/2016 STATE PRIMARY</option>
+<option value="667">3/8/2016 PRESIDENTIAL PRIMARY</option>
+<option value="666">11/3/2015 NOVEMBER CONSOLIDATED</option>
+<option value="664">5/5/2015 MAY CONSOLIDATED</option>
+<option value="662">11/4/2014 STATE GENERAL</option>
+<option value="661">8/5/2014 STATE PRIMARY</option>
+<option value="658">11/5/2013 NOVEMBER CONSOLIDATED</option>
+<option value="656">8/6/2013 AUGUST CONSOLIDATED</option>
+<option value="655">5/7/2013 MAY CONSOLIDATED</option>
+<option value="654">3/12/2013 MARCH SPECIAL</option>
+<option value="652">11/6/2012 STATE GENERAL</option>
+<option value="650">9/5/2012 SPECIAL PRIMARY</option>
+<option value="649">8/7/2012 STATE PRIMARY</option>
+<option value="646">2/28/2012 PRESIDENTIAL PRIMARY</option>
+<option value="645">11/8/2011 NOVEMBER CONSOLIDATED</option>
+<option value="640">11/2/2010 STATE GENERAL</option>
+<option value="638">8/3/2010 STATE PRIMARY</option>
+<option value="629">11/4/2008 STATE GENERAL</option>
+<option value="627">8/5/2008 STATE PRIMARY</option>
+<option value="623">1/15/2008 PRESIDENTIAL PRIMARY</option>
+<option value="614">11/7/2006 STATE GENERAL</option>
+<option value="611">8/8/2006 STATE PRIMARY</option>
+<option value="584">11/2/2004 STATE GENERAL</option>
+<option value="569">8/3/2004 STATE PRIMARY</option>
+<option value="405">11/5/2002 STATE GENERAL</option>
+<option value="381">8/6/2002 STATE PRIMARY</option>
+<option value="215">11/7/2000 STATE GENERAL</option>
+<option value="195">8/8/2000 STATE PRIMARY</option>
+<option value="146">2/22/2000 PRESIDENTIAL PRIMARY</option>
+<option value="41">11/3/1998 STATE GENERAL</option>
+<option value="31">8/4/1998 STATE PRIMARY</option>
+</select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div id="election-county-selection" class="col-md-6" style="display: none">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label Length="6" class="control-label text-uppercase required-label text-uppercase " for="CountyCode">COUNTY</label>
+                            <select class="form-control text-uppercase  text-uppercase full-width" data-val="true" data-val-number="The field CountyCode must be a number." id="CountyCode" name="CountyCode"><option selected="selected" value="0">SELECT</option>
+<option value="1">ALCONA</option>
+<option value="2">ALGER</option>
+<option value="3">ALLEGAN</option>
+<option value="4">ALPENA</option>
+<option value="5">ANTRIM</option>
+<option value="6">ARENAC</option>
+<option value="7">BARAGA</option>
+<option value="8">BARRY</option>
+<option value="9">BAY</option>
+<option value="10">BENZIE</option>
+<option value="11">BERRIEN</option>
+<option value="12">BRANCH</option>
+<option value="13">CALHOUN</option>
+<option value="14">CASS</option>
+<option value="15">CHARLEVOIX</option>
+<option value="16">CHEBOYGAN</option>
+<option value="17">CHIPPEWA</option>
+<option value="18">CLARE</option>
+<option value="19">CLINTON</option>
+<option value="20">CRAWFORD</option>
+<option value="21">DELTA</option>
+<option value="22">DICKINSON</option>
+<option value="23">EATON</option>
+<option value="24">EMMET</option>
+<option value="25">GENESEE</option>
+<option value="26">GLADWIN</option>
+<option value="27">GOGEBIC</option>
+<option value="28">GRAND TRAVERSE</option>
+<option value="29">GRATIOT</option>
+<option value="30">HILLSDALE</option>
+<option value="31">HOUGHTON</option>
+<option value="32">HURON</option>
+<option value="33">INGHAM</option>
+<option value="34">IONIA</option>
+<option value="35">IOSCO</option>
+<option value="36">IRON</option>
+<option value="37">ISABELLA</option>
+<option value="38">JACKSON</option>
+<option value="39">KALAMAZOO</option>
+<option value="40">KALKASKA</option>
+<option value="41">KENT</option>
+<option value="42">KEWEENAW</option>
+<option value="43">LAKE</option>
+<option value="44">LAPEER</option>
+<option value="45">LEELANAU</option>
+<option value="46">LENAWEE</option>
+<option value="47">LIVINGSTON</option>
+<option value="48">LUCE</option>
+<option value="49">MACKINAC</option>
+<option value="50">MACOMB</option>
+<option value="51">MANISTEE</option>
+<option value="52">MARQUETTE</option>
+<option value="53">MASON</option>
+<option value="54">MECOSTA</option>
+<option value="55">MENOMINEE</option>
+<option value="56">MIDLAND</option>
+<option value="57">MISSAUKEE</option>
+<option value="58">MONROE</option>
+<option value="59">MONTCALM</option>
+<option value="60">MONTMORENCY</option>
+<option value="61">MUSKEGON</option>
+<option value="62">NEWAYGO</option>
+<option value="63">OAKLAND</option>
+<option value="64">OCEANA</option>
+<option value="65">OGEMAW</option>
+<option value="66">ONTONAGON</option>
+<option value="67">OSCEOLA</option>
+<option value="68">OSCODA</option>
+<option value="69">OTSEGO</option>
+<option value="70">OTTAWA</option>
+<option value="71">PRESQUE ISLE</option>
+<option value="72">ROSCOMMON</option>
+<option value="73">SAGINAW</option>
+<option value="74">ST CLAIR</option>
+<option value="75">ST JOSEPH</option>
+<option value="76">SANILAC</option>
+<option value="77">SCHOOLCRAFT</option>
+<option value="78">SHIAWASSEE</option>
+<option value="79">TUSCOLA</option>
+<option value="80">VAN BUREN</option>
+<option value="81">WASHTENAW</option>
+<option value="82">WAYNE</option>
+<option value="83">WEXFORD</option>
+</select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+        <div id="countyElectionResults">
+            
+    <div><h3>No election results for selected election date</h3></div>
+
+        </div>
+        <div id="precinctElectionResults" style="display: none"></div>
+
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="copyright">
+                    Copyright 2026 <a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/som">State of Michigan</a>
+                </div>
+                <nav aria-label="Footer links" class="links">
+                    <a target="_blank" rel="noopener noreferrer" href="http://www.michigan.gov/sos" data-som-footer="">SOS Home</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/faqs" data-som-footer="">FAQ</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/elections/voting/voters" data-som-footer="">Forms</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://mdossupport.happyfox.com/new/" data-som-footer="">Contact the Secretary of State</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/resources/transparency/mdos-freedom-of-information-act-procedures-and-guidelines"">FOIA</a>
+                    <a target="_blank" rel="noopener noreferrer" href="http://www.michigan.gov/adaform" data-som-footer="">ADA</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/som/government/branches-of-government/executive-branch" data-som-footer="">State Web Sites</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.michigan.gov/sos/policies" data-som-footer="">Policies</a>
+                </nav>
+            </div>
+        </footer>
+
+
+        <input id="buildDate" name="buildDate" type="hidden" value="10/19/2026" />
+
+    </div>
+    <input id="reloadValue" type="hidden" name="reloadValue" value="" />
+
+    
+    
+    
+
+    <!-- Digital Guidelines JS -->
+    <script src="https://digitalguidelines.michigan.gov/cdn/3.2.0/som-components.js" integrity="sha384-XlA7Fu1F8LXMcfPXeo92tbMvCJbgJzWmdC9WGq/KdVSIOLO9eqD4Pkqvv0btxbko" crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a527b7825f39da3a',t:'MTc5MzMzNDk2Mw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a527b7825f39da3a',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

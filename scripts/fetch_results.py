@@ -331,6 +331,8 @@ def extract(content: bytes, race: dict, source_url: str) -> RaceResult | None:
             doc = json.loads(text)
             if race["source"]["adapter"] == "va":
                 res = parse_va_ballot_items(doc, race, rx)
+            elif race["source"]["adapter"] == "tx":
+                res = parse_tx_office_summary(doc, race, rx)
             if res is None:
                 res = extract_from_json(doc, race, rx)
         except json.JSONDecodeError:
@@ -383,6 +385,37 @@ def parse_va_ballot_items(doc: dict, race: dict, contest_rx: re.Pattern) -> Race
         if res.precincts_total:
             res.pct_reported = round((res.precincts_reporting or 0) / res.precincts_total * 100, 1)
         res.source_updated = rs.get("asOf")
+        return res
+    return None
+
+
+# --------------------------------------------------------------------------- #
+# Texas (results.texas-election.com OfficeSummary.json) — structured parser
+# --------------------------------------------------------------------------- #
+def parse_tx_office_summary(doc: Any, race: dict, contest_rx: re.Pattern) -> RaceResult | None:
+    offices = doc.get("OS") if isinstance(doc, dict) else None
+    if not isinstance(offices, list):
+        return None
+    for off in offices:
+        name = str(off.get("ON", ""))
+        if not contest_rx.search(name):
+            continue
+        res = RaceResult()
+        out = []
+        for c in race["candidates"]:
+            votes = None
+            for o in off.get("C") or []:
+                if text_matches_candidate(str(o.get("N", "")), c):
+                    votes = to_int(str(o.get("T", "")))
+                    break
+            out.append(asdict(CandResult(c["name"], c["party"], votes, c.get("incumbent", False))))
+        res.candidates = out
+        # precincts, if the summary carries them under any of the usual keys
+        for k in ("PR", "PrecinctsReporting", "PRC"):
+            if k in off and "PT" in off:
+                res.precincts_reporting, res.precincts_total = to_int(str(off[k])), to_int(str(off["PT"]))
+        if res.precincts_total:
+            res.pct_reported = round((res.precincts_reporting or 0) / res.precincts_total * 100, 1)
         return res
     return None
 
@@ -441,43 +474,42 @@ def adapter_fl(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 
 
 def adapter_mi(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+    """Michigan: the state links Nov-2026 results to the MVIC vote-history site, which loads
+    statewide county-level results from /VoteHistory/GetCountyVoteRecords?electionId=N.
+    The election id is discovered from the ElectionDateId <select>."""
     docs = []
-    candidates = [
-        "https://mvic.sos.state.mi.us/votehistory/Index?type=C&electionDate=11-3-2026",
-        "https://mvic.sos.state.mi.us/votehistory/",
-        cfg["home"],
-        "https://mielections.us/election/results/2026GEN_CENR.html",
-        "https://mielections.us/election/results/2026GEN_CENR_US_REP.html",
-        "https://mielections.us/election/results/2026GEN_CENR_UNITED_STATES_REPRESENTATIVE.html",
-        "https://mielections.us/election/results/",
-        "https://electionreporting.sos.state.mi.us/",
-    ]
-    seen = set()
-    for u in candidates:
-        if u in seen:
-            continue
-        seen.add(u)
-        r = get(u)
-        if not r:
-            continue
-        docs.append((u, r.content))
+    base = "https://mvic.sos.state.mi.us"
+    idx = get(f"{base}/votehistory/Index?type=C&electionDate=11-3-2026")
+    ids = []
+    if idx:
         if probe:
-            save_probe("mi_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".html", r.content)
-            if "mvic.sos.state.mi.us" in u:
-                for sc in BeautifulSoup(r.text, "lxml").find_all("script", src=True):
-                    if sc["src"].startswith("/bundles/"):
-                        js = get(requests.compat.urljoin(u, sc["src"]))
-                        if js:
-                            save_probe("mi_bundle_" + re.sub(r"[^A-Za-z0-9]+", "_", sc["src"])[:60] + ".js", js.content)
-        for u2 in harvest_links(r.text, u, re.compile(r"congress|U\.?S\.? ?Rep|representative|2026GEN|votehistory|\.json|\.csv", re.I))[:30]:
-            if u2 in seen:
-                continue
-            seen.add(u2)
-            r2 = get(u2)
-            if r2:
-                docs.append((u2, r2.content))
-                if probe:
-                    save_probe("mi_" + re.sub(r"[^A-Za-z0-9]+", "_", u2)[-80:] + ".html", r2.content)
+            save_probe("mi_mvic_index.html", idx.content)
+        soup = BeautifulSoup(idx.text, "lxml")
+        sel = soup.find("select", id="ElectionDateId") or soup.find("select", attrs={"name": "ElectionDateId"})
+        if sel:
+            for o in sel.find_all("option"):
+                txt = o.get_text(" ", strip=True)
+                if re.search(r"11/0?3/2026", txt):
+                    ids.append(o.get("value"))
+            if probe and not ids:
+                # validate the parser against the most recent election available
+                first = [o.get("value") for o in sel.find_all("option") if (o.get("value") or "0") != "0"]
+                ids = first[:1]
+                log(f"MI: Nov 3 2026 not listed yet; probing with election id {ids}")
+    for eid in ids:
+        u = f"{base}/VoteHistory/GetCountyVoteRecords?electionId={eid}"
+        r = get(u, headers={"X-Requested-With": "XMLHttpRequest", "Referer": f"{base}/votehistory/"})
+        if r:
+            docs.append((u, r.content))
+            if probe:
+                save_probe(f"mi_county_vote_records_{eid}.html", r.content)
+    # legacy election-night site (blocked from some networks; kept as a fallback)
+    for u in [cfg.get("legacy", "https://mielections.us/election/results/2026GEN_CENR.html")]:
+        r = get(u)
+        if r:
+            docs.append((u, r.content))
+            if probe:
+                save_probe("mi_legacy_cenr.html", r.content)
     return docs
 
 
@@ -573,13 +605,28 @@ def adapter_tx(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
         evno = (ev or {}).get("___versionNo") or (ev or {}).get("versionNo")
         if not evno:
             continue
-        for fn in ("Race.json", "OfficeSummary.json"):
+        for fn in ("OfficeSummary.json", "Race.json"):
             url = f"{base}/election/{eid}/{evno}/{fn}"
             r = get(url, headers=jh)
             if r:
                 docs.append((url, r.content))
                 if probe:
                     save_probe(f"tx_election_{eid}_{evno}_{fn}", r.content)
+        if probe:
+            # discover the per-race detail file naming (for precinct counts)
+            try:
+                rj = json.loads(docs[-1][1]) if docs else {}
+                rid = None
+                for _, node in walk_json(rj):
+                    if isinstance(node, dict) and re.search(r"REPRESENTATIVE DISTRICT 1\b", str(node.get("N", "")), re.I):
+                        rid = node.get("id"); break
+                if rid:
+                    for cand in (f"race/{rid}.json", f"Race_{rid}.json", f"Races/{rid}.json", f"{rid}.json", f"Race/{rid}.json", f"race_{rid}.json"):
+                        rr = get(f"{base}/election/{eid}/{evno}/{cand}", headers=jh)
+                        if rr:
+                            save_probe(f"tx_racedetail_{cand.replace('/', '_')}", rr.content)
+            except Exception as e:
+                log(f"tx race-detail probe failed: {e!r}")
         if docs:
             break
     return docs
@@ -608,14 +655,52 @@ def adapter_mt(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
                         if probe:
                             save_probe("mt_" + re.sub(r"[^A-Za-z0-9]+", "_", u2)[-80:] + ".bin", r2.content)
                 return docs
-        # all urls failed with this header set; try next
-        if probe:
-            # keep one 403 body for inspection
-            try:
-                r = SESSION.get(urls[0], headers=hv, timeout=TIMEOUT)
-                save_probe("mt_blocked_response.html", r.content)
-            except Exception:
-                pass
+    # Cloudflare JS challenge blocks plain HTTP clients; render with a headless browser.
+    try:
+        from playwright.sync_api import sync_playwright  # type: ignore
+    except Exception as e:
+        log(f"MT: playwright unavailable ({e!r})")
+        return docs
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+            ctx = browser.new_context(user_agent=UA["User-Agent"], locale="en-US", viewport={"width": 1280, "height": 900})
+            page = ctx.new_page()
+            for u in urls[:2]:
+                try:
+                    page.goto(u, wait_until="domcontentloaded", timeout=45000)
+                    # give the challenge up to ~20s to clear
+                    for _ in range(20):
+                        html = page.content()
+                        if "Just a moment" not in html and "Enable JavaScript" not in html:
+                            break
+                        page.wait_for_timeout(1000)
+                    html = page.content()
+                    FETCH_LOG.append(f"PW  {u} -> {len(html)} chars; challenge={'Just a moment' in html}")
+                    if "Just a moment" in html:
+                        continue
+                    docs.append((u, html.encode("utf-8")))
+                    if probe:
+                        save_probe("mt_pw_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".html", html)
+                    # follow the federal-results tab/link if the landing page isn't it
+                    for a in BeautifulSoup(html, "lxml").find_all("a", href=True):
+                        if re.search(r"type=FED|Federal|Representative", a.get_text(" ", strip=True) + a["href"], re.I):
+                            u2 = requests.compat.urljoin(u, a["href"])
+                            if u2 in [d[0] for d in docs]:
+                                continue
+                            page.goto(u2, wait_until="domcontentloaded", timeout=45000)
+                            page.wait_for_timeout(2500)
+                            h2 = page.content()
+                            docs.append((u2, h2.encode("utf-8")))
+                            if probe:
+                                save_probe("mt_pw_" + re.sub(r"[^A-Za-z0-9]+", "_", u2)[-80:] + ".html", h2)
+                            break
+                    break
+                except Exception as e:
+                    FETCH_LOG.append(f"PW  {u} -> EXC {e!r}")
+            browser.close()
+    except Exception as e:
+        log(f"MT playwright failed: {e!r}")
     return docs
 
 

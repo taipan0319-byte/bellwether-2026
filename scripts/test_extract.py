@@ -40,7 +40,13 @@ VA_JSON = {"data": [
    "summaryResults": {"ballotOptions": [{"name": [{"languageId": "en", "text": "Jennifer Kiggans"}], "voteCount": 1}]}}],
   "totalRecordCount": 2}
 
-TX_JSON = {"races": [
+# Mirrors the real results.texas-election.com OfficeSummary.json shape (verified Oct 29, 2026)
+TX_JSON = {"OS": [
+  {"OID": 2035, "ON": "U. S. REPRESENTATIVE DISTRICT 35", "C": [
+     {"N": "CARLOS DE LA CRUZ", "P": "R", "T": 88120}, {"N": "JOHNNY GARCIA", "P": "D", "T": 84993}]},
+  {"OID": 2015, "ON": "U. S. REPRESENTATIVE DISTRICT 15", "C": [
+     {"N": "MONICA DE LA CRUZ", "P": "R", "T": 9000}, {"N": "BOBBY PULIDO", "P": "D", "T": 9100}]}]}
+TX_JSON_OLD = {"races": [
   {"officeName": "U. S. Representative District 35", "precinctsReported": 500, "precinctsTotal": 612,
    "candidates": [{"fullName": "Carlos De La Cruz", "party": "REP", "totalVotes": "88,120"},
                   {"fullName": "Johnny Garcia", "party": "DEM", "totalVotes": "84,993"}]},
@@ -61,6 +67,7 @@ r = run("MT-01", MT_HTML, R["MT-01"]); ok &= bool(r and r.candidates[1]["votes"]
 r = run("VA-01", VA_JSON, R["VA-01"]); ok &= bool(r and r.candidates[0]["votes"] == 201345 and r.precincts_total == 212)
 r = run("TX-35", TX_JSON, R["TX-35"]); ok &= bool(r and r.candidates[0]["votes"] == 88120 and r.candidates[1]["votes"] == 84993)
 r = run("TX-15", TX_JSON, R["TX-15"]); ok &= bool(r and r.candidates[1]["votes"] == 9100)
+r = run("TX-35 generic", TX_JSON_OLD, R["TX-35"]); ok &= bool(r and r.candidates[0]["votes"] == 88120)
 r = run("TX-01 (absent)", TX_JSON, R["TX-01"]); ok &= (r is None)
 print("ALL PASS" if ok else "FAILURES")
 sys.exit(0 if ok else 1)

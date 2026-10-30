@@ -37,7 +37,9 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install --quiet requests beautifulsoup4 lxml
+        run: |
+          pip install --quiet requests beautifulsoup4 lxml playwright
+          python -m playwright install --with-deps chromium > /dev/null 2>&1 || python -m playwright install chromium
 
       - name: Fetch results
         run: |

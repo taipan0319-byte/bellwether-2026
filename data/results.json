@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T04:19:58+00:00",
+  "generated_at": "2026-10-30T04:23:34+00:00",
   "election_date": "2026-11-03",
   "status": "pre-election",
   "feed_errors": 5,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:17:49+00:00",
+      "source_updated": "2026-10-30T04:22:03+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -59,13 +59,13 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read MI feed (0 documents tried). Showing last good data.",
+      "error": "Could not read MI feed (2 documents tried). Showing last good data.",
       "source_url": null
     },
     "VA-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:19:55+00:00",
+      "source_updated": "2026-10-30T04:23:29+00:00",
       "precincts_reporting": 0,
       "precincts_total": 18,
       "pct_reported": 0.0,

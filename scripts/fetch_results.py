@@ -43,7 +43,6 @@ UA = {
                   "Version/17.6 Safari/605.1.15",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,application/json;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
-    "Accept-Encoding": "gzip, deflate, br",
     "Connection": "keep-alive",
     "Upgrade-Insecure-Requests": "1",
     "Sec-Fetch-Dest": "document",
@@ -464,6 +463,12 @@ def adapter_mi(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
         docs.append((u, r.content))
         if probe:
             save_probe("mi_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".html", r.content)
+            if "mvic.sos.state.mi.us" in u:
+                for sc in BeautifulSoup(r.text, "lxml").find_all("script", src=True):
+                    if sc["src"].startswith("/bundles/"):
+                        js = get(requests.compat.urljoin(u, sc["src"]))
+                        if js:
+                            save_probe("mi_bundle_" + re.sub(r"[^A-Za-z0-9]+", "_", sc["src"])[:60] + ".js", js.content)
         for u2 in harvest_links(r.text, u, re.compile(r"congress|U\.?S\.? ?Rep|representative|2026GEN|votehistory|\.json|\.csv", re.I))[:30]:
             if u2 in seen:
                 continue

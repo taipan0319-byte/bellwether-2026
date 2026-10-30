@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-30T04:37:06+00:00",
+  "generated_at": null,
   "election_date": "2026-11-03",
-  "status": "live",
-  "feed_errors": 5,
+  "status": "pre-election",
+  "feed_errors": 0,
   "races": {
     "FL-25": {
       "status": "not_started",
-      "source_status": "ok",
-      "source_updated": "2026-10-30T04:36:03+00:00",
+      "source_status": "pending",
+      "source_updated": null,
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -17,81 +17,81 @@
         {
           "name": "Jared Moskowitz",
           "party": "DEM",
-          "votes": 0,
+          "votes": null,
           "incumbent": true
         },
         {
           "name": "Scott Singer",
           "party": "REP",
-          "votes": 0,
+          "votes": null,
           "incumbent": false
         },
         {
           "name": "Peter Jassenoff",
           "party": "LPF",
-          "votes": 0,
+          "votes": null,
           "incumbent": false
         }
       ],
       "error": null,
-      "source_url": "https://floridaelectionwatch.gov/FederalOffices/USRepresentative"
+      "source_url": null
     },
     "MI-04": {
-      "status": "counting",
-      "source_status": "error",
-      "source_updated": "2026-10-30T04:32:35+00:00",
-      "precincts_reporting": 83,
-      "precincts_total": 83,
-      "pct_reported": 100.0,
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Bill Huizenga",
           "party": "REP",
-          "votes": 71455,
+          "votes": null,
           "incumbent": true
         },
         {
           "name": "Sean McCann",
           "party": "DEM",
-          "votes": 65587,
+          "votes": null,
           "incumbent": false
         }
       ],
-      "error": "Could not read MI feed (1 documents tried). Showing last good data.",
-      "source_url": "https://mvic.sos.state.mi.us/VoteHistory/GetCountyVoteRecords?electionId=706"
+      "error": null,
+      "source_url": null
     },
     "VA-01": {
       "status": "not_started",
-      "source_status": "ok",
-      "source_updated": "2026-10-30T04:36:30+00:00",
-      "precincts_reporting": 0,
-      "precincts_total": 18,
-      "pct_reported": 0.0,
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Rob Wittman",
           "party": "REP",
-          "votes": 0,
+          "votes": null,
           "incumbent": true
         },
         {
           "name": "Shannon Taylor",
           "party": "DEM",
-          "votes": 0,
+          "votes": null,
           "incumbent": false
         }
       ],
       "error": null,
-      "source_url": "https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items"
+      "source_url": null
     },
     "TX-35": {
       "status": "not_started",
-      "source_status": "error",
-      "source_updated": "2026-10-30T04:32:41+00:00",
+      "source_status": "pending",
+      "source_updated": null,
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -111,13 +111,13 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read TX feed (0 documents tried). Showing last good data.",
-      "source_url": "https://results.texas-election.com/static/data/election/49664/1012/OfficeSummary.json"
+      "error": null,
+      "source_url": null
     },
     "TX-01": {
-      "status": "counting",
-      "source_status": "error",
-      "source_updated": "2026-10-30T04:32:41+00:00",
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -127,7 +127,7 @@
         {
           "name": "Nathaniel Moran",
           "party": "REP",
-          "votes": 258523,
+          "votes": null,
           "incumbent": true
         },
         {
@@ -143,13 +143,13 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read TX feed (0 documents tried). Showing last good data.",
-      "source_url": "https://results.texas-election.com/static/data/election/49664/1012/OfficeSummary.json"
+      "error": null,
+      "source_url": null
     },
     "TX-15": {
-      "status": "counting",
-      "source_status": "error",
-      "source_updated": "2026-10-30T04:32:41+00:00",
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -159,7 +159,7 @@
         {
           "name": "Monica De La Cruz",
           "party": "REP",
-          "votes": 127804,
+          "votes": null,
           "incumbent": true
         },
         {
@@ -169,14 +169,14 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read TX feed (0 documents tried). Showing last good data.",
-      "source_url": "https://results.texas-election.com/static/data/election/49664/1012/OfficeSummary.json"
+      "error": null,
+      "source_url": null
     },
     "MT-01": {
       "status": "not_started",
-      "source_status": "error",
+      "source_status": "pending",
       "source_updated": null,
-      "precincts_reporting": 0,
+      "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
       "called": null,
@@ -201,7 +201,7 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read MT feed (4 documents tried). Showing last good data.",
+      "error": null,
       "source_url": null
     }
   }

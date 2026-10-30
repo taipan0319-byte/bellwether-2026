@@ -790,6 +790,9 @@ def main():
     out_races: dict[str, dict] = {}
     any_ok = False
     errors = 0
+    election_day = datetime.fromisoformat(cfg["election_date"]).date()
+    # Treat anything before 5 PM CT on Election Day (22:00 UTC, CST) as pre-election.
+    pre_election = datetime.now(timezone.utc) < datetime(election_day.year, election_day.month, election_day.day, 22, 0, tzinfo=timezone.utc)
 
     by_adapter: dict[str, list[dict]] = {}
     for race in cfg["races"]:
@@ -822,10 +825,17 @@ def main():
                     result = cand  # structure found but no votes yet (pre-close zeros)
             if result is None:
                 errors += 1
-                rr = RaceResult(**{k: prior.get(k) for k in RaceResult.__dataclass_fields__ if k in prior}) if prior else RaceResult()
-                rr.candidates = prior.get("candidates") or [asdict(CandResult(c["name"], c["party"], None, c.get("incumbent", False))) for c in race["candidates"]]
-                rr.source_status = "error"
-                rr.error = f"Could not read {race['state']} feed ({len(docs)} documents tried). Showing last good data."
+                if pre_election:
+                    # Nothing real can exist yet — never carry anything forward before Election Day.
+                    rr = RaceResult()
+                    rr.candidates = [asdict(CandResult(c["name"], c["party"], None, c.get("incumbent", False))) for c in race["candidates"]]
+                    rr.source_status = "pending"
+                    rr.error = None
+                else:
+                    rr = RaceResult(**{k: prior.get(k) for k in RaceResult.__dataclass_fields__ if k in prior}) if prior else RaceResult()
+                    rr.candidates = prior.get("candidates") or [asdict(CandResult(c["name"], c["party"], None, c.get("incumbent", False))) for c in race["candidates"]]
+                    rr.source_status = "error"
+                    rr.error = f"Could not read {race['state']} feed ({len(docs)} documents tried). Showing last good data."
                 result = rr
             else:
                 any_ok = True
@@ -861,12 +871,10 @@ def main():
                 w = [c for c in r.get("candidates", []) if c.get("party") == r["called"]]
                 r["winner"] = w[0]["name"] if w else None
 
-    election_day = datetime.fromisoformat(cfg["election_date"]).date()
-    today_utc = datetime.now(timezone.utc).date()
-    if any(r["status"] == "counting" or r["status"] == "called" for r in out_races.values()):
-        status = "complete" if all(r["status"] == "called" for r in out_races.values()) else "live"
-    elif today_utc < election_day:
+    if pre_election and not overrides:
         status = "pre-election"
+    elif any(r["status"] == "counting" or r["status"] == "called" for r in out_races.values()):
+        status = "complete" if all(r["status"] == "called" for r in out_races.values()) else "live"
     else:
         status = "error" if not any_ok else "live"
 

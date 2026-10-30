@@ -224,8 +224,8 @@
     },
     "mi": {
       "name": "Michigan Secretary of State \u2014 Election Night Reporting",
-      "home": "https://mielections.us/election/results/2026GEN_CENR.html",
-      "notes": "Statewide unofficial results compiled from county clerks. URL pattern follows 2024GEN_CENR.html; verify with probe."
+      "home": "https://mvic.sos.state.mi.us/votehistory/Index?type=C&electionDate=11-3-2026",
+      "notes": "Statewide unofficial results compiled from county clerks. State now points to the MVIC vote-history site for Nov 2026; mielections.us kept as fallback."
     },
     "va": {
       "name": "Virginia Department of Elections \u2014 Election Night Reporting (Enhanced Voting)",

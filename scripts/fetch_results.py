@@ -39,11 +39,20 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 PROBE_DIR = ROOT / "probe"
 UA = {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                  "Chrome/130.0 Safari/537.36 bellwether-2026/1.0 (+github.com/taipan0319-byte)",
-    "Accept": "text/html,application/json;q=0.9,*/*;q=0.8",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) "
+                  "Version/17.6 Safari/605.1.15",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,application/json;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+    "Sec-Fetch-User": "?1",
+    "Cache-Control": "no-cache",
 }
-TIMEOUT = 30
+TIMEOUT = 20
 SESSION = requests.Session()
 SESSION.headers.update(UA)
 
@@ -435,6 +444,8 @@ def adapter_fl(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 def adapter_mi(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
     docs = []
     candidates = [
+        "https://mvic.sos.state.mi.us/votehistory/Index?type=C&electionDate=11-3-2026",
+        "https://mvic.sos.state.mi.us/votehistory/",
         cfg["home"],
         "https://mielections.us/election/results/2026GEN_CENR.html",
         "https://mielections.us/election/results/2026GEN_CENR_US_REP.html",
@@ -453,7 +464,7 @@ def adapter_mi(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
         docs.append((u, r.content))
         if probe:
             save_probe("mi_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".html", r.content)
-        for u2 in harvest_links(r.text, u, re.compile(r"congress|U\.?S\.? ?Rep|representative|2026GEN|\.json|\.csv", re.I))[:30]:
+        for u2 in harvest_links(r.text, u, re.compile(r"congress|U\.?S\.? ?Rep|representative|2026GEN|votehistory|\.json|\.csv", re.I))[:30]:
             if u2 in seen:
                 continue
             seen.add(u2)
@@ -521,70 +532,85 @@ def adapter_va(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 
 
 def adapter_tx(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
-    """Texas SOS portal (results.texas-election.com) is a JS app backed by static JSON.
-    Harvest the JSON/API URLs it references, then fetch them."""
+    """Texas SOS portal (results.texas-election.com). The Angular app reads static JSON:
+       static/data/Version.json -> ElectionConstants_{v}.json (currentelectionInfo.ID)
+       -> static/data/election/{ID}/Version.json -> election/{ID}/{v}/Race.json | OfficeSummary.json"""
     docs = []
-    home = cfg["home"]
-    r = get(home)
-    if not r:
-        return docs
-    if probe:
-        save_probe("tx_home.html", r.content)
-    soup = BeautifulSoup(r.text, "lxml")
-    urls = set()
-    for m in re.finditer(r"""["'](https?://[^"']+|/[^"']+)["']""", r.text):
-        u = m.group(1)
-        if re.search(r"\.json|/api/|static/data|election", u, re.I):
-            urls.add(requests.compat.urljoin(home, u))
-    for s in soup.find_all("script", src=True):
-        js_url = requests.compat.urljoin(home, s["src"])
-        jr = get(js_url)
-        if not jr:
-            continue
+    base = "https://results.texas-election.com/static/data"
+    jh = {"Accept": "application/json, text/plain, */*", "Referer": "https://results.texas-election.com/races",
+          "Sec-Fetch-Dest": "empty", "Sec-Fetch-Mode": "cors", "Sec-Fetch-Site": "same-origin"}
+
+    def gj(url):
+        r = get(url, headers=jh)
+        if not r:
+            return None
         if probe:
-            save_probe("tx_bundle_" + re.sub(r"[^A-Za-z0-9]+", "_", js_url)[-60:] + ".js", jr.content)
-        for m in re.finditer(r"""["'`]((?:https?://[^"'`\s]+)?/?(?:static/data|api)/[^"'`\s]{3,200})["'`]""", jr.text):
-            u = m.group(1)
-            if "${" in u or "{" in u:
-                continue
-            urls.add(requests.compat.urljoin(home, u))
-    for u in sorted(urls)[:60]:
-        rr = get(u, headers={"Accept": "application/json"})
-        if rr and ("json" in rr.headers.get("content-type", "") or rr.text.lstrip()[:1] in "{["):
-            docs.append((u, rr.content))
-            if probe:
-                save_probe("tx_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".json", rr.content)
-            # second hop: ids inside election index documents
-            try:
-                j = json.loads(rr.text)
-                for _, node in walk_json(j):
-                    if isinstance(node, str) and re.search(r"\.json$", node) and node not in urls:
-                        u2 = requests.compat.urljoin(u, node)
-                        r2 = get(u2)
-                        if r2:
-                            docs.append((u2, r2.content))
-                            if probe:
-                                save_probe("tx_" + re.sub(r"[^A-Za-z0-9]+", "_", u2)[-80:] + ".json", r2.content)
-            except Exception:
-                pass
+            save_probe("tx_" + re.sub(r"[^A-Za-z0-9]+", "_", url.replace(base, ""))[-80:] + ".json", r.content)
+        try:
+            return r.json()
+        except Exception:
+            return None
+
+    v = gj(f"{base}/Version.json")
+    vno = (v or {}).get("___versionNo") or (v or {}).get("versionNo")
+    consts = gj(f"{base}/ElectionConstants_{vno}.json") if vno else None
+    election_ids = []
+    if consts:
+        cur = consts.get("currentelectionInfo") or {}
+        if cur.get("ID"):
+            election_ids.append(cur["ID"])
+        for _, node in walk_json(consts):
+            if isinstance(node, dict) and node.get("ID") and re.search(r"general", json.dumps(node), re.I) and re.search(r"2026", json.dumps(node)):
+                if node["ID"] not in election_ids:
+                    election_ids.append(node["ID"])
+    for eid in election_ids[:3]:
+        ev = gj(f"{base}/election/{eid}/Version.json")
+        evno = (ev or {}).get("___versionNo") or (ev or {}).get("versionNo")
+        if not evno:
+            continue
+        for fn in ("Race.json", "OfficeSummary.json"):
+            url = f"{base}/election/{eid}/{evno}/{fn}"
+            r = get(url, headers=jh)
+            if r:
+                docs.append((url, r.content))
+                if probe:
+                    save_probe(f"tx_election_{eid}_{evno}_{fn}", r.content)
+        if docs:
+            break
     return docs
 
 
 def adapter_mt(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
     docs = []
-    for u in [cfg["home"], "https://electionresults.mt.gov/ResultsSW.aspx?type=FED", "https://electionresults.mt.gov/"]:
-        r = get(u)
-        if r:
-            docs.append((u, r.content))
-            if probe:
-                save_probe("mt_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".html", r.content)
-            for u2 in harvest_links(r.text, u, re.compile(r"type=FED|Representative|Export|Download|\.csv|\.xml|\.json", re.I))[:20]:
-                r2 = get(u2)
-                if r2 and u2 not in [d[0] for d in docs]:
-                    docs.append((u2, r2.content))
-                    if probe:
-                        save_probe("mt_" + re.sub(r"[^A-Za-z0-9]+", "_", u2)[-80:] + ".bin", r2.content)
-            break
+    variants = [
+        {},
+        {"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.6 Mobile/15E148 Safari/604.1"},
+        {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36", "Referer": "https://sosmt.gov/elections/results/"},
+        {"User-Agent": "curl/8.5.0", "Accept": "*/*"},
+    ]
+    urls = [cfg["home"], "https://electionresults.mt.gov/ResultsSW.aspx?type=FED", "https://electionresults.mt.gov/", "https://electionresults.mt.gov/Default.aspx"]
+    for hv in variants:
+        for u in urls:
+            r = get(u, headers=hv)
+            if r:
+                docs.append((u, r.content))
+                if probe:
+                    save_probe("mt_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".html", r.content)
+                for u2 in harvest_links(r.text, u, re.compile(r"type=FED|Representative|Export|Download|\.csv|\.xml|\.json", re.I))[:20]:
+                    r2 = get(u2, headers=hv)
+                    if r2 and u2 not in [d[0] for d in docs]:
+                        docs.append((u2, r2.content))
+                        if probe:
+                            save_probe("mt_" + re.sub(r"[^A-Za-z0-9]+", "_", u2)[-80:] + ".bin", r2.content)
+                return docs
+        # all urls failed with this header set; try next
+        if probe:
+            # keep one 403 body for inspection
+            try:
+                r = SESSION.get(urls[0], headers=hv, timeout=TIMEOUT)
+                save_probe("mt_blocked_response.html", r.content)
+            except Exception:
+                pass
     return docs
 
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T04:07:15+00:00",
+  "generated_at": "2026-10-30T04:19:58+00:00",
   "election_date": "2026-11-03",
   "status": "pre-election",
   "feed_errors": 5,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:05:07+00:00",
+      "source_updated": "2026-10-30T04:17:49+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -65,23 +65,23 @@
     "VA-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:07:12+00:00",
-      "precincts_reporting": null,
-      "precincts_total": null,
-      "pct_reported": null,
+      "source_updated": "2026-10-30T04:19:55+00:00",
+      "precincts_reporting": 0,
+      "precincts_total": 18,
+      "pct_reported": 0.0,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Rob Wittman",
           "party": "REP",
-          "votes": null,
+          "votes": 0,
           "incumbent": true
         },
         {
           "name": "Shannon Taylor",
           "party": "DEM",
-          "votes": null,
+          "votes": 0,
           "incumbent": false
         }
       ],

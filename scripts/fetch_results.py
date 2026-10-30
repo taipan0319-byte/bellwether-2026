@@ -122,6 +122,7 @@ class RaceResult:
 NUM_RE = re.compile(r"(?<![\d.])\d{1,3}(?:,\d{3})+(?![\d.])|(?<![\d.,])\d+(?![\d.,%])")
 PCT_RE = re.compile(r"(\d{1,3}(?:\.\d+)?)\s*%")
 PRECINCT_RES = [
+    re.compile(r"Counties:\s*(\d+)\s*/\s*(\d+)", re.I),
     re.compile(r"(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)\s*(?:precincts|polling (?:places|locations)|vote centers)", re.I),
     re.compile(r"precincts?\s*(?:reporting|reported|complete)[^0-9]{0,40}(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)", re.I),
     re.compile(r"(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)\s*(?:precincts|counties)?\s*reporting", re.I),
@@ -239,6 +240,9 @@ def extract_from_html(html: str, race: dict, contest_rx: re.Pattern) -> RaceResu
     res.candidates = out
     ctext = container.get_text(" ", strip=True) if container is not soup else soup.get_text(" ", strip=True)
     res.precincts_reporting, res.precincts_total, res.pct_reported = parse_precincts(ctext)
+    if res.pct_reported is None and container is not soup:
+        # reporting status is often in a page header outside the contest block
+        res.precincts_reporting, res.precincts_total, res.pct_reported = parse_precincts(soup.get_text(" ", strip=True))
     if re.search(r"\bwinner\b|\bwins\b|✓|✓", ctext, re.I):
         pass  # winner flags vary too much; leave 'called' to manual override
     return res
@@ -666,6 +670,40 @@ def adapter_mt(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
             browser = pw.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
             ctx = browser.new_context(user_agent=UA["User-Agent"], locale="en-US", viewport={"width": 1280, "height": 900})
             page = ctx.new_page()
+            # Discover the live election id from the landing page; fall back to the last
+            # election (June 2026 primary) in probe mode so the parser can be validated.
+            eids = []
+            try:
+                page.goto("https://electionresults.mt.gov/", wait_until="domcontentloaded", timeout=45000)
+                for _ in range(20):
+                    if "Just a moment" not in page.content():
+                        break
+                    page.wait_for_timeout(1000)
+                landing = page.content()
+                FETCH_LOG.append(f"PW  landing -> {page.url} ({len(landing)} chars)")
+                eids = list(dict.fromkeys(re.findall(r"eid=(\d+)", landing)))
+                if probe:
+                    save_probe("mt_pw_landing.html", landing)
+            except Exception as e:
+                FETCH_LOG.append(f"PW  landing EXC {e!r}")
+            if not eids and probe:
+                eids = ["450002928"]
+            for eid in eids[:2]:
+                for tmpl in ("https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY&eid={eid}",
+                             "https://electionresults.mt.gov/ResultsSW.aspx?type=FED&eid={eid}",
+                             "https://electionresults.mt.gov/ResultsList.aspx?eid={eid}"):
+                    u = tmpl.format(eid=eid)
+                    try:
+                        page.goto(u, wait_until="domcontentloaded", timeout=45000)
+                        page.wait_for_timeout(2500)
+                        html = page.content()
+                        FETCH_LOG.append(f"PW  {u} -> {page.url} ({len(html)} chars)")
+                        if "electionresults.mt.gov" in page.url and "Just a moment" not in html:
+                            docs.append((u, html.encode("utf-8")))
+                            if probe:
+                                save_probe("mt_pw_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".html", html)
+                    except Exception as e:
+                        FETCH_LOG.append(f"PW  {u} -> EXC {e!r}")
             for u in urls[:2]:
                 try:
                     page.goto(u, wait_until="domcontentloaded", timeout=45000)

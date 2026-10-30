@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T04:30:07+00:00",
+  "generated_at": "2026-10-30T04:33:18+00:00",
   "election_date": "2026-11-03",
   "status": "live",
   "feed_errors": 1,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:29:15+00:00",
+      "source_updated": "2026-10-30T04:32:12+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -39,10 +39,10 @@
     "MI-04": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:29:38+00:00",
-      "precincts_reporting": null,
-      "precincts_total": null,
-      "pct_reported": null,
+      "source_updated": "2026-10-30T04:32:35+00:00",
+      "precincts_reporting": 83,
+      "precincts_total": 83,
+      "pct_reported": 100.0,
       "called": null,
       "winner": null,
       "candidates": [
@@ -65,7 +65,7 @@
     "VA-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:29:42+00:00",
+      "source_updated": "2026-10-30T04:32:40+00:00",
       "precincts_reporting": 0,
       "precincts_total": 18,
       "pct_reported": 0.0,
@@ -91,7 +91,7 @@
     "TX-35": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:29:42+00:00",
+      "source_updated": "2026-10-30T04:32:41+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -117,7 +117,7 @@
     "TX-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:29:42+00:00",
+      "source_updated": "2026-10-30T04:32:41+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -149,7 +149,7 @@
     "TX-15": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:29:42+00:00",
+      "source_updated": "2026-10-30T04:32:41+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -201,7 +201,7 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read MT feed (1 documents tried). Showing last good data.",
+      "error": "Could not read MT feed (4 documents tried). Showing last good data.",
       "source_url": null
     }
   }

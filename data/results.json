@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-30T04:26:38+00:00",
+  "generated_at": "2026-10-30T04:30:07+00:00",
   "election_date": "2026-11-03",
-  "status": "pre-election",
-  "feed_errors": 4,
+  "status": "live",
+  "feed_errors": 1,
   "races": {
     "FL-25": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:25:08+00:00",
+      "source_updated": "2026-10-30T04:29:15+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -37,10 +37,10 @@
       "source_url": "https://floridaelectionwatch.gov/FederalOffices/USRepresentative"
     },
     "MI-04": {
-      "status": "not_started",
-      "source_status": "error",
-      "source_updated": null,
-      "precincts_reporting": 0,
+      "status": "counting",
+      "source_status": "ok",
+      "source_updated": "2026-10-30T04:29:38+00:00",
+      "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
       "called": null,
@@ -49,23 +49,23 @@
         {
           "name": "Bill Huizenga",
           "party": "REP",
-          "votes": null,
+          "votes": 71455,
           "incumbent": true
         },
         {
           "name": "Sean McCann",
           "party": "DEM",
-          "votes": null,
+          "votes": 65587,
           "incumbent": false
         }
       ],
-      "error": "Could not read MI feed (2 documents tried). Showing last good data.",
-      "source_url": null
+      "error": null,
+      "source_url": "https://mvic.sos.state.mi.us/VoteHistory/GetCountyVoteRecords?electionId=706"
     },
     "VA-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:26:32+00:00",
+      "source_updated": "2026-10-30T04:29:42+00:00",
       "precincts_reporting": 0,
       "precincts_total": 18,
       "pct_reported": 0.0,
@@ -91,7 +91,7 @@
     "TX-35": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-10-30T04:26:34+00:00",
+      "source_updated": "2026-10-30T04:29:42+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -115,10 +115,10 @@
       "source_url": "https://results.texas-election.com/static/data/election/49664/1012/OfficeSummary.json"
     },
     "TX-01": {
-      "status": "not_started",
-      "source_status": "error",
-      "source_updated": null,
-      "precincts_reporting": 0,
+      "status": "counting",
+      "source_status": "ok",
+      "source_updated": "2026-10-30T04:29:42+00:00",
+      "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
       "called": null,
@@ -127,7 +127,7 @@
         {
           "name": "Nathaniel Moran",
           "party": "REP",
-          "votes": null,
+          "votes": 258523,
           "incumbent": true
         },
         {
@@ -143,14 +143,14 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read TX feed (2 documents tried). Showing last good data.",
-      "source_url": null
+      "error": null,
+      "source_url": "https://results.texas-election.com/static/data/election/49664/1012/OfficeSummary.json"
     },
     "TX-15": {
-      "status": "not_started",
-      "source_status": "error",
-      "source_updated": null,
-      "precincts_reporting": 0,
+      "status": "counting",
+      "source_status": "ok",
+      "source_updated": "2026-10-30T04:29:42+00:00",
+      "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
       "called": null,
@@ -159,7 +159,7 @@
         {
           "name": "Monica De La Cruz",
           "party": "REP",
-          "votes": null,
+          "votes": 127804,
           "incumbent": true
         },
         {
@@ -169,8 +169,8 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read TX feed (2 documents tried). Showing last good data.",
-      "source_url": null
+      "error": null,
+      "source_url": "https://results.texas-election.com/static/data/election/49664/1012/OfficeSummary.json"
     },
     "MT-01": {
       "status": "not_started",
@@ -201,7 +201,7 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read MT feed (0 documents tried). Showing last good data.",
+      "error": "Could not read MT feed (1 documents tried). Showing last good data.",
       "source_url": null
     }
   }

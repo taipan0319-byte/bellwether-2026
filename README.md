@@ -54,6 +54,18 @@ python3 scripts/fetch_results.py --dry-run # fetch without writing
 python3 -m http.server 8000                # open http://localhost:8000
 ```
 
+## Feed status (verified Oct 29–30, 2026 from GitHub Actions)
+
+| State | Source | Status |
+|---|---|---|
+| FL | floridaelectionwatch.gov — US Representative page | **Live.** Nov 3 general already loaded with the FL-25 candidates (zeros). |
+| VA | enr.elections.virginia.gov public JSON API (`ballot-items`) | **Live.** "Member, House of Representatives (1st District)" present; reports by locality (18). |
+| TX | results.texas-election.com static JSON (`Version.json → ElectionConstants → election/{id}/{ver}/OfficeSummary.json`) | **Parser verified on 2024 data.** Portal still points at the 2024 general; the fetcher waits until SOS switches `currentelectionInfo` to the 2026 general (expected Election Day). |
+| MI | mvic.sos.state.mi.us `GetCountyVoteRecords?electionId=` (the state's linked results page for Nov 2026) | **Parser verified on Aug 2026 primary.** Nov 3 election not listed yet; fetcher finds it by date once posted. Legacy mielections.us is unreachable from GitHub runners. |
+| MT | electionresults.mt.gov via headless Chromium (site sits behind a Cloudflare JS challenge) | **Parser verified on June 2026 primary.** Fetcher accepts only pages labeled "General Election … 2026". |
+
+Pre-election, cards show "pending"/zeros. Run a **probe** on Election Day afternoon to confirm TX/MI/MT have switched over; if any hasn't by 7 PM CT, use the manual override.
+
 ## Caveats
 
 * Returns are **unofficial** until canvassed. Texas counties post early-vote totals first, then Election Day; Montana counties must post to the state site before releasing elsewhere; Virginia continues to add provisional/same-day ballots for days.

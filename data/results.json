@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T01:15:18+00:00",
+  "generated_at": "2026-11-03T01:20:52+00:00",
   "election_date": "2026-11-03",
   "status": "pre-election",
   "feed_errors": 14,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:13:08+00:00",
+      "source_updated": "2026-11-03T01:19:18+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -39,7 +39,7 @@
     "GOV-FL": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:13:08+00:00",
+      "source_updated": "2026-11-03T01:19:18+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -117,7 +117,7 @@
     "VA-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:13:33+00:00",
+      "source_updated": "2026-11-03T01:19:41+00:00",
       "precincts_reporting": 0,
       "precincts_total": 18,
       "pct_reported": 0.0,
@@ -143,7 +143,7 @@
     "VA-02": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:13:33+00:00",
+      "source_updated": "2026-11-03T01:19:41+00:00",
       "precincts_reporting": 0,
       "precincts_total": 8,
       "pct_reported": 0.0,
@@ -169,7 +169,7 @@
     "NC-11": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:13:34+00:00",
+      "source_updated": "2026-11-03T01:19:42+00:00",
       "precincts_reporting": 0,
       "precincts_total": 290,
       "pct_reported": 0.0,
@@ -367,30 +367,30 @@
       "source_url": null
     },
     "SEN-MN": {
-      "status": "counting",
-      "source_status": "ok",
-      "source_updated": "2026-11-03T01:14:09+00:00",
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
       "precincts_reporting": null,
       "precincts_total": null,
-      "pct_reported": 100.0,
+      "pct_reported": null,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Peggy Flanagan",
           "party": "DEM",
-          "votes": 411853,
+          "votes": null,
           "incumbent": false
         },
         {
           "name": "Michele Tafoya",
           "party": "REP",
-          "votes": 211813,
+          "votes": null,
           "incumbent": false
         }
       ],
       "error": null,
-      "source_url": "https://electionresults.sos.mn.gov/Results/Index?ersElectionId=200&scenario=AllwithoutJudicial&electionDate=8%2F11%2F2026%2012%3A00%3A00%20AM"
+      "source_url": null
     },
     "SEN-KS": {
       "status": "not_started",
@@ -504,8 +504,8 @@
     },
     "SEN-IA": {
       "status": "not_started",
-      "source_status": "pending",
-      "source_updated": null,
+      "source_status": "ok",
+      "source_updated": "2026-11-03T01:20:48+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -532,7 +532,7 @@
         }
       ],
       "error": null,
-      "source_url": null
+      "source_url": "https://electionresults.iowa.gov/IA/127077/383162/json/en/summary.json"
     },
     "GOV-NY": {
       "status": "not_started",

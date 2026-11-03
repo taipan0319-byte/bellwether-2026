@@ -906,6 +906,8 @@ def _browser_capture(urls: list[str], probe: bool, tag: str, click_rx: str | Non
             def on_response(resp):
                 try:
                     ct = resp.headers.get("content-type", "")
+                    if "/api/" in resp.url.lower():
+                        FETCH_LOG.append(f"PW  api {resp.request.method} {resp.url} -> {resp.status} {ct}")
                     if "json" in ct and resp.status == 200:
                         body = resp.body()
                         if len(body) > 50:
@@ -1108,12 +1110,33 @@ def adapter_enhanced_voting(base: str, jurisdiction: str):
 
 
 def adapter_oh(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
-    docs = _browser_capture(["https://liveresults.ohiosos.gov/"], probe, "oh", click_rx="U\\.S\\. Senator|Governor and Lieutenant Governor")
+    docs = _browser_capture(["https://liveresults.ohiosos.gov/"], probe, "oh", click_rx="U\\.S\\. Congress|U\\.S\\. Senator|Statewide Offices|Governor and Lieutenant Governor")
     return docs
 
 
 def adapter_ga(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
-    docs = adapter_enhanced_voting("https://results.sos.ga.gov", "Georgia")(cfg, races, probe)
+    docs = []
+    base = "https://results.sos.ga.gov"
+    r = get(f"{base}/results/public/api/jurisdictions/Georgia", headers={"Accept": "application/json"})
+    if r and "json" in r.headers.get("content-type", ""):
+        try:
+            els = r.json().get("elections") or []
+        except Exception:
+            els = []
+        FETCH_LOG.append("GA elections: " + ", ".join(f"{e.get('publicElectionId')}@{e.get('electionDate')}" for e in els[:8]))
+        for e in els:
+            if str(e.get("electionDate", "")).startswith("2026-11-03"):
+                slug = e.get("publicElectionId")
+                u = f"{base}/results/public/api/elections/Georgia/{slug}/ballot-items"
+                rr = get(u, headers={"Accept": "application/json"})
+                if rr and "json" in rr.headers.get("content-type", ""):
+                    docs.append((u, rr.content))
+                    if probe:
+                        save_probe(f"ga_ev_{slug}_ballot_items.json", rr.content)
+                    return docs
+        log("GA: Nov 3 2026 election not listed on results.sos.ga.gov yet")
+        return docs
+    docs = adapter_enhanced_voting(base, "Georgia")(cfg, races, probe)
     if docs:
         return docs
     # discover the election slug from the API calls the directory app makes

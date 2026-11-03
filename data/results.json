@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T03:49:22+00:00",
+  "generated_at": "2026-11-03T03:53:08+00:00",
   "election_date": "2026-11-03",
   "status": "pre-election",
   "feed_errors": 12,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T03:47:29+00:00",
+      "source_updated": "2026-11-03T03:51:39+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -45,7 +45,7 @@
     "GOV-FL": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T03:47:29+00:00",
+      "source_updated": "2026-11-03T03:51:39+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -129,7 +129,7 @@
     "VA-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T03:47:53+00:00",
+      "source_updated": "2026-11-03T03:52:05+00:00",
       "precincts_reporting": 0,
       "precincts_total": 18,
       "pct_reported": 0.0,
@@ -161,7 +161,7 @@
     "VA-02": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T03:47:53+00:00",
+      "source_updated": "2026-11-03T03:52:05+00:00",
       "precincts_reporting": 0,
       "precincts_total": 8,
       "pct_reported": 0.0,
@@ -193,7 +193,7 @@
     "NC-11": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T03:47:54+00:00",
+      "source_updated": "2026-11-03T03:52:05+00:00",
       "precincts_reporting": 0,
       "precincts_total": 290,
       "pct_reported": 0.0,
@@ -457,7 +457,7 @@
     "SEN-OH": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T03:48:32+00:00",
+      "source_updated": "2026-11-03T03:52:42+00:00",
       "precincts_reporting": 0,
       "precincts_total": 8834,
       "pct_reported": 0.0,
@@ -489,7 +489,7 @@
     "GOV-OH": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T03:48:32+00:00",
+      "source_updated": "2026-11-03T03:52:42+00:00",
       "precincts_reporting": 0,
       "precincts_total": 8834,
       "pct_reported": 0.0,
@@ -547,7 +547,7 @@
     "SEN-IA": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T03:48:39+00:00",
+      "source_updated": "2026-11-03T03:52:49+00:00",
       "precincts_reporting": 2,
       "precincts_total": 99,
       "pct_reported": 2.0,
@@ -623,7 +623,7 @@
     "GOV-NY": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T03:49:22+00:00",
+      "source_updated": "2026-11-03T03:53:08+00:00",
       "precincts_reporting": 0,
       "precincts_total": 13187,
       "pct_reported": 0.0,

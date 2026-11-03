@@ -465,7 +465,7 @@ def adapter_fl(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
         save_probe("fl_home.html", r.content)
     docs.append((home, r.content))
     # Congressional index pages and per-contest pages
-    links = harvest_links(r.text, home, re.compile(r"congress|U\.?S\.? ?Rep|ContestResults|Download|Export|\.txt|\.json", re.I))
+    links = harvest_links(r.text, home, re.compile(r"congress|U\.?S\.? ?Rep|Governor|StateOffices|ContestResults|Download|Export|\.txt|\.json", re.I))
     for u in links[:40]:
         rr = get(u)
         if rr:
@@ -473,7 +473,7 @@ def adapter_fl(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
             if probe:
                 save_probe("fl_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-80:] + ".html", rr.content)
             # second hop: contest links inside the congressional index
-            for u2 in harvest_links(rr.text, u, re.compile(r"ContestResults|District\s*25", re.I))[:20]:
+            for u2 in harvest_links(rr.text, u, re.compile(r"ContestResults|District\s*25|Governor", re.I))[:20]:
                 if u2 not in [d[0] for d in docs]:
                     r2 = get(u2)
                     if r2:
@@ -818,7 +818,115 @@ def adapter_nc(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
     return docs
 
 
-ADAPTERS = {"fl": adapter_fl, "mi": adapter_mi, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc}
+
+# --------------------------------------------------------------------------- #
+# Generic statewide adapter: fetch a few known URLs, harvest result-looking links,
+# fall back to a headless browser for JS-rendered or challenge-protected sites.
+# --------------------------------------------------------------------------- #
+GENERIC_SITES = {
+    "mn": {"urls": ["https://electionresults.sos.mn.gov/", "https://electionresults.sos.mn.gov/Results/Index?scenario=USSenate",
+                    "https://electionresults.sos.mn.gov/Results/MediaResult?mediafileid=20"],
+           "links": r"Senat|MediaResult|Results/Index|\.txt|\.json"},
+    "ks": {"urls": ["https://ent.sos.ks.gov/", "https://ent.sos.ks.gov/kssos_ent.html", "https://sos.ks.gov/elections/election-results.html"],
+           "links": r"Senat|results|\.json|\.txt|\.csv"},
+    "oh": {"urls": ["https://www.ohiosos.gov/elections/election-results-and-data/", "https://electionresults.ohiosos.gov/",
+                    "https://www.ohiosos.gov/elections/election-results-and-data/2026-official-elections-results/"],
+           "links": r"Senat|Governor|2026|results|\.json|\.txt|\.csv"},
+    "ga": {"urls": ["https://results.enr.clarityelections.com/GA/", "https://results.enr.clarityelections.com/GA/current/"],
+           "links": r"GA/\d+|summary|json|Senat"},
+    "ia": {"urls": ["https://electionresults.iowa.gov/", "https://results.elections.iowa.gov/", "https://sos.iowa.gov/elections/results/"],
+           "links": r"Senat|results|\.json|\.txt|\.csv|2026"},
+    "ny": {"urls": ["https://results.elections.ny.gov/", "https://electionnightresults.elections.ny.gov/", "https://www.elections.ny.gov/2026ElectionResults.html"],
+           "links": r"Governor|results|\.json|\.csv|2026"},
+}
+
+
+def _browser_fetch(urls: list[str], probe: bool, tag: str, link_rx: re.Pattern) -> list[tuple[str, bytes]]:
+    docs = []
+    try:
+        from playwright.sync_api import sync_playwright  # type: ignore
+    except Exception as e:
+        log(f"{tag}: playwright unavailable ({e!r})")
+        return docs
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+            ctx = browser.new_context(user_agent=UA["User-Agent"], locale="en-US", viewport={"width": 1280, "height": 900})
+            page = ctx.new_page()
+            seen = set()
+            queue = list(urls)
+            hops = 0
+            while queue and hops < 8:
+                u = queue.pop(0)
+                if u in seen:
+                    continue
+                seen.add(u); hops += 1
+                try:
+                    page.goto(u, wait_until="domcontentloaded", timeout=45000)
+                    for _ in range(15):
+                        html = page.content()
+                        if "Just a moment" not in html and "Enable JavaScript" not in html:
+                            break
+                        page.wait_for_timeout(1000)
+                    page.wait_for_timeout(2500)
+                    html = page.content()
+                    FETCH_LOG.append(f"PW  {u} -> {page.url} ({len(html)} chars)")
+                    if "Just a moment" in html:
+                        continue
+                    docs.append((page.url, html.encode("utf-8")))
+                    if probe:
+                        save_probe(f"{tag}_pw_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-70:] + ".html", html)
+                    for a in BeautifulSoup(html, "lxml").find_all("a", href=True):
+                        if link_rx.search(a.get_text(" ", strip=True) + " " + a["href"]):
+                            u2 = requests.compat.urljoin(page.url, a["href"])
+                            if u2 not in seen and len(queue) < 6:
+                                queue.append(u2)
+                except Exception as e:
+                    FETCH_LOG.append(f"PW  {u} -> EXC {e!r}")
+            browser.close()
+    except Exception as e:
+        log(f"{tag}: playwright failed: {e!r}")
+    return docs
+
+
+def adapter_generic(key: str):
+    site = GENERIC_SITES[key]
+    link_rx = re.compile(site["links"], re.I)
+
+    def run(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+        docs = []
+        blocked = False
+        for u in site["urls"]:
+            r = get(u)
+            if not r:
+                blocked = True
+                continue
+            docs.append((u, r.content))
+            if probe:
+                save_probe(f"{key}_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-70:] + ".html", r.content)
+            for u2 in harvest_links(r.text, u, link_rx)[:12]:
+                if u2 in [d[0] for d in docs]:
+                    continue
+                r2 = get(u2)
+                if r2:
+                    docs.append((u2, r2.content))
+                    if probe:
+                        save_probe(f"{key}_" + re.sub(r"[^A-Za-z0-9]+", "_", u2)[-70:] + ".bin", r2.content)
+        # If plain HTTP got nothing useful (blocked, or a JS app with no data in the HTML), try the browser.
+        thin = all(len(c) < 3000 or b"<app-root" in c or b"id=\"root\"" in c for _, c in docs) if docs else True
+        if blocked or thin:
+            docs += _browser_fetch(site["urls"][:2], probe, key, link_rx)
+        return docs
+    return run
+
+
+def adapter_manual(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+    log("manual adapter: no official feed; waiting for manual_overrides.json")
+    return []
+
+
+ADAPTERS = {"fl": adapter_fl, "mi": adapter_mi, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
+            "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES}}
 
 
 # --------------------------------------------------------------------------- #

@@ -261,6 +261,304 @@
       ],
       "error": null,
       "source_url": null
+    },
+    "SEN-ME": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Susan Collins",
+          "party": "REP",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Troy Jackson",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "SEN-MI": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Mike Rogers",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Abdul El-Sayed",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "SEN-MN": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Peggy Flanagan",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Michele Tafoya",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "SEN-KS": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Roger Marshall",
+          "party": "REP",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Adam Hamilton",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "David Graham",
+          "party": "LIB",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "SEN-OH": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Jon Husted",
+          "party": "REP",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Sherrod Brown",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "SEN-GA": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Jon Ossoff",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Mike Collins",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "SEN-IA": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Ashley Hinson",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Josh Turek",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Thomas Laehn",
+          "party": "LIB",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "GOV-WI": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "David Crowley",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Tom Tiffany",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "GOV-OH": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Vivek Ramaswamy",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Amy Acton",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "GOV-NY": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Kathy Hochul",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Bruce Blakeman",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "GOV-FL": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Byron Donalds",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "David Jolly",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
     }
   }
 }

@@ -72,13 +72,17 @@
   footer{max-width:1100px;margin:0 auto;padding:0 16px 40px;color:var(--ink-3);font-size:.75rem}
   footer a{color:inherit}
   @media (max-width:560px){ .board{grid-template-columns:repeat(2,1fr)} .tile .n{font-size:1.4rem} }
+  .tabs{display:flex;gap:6px;margin:12px 0 4px;border-bottom:1px solid var(--line)}
+  .tab{background:none;border:none;border-bottom:2px solid transparent;padding:8px 12px;font:inherit;font-weight:600;color:var(--ink-3);cursor:pointer}
+  .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+  .tab .cnt{font-weight:500;color:var(--ink-3);font-size:.8em;margin-left:4px}
   .skip{position:absolute;left:-9999px}
 </style>
 </head>
 <body>
 <header>
   <h1>2026 Bellwether Watch</h1>
-  <p class="sub">Nine U.S. House races that signal where control of Congress is heading — Election Day Nov. 3, 2026</p>
+  <p class="sub">Bellwether House seats, the Senate map, and four governors’ races — Election Day Nov. 3, 2026</p>
   <div class="meta">
     <span><span id="feedDot" class="dot off"></span><span id="feedState">Loading…</span></span>
     <span id="updated"></span>
@@ -87,6 +91,11 @@
   </div>
 </header>
 <main>
+  <div class="tabs" role="tablist" id="tabs">
+    <button class="tab" role="tab" data-ch="house" aria-selected="true">House<span class="cnt" id="cnt-house"></span></button>
+    <button class="tab" role="tab" data-ch="senate" aria-selected="false">Senate<span class="cnt" id="cnt-senate"></span></button>
+    <button class="tab" role="tab" data-ch="governor" aria-selected="false">Governors<span class="cnt" id="cnt-governor"></span></button>
+  </div>
   <section class="board" aria-label="Scoreboard">
     <div class="tile rep"><div class="n" id="repCalled">–</div><div class="l">GOP wins</div></div>
     <div class="tile dem"><div class="n" id="demCalled">–</div><div class="l">Dem wins</div></div>
@@ -109,6 +118,8 @@
   const bucket = p => (p==='REP'||p==='DEM') ? p : 'OTH';
   const partyLabel = p => ({REP:'R',DEM:'D',LIB:'L',LPF:'L',IND:'I',GRN:'G'}[p]||p||'');
   let races=null, results=null, timer=REFRESH_SEC;
+  let chamber=(location.hash||'').replace('#','')||'house'; if(!['house','senate','governor'].includes(chamber)) chamber='house';
+  document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{chamber=b.dataset.ch;location.hash=chamber;render();}));
 
   function toCT(hhmmET){ // display both ET and CT
     const [h,m]=hhmmET.split(':').map(Number);
@@ -133,7 +144,9 @@
     const grid=el('#grid'); grid.innerHTML='';
     let repCalled=0,demCalled=0,repLead=0,demLead=0,flips=[],reporting=0;
     const now=Date.now();
-    const order=[...races.races].sort((a,b)=>a.polls_close_et.localeCompare(b.polls_close_et));
+    document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.ch===chamber)));
+    for(const ch of ['house','senate','governor']) el('#cnt-'+ch).textContent=races.races.filter(r=>(r.chamber||'house')===ch).length;
+    const order=[...races.races].filter(r=>(r.chamber||'house')===chamber).sort((a,b)=>a.polls_close_et.localeCompare(b.polls_close_et));
     for(const r of order){
       const res=(results.races||{})[r.id]||{};
       const cands=(res.candidates&&res.candidates.length)?res.candidates:r.candidates.map(c=>({...c,votes:null}));
@@ -144,7 +157,7 @@
       const closeAt=pollsCloseDate(r.polls_close_et);
       const called=res.called||null;
       const incumbentParty=(r.candidates.find(c=>c.incumbent)||{}).party||null;
-      const seatHeldBy = /Held by Democrat/i.test(r.seat_status)?'DEM':(/Held by Republican/i.test(r.seat_status)?'REP':(incumbentParty||(r.id==='TX-35'?'DEM':'REP')));
+      const seatHeldBy = /Held by (appointed )?Democrat/i.test(r.seat_status)?'DEM':(/Held by (appointed )?Republican/i.test(r.seat_status)?'REP':(/\((D|DFL)\) (retiring|term-limited)/i.test(r.seat_status)?'DEM':(/\(R\) (retiring|term-limited|withdrew)/i.test(r.seat_status)?'REP':(incumbentParty||(r.id==='TX-35'?'DEM':'REP')))));
       let status, badgeCls='';
       if(called){ status=(called==='REP'?'GOP win':'Dem win'); badgeCls='called-'+called; if(called==='REP')repCalled++; else demCalled++; if(called!==seatHeldBy) flips.push(r.label+' → '+(called==='REP'?'R':'D')); }
       else if(total>0){ status='Counting'; badgeCls='counting'; reporting++; if(leader){ if(bucket(leader.party)==='REP')repLead++; else if(bucket(leader.party)==='DEM')demLead++; } }
@@ -176,25 +189,36 @@
           <p><b>Seat:</b> ${r.seat_status}<br><b>Baseline:</b> ${r.baseline}<br>${r.watch_for}</p>
           <p><a href="${(races.sources[r.source.adapter]||{}).home||'#'}" target="_blank" rel="noopener">Source: ${(races.sources[r.source.adapter]||{}).name||r.state}</a></p>
         </details>
-        <div class="foot"><span>${res.source_status==='manual'?'Manual entry':'Feed: '+(res.source_status||'pending')}</span><span>${res.source_updated?'Updated '+ago(res.source_updated):''}</span></div>
+        <div class="foot"><span>${res.source_status==='manual'?'Manual entry':(r.source.adapter==='manual'?'No state feed — manual entry':'Feed: '+(res.source_status||'pending'))}</span><span>${res.source_updated?'Updated '+ago(res.source_updated):''}</span></div>
         ${res.error?`<div class="err">${res.error}</div>`:''}`;
       grid.appendChild(card);
     }
     el('#repCalled').textContent=repCalled; el('#demCalled').textContent=demCalled;
     el('#repLeading').textContent=repLead; el('#demLeading').textContent=demLead;
-    // bellwether reading
+    // reading, per chamber
     const totalRaces=order.length;
     let text;
-    if(repCalled+demCalled===0 && reporting===0){
-      text='<b>Waiting for returns.</b> Virginia and Florida close first (7 PM ET / 6 PM CT), North Carolina at 7:30 ET, then Michigan and Texas (8 PM ET), Montana last (10 PM ET).';
+    const called=repCalled+demCalled, gopHolding=repCalled+repLead, demTaking=demCalled+demLead;
+    if(called===0 && reporting===0){
+      text=chamber==='house'?'<b>Waiting for returns.</b> Virginia and Florida close first (7 PM ET / 6 PM CT), North Carolina at 7:30 ET, then Michigan and Texas (8 PM ET), Montana last (10 PM ET).'
+          :chamber==='senate'?'<b>Waiting for returns.</b> Georgia closes first (7 PM ET), Ohio 7:30, Maine/Michigan/Kansas 8 PM, Minnesota and Iowa 9 PM ET. Maine is ranked-choice: first-round only on election night.'
+          :'<b>Waiting for returns.</b> Ohio closes 7:30 PM ET, Florida 8 PM (panhandle 9), New York and Wisconsin 9 PM ET.';
     } else {
-      const gopHolding = repCalled+repLead, demTaking = demCalled+demLead;
-      const parts=[];
-      parts.push(`<b>${repCalled+demCalled} of ${totalRaces} called</b>, ${reporting} still counting.`);
+      const parts=[`<b>${called} of ${totalRaces} called</b>, ${reporting} still counting.`];
       if(flips.length) parts.push(`Flips: ${flips.join(', ')}.`);
-      if(demTaking>=5) parts.push('Democrats are winning or leading in a majority of these bellwethers — consistent with a Democratic House.');
-      else if(gopHolding>=8) parts.push('Republicans are holding nearly the whole board — consistent with the GOP keeping the House.');
-      else parts.push('Mixed board so far — margins matter more than wins; watch VA-02, TX-15, FL-25 and MI-04.');
+      if(chamber==='house'){
+        if(demTaking>=5) parts.push('Democrats are winning or leading in a majority of these bellwethers — consistent with a Democratic House.');
+        else if(gopHolding>=8) parts.push('Republicans are holding nearly the whole board — consistent with the GOP keeping the House.');
+        else parts.push('Mixed board so far — margins matter more than wins; watch VA-02, NC-11, TX-15, FL-25 and MI-04.');
+      } else if(chamber==='senate'){
+        const demNeeds='Democrats need a net gain of 4 seats for a majority; on this board that means holding MI, MN, GA and flipping at least two of ME, OH, IA, KS.';
+        const dFlips=flips.filter(f=>/→ D$/.test(f)).length, rFlips=flips.filter(f=>/→ R$/.test(f)).length;
+        if(dFlips>=2 && rFlips===0) parts.push('Democrats have flipped two or more GOP seats here with no losses — a Senate majority is live. '+demNeeds);
+        else if(rFlips>=1) parts.push('Republicans have taken a Democratic seat — the Senate stays Republican barring surprises elsewhere.');
+        else parts.push(demNeeds);
+      } else {
+        parts.push('Governors are the margin story: Ohio and Florida under R+5, or Wisconsin/New York comfortably blue, point to a Democratic environment.');
+      }
       text=parts.join(' ');
     }
     el('#reading').innerHTML=text;

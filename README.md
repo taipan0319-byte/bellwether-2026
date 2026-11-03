@@ -1,6 +1,6 @@
 # 2026 Bellwether Watch
 
-Election-night dashboard for nine U.S. House races tracked as bellwethers for control of Congress:
+Election-night dashboard: nine bellwether U.S. House races, seven Senate races, and four governors’ races. Tabs on the dashboard switch between them.
 
 | Race | Matchup | Polls close (CT) | Source |
 |---|---|---|---|

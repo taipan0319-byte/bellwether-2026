@@ -34,7 +34,8 @@
       "source": {
         "adapter": "fl",
         "contest_pattern": "Representative in Congress,?\\s*District\\s*25\\b"
-      }
+      },
+      "chamber": "house"
     },
     {
       "id": "MI-04",
@@ -62,7 +63,8 @@
       "source": {
         "adapter": "mi",
         "contest_pattern": "(4th|04|\\b4\\b).*(Representative in Congress|U\\.?S\\.? (House|Rep))|(Representative in Congress|U\\.?S\\.? (House|Rep)).*(4th|\\b04\\b|District\\s*4\\b)"
-      }
+      },
+      "chamber": "house"
     },
     {
       "id": "VA-01",
@@ -91,7 +93,8 @@
         "adapter": "va",
         "contest_pattern": "House of Representatives\\s*\\(1st District\\)",
         "units_label": "localities"
-      }
+      },
+      "chamber": "house"
     },
     {
       "id": "VA-02",
@@ -120,7 +123,8 @@
         "adapter": "va",
         "contest_pattern": "House of Representatives\\s*\\(2nd District\\)",
         "units_label": "localities"
-      }
+      },
+      "chamber": "house"
     },
     {
       "id": "NC-11",
@@ -153,7 +157,8 @@
       "source": {
         "adapter": "nc",
         "contest_pattern": "US HOUSE OF REPRESENTATIVES\\s*DISTRICT\\s*11\\b"
-      }
+      },
+      "chamber": "house"
     },
     {
       "id": "TX-35",
@@ -181,7 +186,8 @@
       "source": {
         "adapter": "tx",
         "contest_pattern": "U\\.?\\s*S\\.?\\s*Representative\\s*District\\s*35\\b"
-      }
+      },
+      "chamber": "house"
     },
     {
       "id": "TX-01",
@@ -214,7 +220,8 @@
       "source": {
         "adapter": "tx",
         "contest_pattern": "U\\.?\\s*S\\.?\\s*Representative\\s*District\\s*1\\b"
-      }
+      },
+      "chamber": "house"
     },
     {
       "id": "TX-15",
@@ -242,7 +249,8 @@
       "source": {
         "adapter": "tx",
         "contest_pattern": "U\\.?\\s*S\\.?\\s*Representative\\s*District\\s*15\\b"
-      }
+      },
+      "chamber": "house"
     },
     {
       "id": "MT-01",
@@ -275,6 +283,325 @@
       "source": {
         "adapter": "mt",
         "contest_pattern": "(UNITED STATES|U\\.?S\\.?)\\s*REPRESENTATIVE.*(1ST CONGRESSIONAL|DISTRICT\\s*1\\b|WESTERN)"
+      },
+      "chamber": "house"
+    },
+    {
+      "id": "SEN-ME",
+      "chamber": "senate",
+      "state": "ME",
+      "label": "Maine \u2014 U.S. Senate",
+      "region": "Statewide (ranked-choice; first-round totals on election night)",
+      "polls_close_et": "20:00",
+      "seat_status": "Held by Republican Susan Collins (since 1997) \u2014 the only GOP senator up in a Harris state",
+      "rating": "Toss-up",
+      "baseline": "Collins 51\u201342 (2020) while Biden carried Maine by 9; Harris +7 (2024)",
+      "watch_for": "The single most important Senate seat for control. If Collins falls, Democrats' path to a majority is open. RCV: if no one clears 50%, the final tally comes days later.",
+      "candidates": [
+        {
+          "name": "Susan Collins",
+          "party": "REP",
+          "incumbent": true
+        },
+        {
+          "name": "Troy Jackson",
+          "party": "DEM",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "manual",
+        "contest_pattern": "United States Senator|U\\.?S\\.? Senat"
+      }
+    },
+    {
+      "id": "SEN-MI",
+      "chamber": "senate",
+      "state": "MI",
+      "label": "Michigan \u2014 U.S. Senate",
+      "region": "Statewide (open seat)",
+      "polls_close_et": "20:00",
+      "seat_status": "Open \u2014 Sen. Gary Peters (D) retiring",
+      "rating": "Toss-up",
+      "baseline": "Trump +1.4 (2024); Slotkin (D) beat Rogers by 0.3 in 2024",
+      "watch_for": "Rogers' second try; a Democratic hold is required for any Senate path.",
+      "candidates": [
+        {
+          "name": "Mike Rogers",
+          "party": "REP",
+          "incumbent": false
+        },
+        {
+          "name": "Abdul El-Sayed",
+          "party": "DEM",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "mi",
+        "contest_pattern": "UNITED STATES SENATOR"
+      }
+    },
+    {
+      "id": "SEN-MN",
+      "chamber": "senate",
+      "state": "MN",
+      "label": "Minnesota \u2014 U.S. Senate",
+      "region": "Statewide (open seat)",
+      "polls_close_et": "21:00",
+      "seat_status": "Open \u2014 Sen. Tina Smith (D) retiring",
+      "rating": "Likely D (polls ~Flanagan +4)",
+      "baseline": "Harris +4 (2024); no Republican statewide win since 2006",
+      "watch_for": "A Republican upset here would signal a red night; margin tells you about the Upper Midwest.",
+      "candidates": [
+        {
+          "name": "Peggy Flanagan",
+          "party": "DEM",
+          "incumbent": false
+        },
+        {
+          "name": "Michele Tafoya",
+          "party": "REP",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "mn",
+        "contest_pattern": "U\\.?S\\.? Senat"
+      }
+    },
+    {
+      "id": "SEN-KS",
+      "chamber": "senate",
+      "state": "KS",
+      "label": "Kansas \u2014 U.S. Senate",
+      "region": "Statewide",
+      "polls_close_et": "20:00",
+      "seat_status": "Held by Republican Roger Marshall (since 2021)",
+      "rating": "Lean R / Toss-up (Cook, Oct. 2026)",
+      "baseline": "Marshall 53\u201342 (2020); Trump +16 (2024); no Democrat since 1932",
+      "watch_for": "Pastor Adam Hamilton has made a 90-year GOP lock competitive \u2014 the surprise of the cycle. Anything under R+5 is a wave marker.",
+      "candidates": [
+        {
+          "name": "Roger Marshall",
+          "party": "REP",
+          "incumbent": true
+        },
+        {
+          "name": "Adam Hamilton",
+          "party": "DEM",
+          "incumbent": false
+        },
+        {
+          "name": "David Graham",
+          "party": "LIB",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "ks",
+        "contest_pattern": "United States Senat"
+      }
+    },
+    {
+      "id": "SEN-OH",
+      "chamber": "senate",
+      "state": "OH",
+      "label": "Ohio \u2014 U.S. Senate (special)",
+      "region": "Statewide (remainder of JD Vance's term)",
+      "polls_close_et": "19:30",
+      "seat_status": "Held by appointed Republican Jon Husted",
+      "rating": "Lean R / Toss-up \u2014 polls within the margin",
+      "baseline": "Trump +11 (2024); Brown lost to Moreno by 3.6 in 2024",
+      "watch_for": "Sherrod Brown's comeback. Early-reporting state: a Brown lead at 9 PM CT is a big tell.",
+      "candidates": [
+        {
+          "name": "Jon Husted",
+          "party": "REP",
+          "incumbent": true
+        },
+        {
+          "name": "Sherrod Brown",
+          "party": "DEM",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "oh",
+        "contest_pattern": "U\\.?S\\.? Senat.*(unexpired|special)|Senat.*Unexpired|United States Senator.*(01/03/2029|2029)"
+      }
+    },
+    {
+      "id": "SEN-GA",
+      "chamber": "senate",
+      "state": "GA",
+      "label": "Georgia \u2014 U.S. Senate",
+      "region": "Statewide (runoff Dec. 1 if no majority)",
+      "polls_close_et": "19:00",
+      "seat_status": "Held by Democrat Jon Ossoff (since 2021)",
+      "rating": "Lean D (polls Ossoff +5 to +13)",
+      "baseline": "Trump +2 (2024); Ossoff won 2021 runoff by 1.2",
+      "watch_for": "The Democrats' most exposed incumbent; a comfortable Ossoff win means the GOP map isn't expanding.",
+      "candidates": [
+        {
+          "name": "Jon Ossoff",
+          "party": "DEM",
+          "incumbent": true
+        },
+        {
+          "name": "Mike Collins",
+          "party": "REP",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "ga",
+        "contest_pattern": "U\\.?S\\.? Senat"
+      }
+    },
+    {
+      "id": "SEN-IA",
+      "chamber": "senate",
+      "state": "IA",
+      "label": "Iowa \u2014 U.S. Senate",
+      "region": "Statewide (open seat)",
+      "polls_close_et": "21:00",
+      "seat_status": "Open \u2014 Sen. Joni Ernst (R) retiring",
+      "rating": "Lean R / Toss-up (polls tied)",
+      "baseline": "Trump +13 (2024); Ernst 52\u201345 (2020)",
+      "watch_for": "Turek vs. Hinson is the GOP's canary: losing Iowa means the Senate is in play.",
+      "candidates": [
+        {
+          "name": "Ashley Hinson",
+          "party": "REP",
+          "incumbent": false
+        },
+        {
+          "name": "Josh Turek",
+          "party": "DEM",
+          "incumbent": false
+        },
+        {
+          "name": "Thomas Laehn",
+          "party": "LIB",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "ia",
+        "contest_pattern": "U\\.?S\\.? Senat|United States Senat"
+      }
+    },
+    {
+      "id": "GOV-WI",
+      "chamber": "governor",
+      "state": "WI",
+      "label": "Wisconsin \u2014 Governor",
+      "region": "Statewide (open seat)",
+      "polls_close_et": "21:00",
+      "seat_status": "Open \u2014 Gov. Tony Evers (D) retiring",
+      "rating": "Lean D (polls Crowley +5)",
+      "baseline": "Trump +0.9 (2024); Evers 51\u201348 (2022)",
+      "watch_for": "Pure 50/50 state; Milwaukee County Exec Crowley vs. Rep. Tiffany. No official state results feed \u2014 manual entry.",
+      "candidates": [
+        {
+          "name": "David Crowley",
+          "party": "DEM",
+          "incumbent": false
+        },
+        {
+          "name": "Tom Tiffany",
+          "party": "REP",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "manual",
+        "contest_pattern": "Governor"
+      }
+    },
+    {
+      "id": "GOV-OH",
+      "chamber": "governor",
+      "state": "OH",
+      "label": "Ohio \u2014 Governor",
+      "region": "Statewide (open seat)",
+      "polls_close_et": "19:30",
+      "seat_status": "Open \u2014 Gov. Mike DeWine (R) term-limited",
+      "rating": "Lean R (polls within 3)",
+      "baseline": "Trump +11 (2024); DeWine +25 (2022)",
+      "watch_for": "Ramaswamy's negatives vs. Acton's COVID-era profile; pairs with the Senate special as Ohio's double tell.",
+      "candidates": [
+        {
+          "name": "Vivek Ramaswamy",
+          "party": "REP",
+          "incumbent": false
+        },
+        {
+          "name": "Amy Acton",
+          "party": "DEM",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "oh",
+        "contest_pattern": "Governor"
+      }
+    },
+    {
+      "id": "GOV-NY",
+      "chamber": "governor",
+      "state": "NY",
+      "label": "New York \u2014 Governor",
+      "region": "Statewide",
+      "polls_close_et": "21:00",
+      "seat_status": "Held by Democrat Kathy Hochul (since 2021)",
+      "rating": "Solid/Likely D (polls Hochul +11 to +14)",
+      "baseline": "Hochul 53\u201347 over Zeldin (2022); Harris +13 (2024)",
+      "watch_for": "Margin check: Hochul under +8 would echo 2022's GOP suburban surge and hurt downballot House Democrats.",
+      "candidates": [
+        {
+          "name": "Kathy Hochul",
+          "party": "DEM",
+          "incumbent": true
+        },
+        {
+          "name": "Bruce Blakeman",
+          "party": "REP",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "ny",
+        "contest_pattern": "Governor"
+      }
+    },
+    {
+      "id": "GOV-FL",
+      "chamber": "governor",
+      "state": "FL",
+      "label": "Florida \u2014 Governor",
+      "region": "Statewide (open seat)",
+      "polls_close_et": "20:00",
+      "seat_status": "Open \u2014 Gov. Ron DeSantis (R) term-limited",
+      "rating": "Lean/Likely R (polls Donalds +2 to +10)",
+      "baseline": "DeSantis +19 (2022); Trump +13 (2024)",
+      "watch_for": "Jolly (ex-GOP congressman) within single digits of Donalds in a R+13 state is itself the story.",
+      "candidates": [
+        {
+          "name": "Byron Donalds",
+          "party": "REP",
+          "incumbent": false
+        },
+        {
+          "name": "David Jolly",
+          "party": "DEM",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "fl",
+        "contest_pattern": "Governor(\\s+and\\s+Lieutenant\\s+Governor)?"
       }
     }
   ],
@@ -308,6 +635,41 @@
       "name": "North Carolina State Board of Elections \u2014 Election Night Results",
       "home": "https://er.ncsbe.gov/?election_dt=11/03/2026",
       "notes": "Precinct-level TSV snapshot re-uploaded every ~5 minutes: s3.amazonaws.com/dl.ncsbe.gov/ENRS/2026_11_03/results_pct_20261103.zip. Polls close 7:30 PM ET."
+    },
+    "manual": {
+      "name": "Manual entry (no official statewide live feed)",
+      "home": "",
+      "notes": "Maine and Wisconsin do not run a statewide election-night results site; enter AP numbers via manual_overrides.json."
+    },
+    "mn": {
+      "name": "Minnesota Secretary of State \u2014 Election Results",
+      "home": "https://electionresults.sos.mn.gov/",
+      "notes": "Public results site with media text files."
+    },
+    "ks": {
+      "name": "Kansas Secretary of State \u2014 Election Night Reporting",
+      "home": "https://ent.sos.ks.gov/",
+      "notes": "Election-night reporting site."
+    },
+    "oh": {
+      "name": "Ohio Secretary of State \u2014 Election Night Results",
+      "home": "https://www.ohiosos.gov/elections/election-results-and-data/",
+      "notes": "Election-night results portal."
+    },
+    "ga": {
+      "name": "Georgia Secretary of State \u2014 Election Night Results (Clarity)",
+      "home": "https://results.enr.clarityelections.com/GA/",
+      "notes": "Clarity ENR; JSON summary per election id."
+    },
+    "ia": {
+      "name": "Iowa Secretary of State \u2014 Election Results",
+      "home": "https://electionresults.iowa.gov/",
+      "notes": "Election-night results site."
+    },
+    "ny": {
+      "name": "New York State Board of Elections \u2014 Election Night Results",
+      "home": "https://results.elections.ny.gov/",
+      "notes": "ENR site introduced 2022."
     }
   }
 }

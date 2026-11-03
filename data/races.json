@@ -456,7 +456,7 @@
       ],
       "source": {
         "adapter": "ga",
-        "contest_pattern": "U\\.?S\\.? Senat"
+        "contest_pattern": "U\\.?S\\.? Senat|United States Senat"
       }
     },
     {
@@ -657,14 +657,14 @@
       "notes": "Election-night results portal."
     },
     "ga": {
-      "name": "Georgia Secretary of State \u2014 Election Night Results (Clarity)",
-      "home": "https://results.enr.clarityelections.com/GA/",
-      "notes": "Clarity ENR; JSON summary per election id."
+      "name": "Georgia Secretary of State \u2014 Election Night Results",
+      "home": "https://results.sos.ga.gov/",
+      "notes": "Enhanced Voting platform (same as Virginia)."
     },
     "ia": {
-      "name": "Iowa Secretary of State \u2014 Election Results",
-      "home": "https://electionresults.iowa.gov/",
-      "notes": "Election-night results site."
+      "name": "Iowa Secretary of State \u2014 Election Night Results (Clarity)",
+      "home": "https://electionresults.iowa.gov/IA/127077/",
+      "notes": "Clarity ENR; summary.json via current_ver.txt."
     },
     "ny": {
       "name": "New York State Board of Elections \u2014 Election Night Results",

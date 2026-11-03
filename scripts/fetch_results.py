@@ -339,8 +339,10 @@ def extract(content: bytes, race: dict, source_url: str) -> RaceResult | None:
     if stripped.startswith("{") or stripped.startswith("["):
         try:
             doc = json.loads(text)
-            if race["source"]["adapter"] == "va":
+            if race["source"]["adapter"] in ("va", "ga"):
                 res = parse_va_ballot_items(doc, race, rx)
+            elif race["source"]["adapter"] == "ia":
+                res = parse_clarity_summary(doc, race, rx)
             elif race["source"]["adapter"] in ("tx", "nc"):
                 res = parse_tx_office_summary(doc, race, rx)
             if res is None:
@@ -824,21 +826,21 @@ def adapter_nc(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 # fall back to a headless browser for JS-rendered or challenge-protected sites.
 # --------------------------------------------------------------------------- #
 GENERIC_SITES = {
-    "mn": {"urls": ["https://electionresults.sos.mn.gov/", "https://electionresults.sos.mn.gov/Results/Index?scenario=USSenate",
-                    "https://electionresults.sos.mn.gov/Results/MediaResult?mediafileid=20"],
-           "links": r"Senat|MediaResult|Results/Index|\.txt|\.json"},
-    "ks": {"urls": ["https://ent.sos.ks.gov/", "https://ent.sos.ks.gov/kssos_ent.html", "https://sos.ks.gov/elections/election-results.html"],
-           "links": r"Senat|results|\.json|\.txt|\.csv"},
-    "oh": {"urls": ["https://www.ohiosos.gov/elections/election-results-and-data/", "https://electionresults.ohiosos.gov/",
-                    "https://www.ohiosos.gov/elections/election-results-and-data/2026-official-elections-results/"],
-           "links": r"Senat|Governor|2026|results|\.json|\.txt|\.csv"},
-    "ga": {"urls": ["https://results.enr.clarityelections.com/GA/", "https://results.enr.clarityelections.com/GA/current/"],
-           "links": r"GA/\d+|summary|json|Senat"},
-    "ia": {"urls": ["https://electionresults.iowa.gov/", "https://results.elections.iowa.gov/", "https://sos.iowa.gov/elections/results/"],
-           "links": r"Senat|results|\.json|\.txt|\.csv|2026"},
-    "ny": {"urls": ["https://results.elections.ny.gov/", "https://electionnightresults.elections.ny.gov/", "https://www.elections.ny.gov/2026ElectionResults.html"],
-           "links": r"Governor|results|\.json|\.csv|2026"},
+    "mn": {"urls": ["https://electionresults.sos.mn.gov/"],
+           "links": r"U\.S\. Senate|scenario=USSenate|ersElectionId=\d+$", "require": r"General Election|11/0?3/2026"},
+    "ks": {"urls": ["https://ent.sos.ks.gov/", "https://ent.sos.ks.gov/kssos_ent.html"],
+           "links": r"Senat|General|2026|\.json", "require": r"General|2026", "browser_first": True},
+    "oh": {"urls": ["https://www.ohiosos.gov/elections/election-results-and-data/2026-official-elections-results/",
+                    "https://www.ohiosos.gov/elections/election-results-and-data/"],
+           "links": r"Senat|Governor|2026.*(General|Results)|Election Night|results", "require": r"2026", "browser_first": True},
+    "ny": {"urls": ["https://results.elections.ny.gov/"],
+           "links": r"Governor|Nov.*2026|General Election|2026", "require": r"Nov(ember)?\.? 0?3, 2026|General Election", "browser_first": True},
 }
+
+
+def is_challenge(html: str) -> bool:
+    h = html[:4000].lower()
+    return ("<title>just a moment" in h) or ("just a moment..." in h and len(html) < 20000) or (len(html) < 6000 and "enable javascript and cookies" in h)
 
 
 def _browser_fetch(urls: list[str], probe: bool, tag: str, link_rx: re.Pattern) -> list[tuple[str, bytes]]:
@@ -865,13 +867,13 @@ def _browser_fetch(urls: list[str], probe: bool, tag: str, link_rx: re.Pattern) 
                     page.goto(u, wait_until="domcontentloaded", timeout=45000)
                     for _ in range(15):
                         html = page.content()
-                        if "Just a moment" not in html and "Enable JavaScript" not in html:
+                        if not is_challenge(html):
                             break
                         page.wait_for_timeout(1000)
                     page.wait_for_timeout(2500)
                     html = page.content()
-                    FETCH_LOG.append(f"PW  {u} -> {page.url} ({len(html)} chars)")
-                    if "Just a moment" in html:
+                    FETCH_LOG.append(f"PW  {u} -> {page.url} ({len(html)} chars) challenge={is_challenge(html)}")
+                    if is_challenge(html):
                         continue
                     docs.append((page.url, html.encode("utf-8")))
                     if probe:
@@ -896,6 +898,10 @@ def adapter_generic(key: str):
     def run(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
         docs = []
         blocked = False
+        req = re.compile(site.get("require", "."), re.I | re.S)
+        if site.get("browser_first"):
+            docs = _browser_fetch(site["urls"], probe, key, link_rx)
+            return [(u, c) for u, c in docs if req.search(c.decode("utf-8", "replace"))] or [(u + "#probe-only", c) for u, c in docs]
         for u in site["urls"]:
             r = get(u)
             if not r:
@@ -916,7 +922,10 @@ def adapter_generic(key: str):
         thin = all(len(c) < 3000 or b"<app-root" in c or b"id=\"root\"" in c for _, c in docs) if docs else True
         if blocked or thin:
             docs += _browser_fetch(site["urls"][:2], probe, key, link_rx)
-        return docs
+        good = [(u, c) for u, c in docs if req.search(c.decode("utf-8", "replace"))]
+        if not good:
+            log(f"{key}: no document matched the 2026-general check; nothing used for results")
+        return good or [(u + "#probe-only", c) for u, c in docs]
     return run
 
 
@@ -925,8 +934,129 @@ def adapter_manual(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str,
     return []
 
 
+
+# --------------------------------------------------------------------------- #
+# Clarity (SOE Software) sites — Iowa. Standard layout: /{ST}/{id}/current_ver.txt
+# then /{ST}/{id}/{ver}/json/en/summary.json. Bot check requires a real browser.
+# --------------------------------------------------------------------------- #
+def adapter_clarity(base: str, state_code: str, label_rx: str):
+    def run(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+        docs = []
+        try:
+            from playwright.sync_api import sync_playwright  # type: ignore
+        except Exception as e:
+            log(f"clarity {state_code}: playwright unavailable {e!r}")
+            return docs
+        try:
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+                ctx = browser.new_context(user_agent=UA["User-Agent"], locale="en-US")
+                page = ctx.new_page()
+                page.goto(f"{base}/{state_code}/", wait_until="domcontentloaded", timeout=45000)
+                page.wait_for_timeout(3000)
+                html = page.content()
+                FETCH_LOG.append(f"PW  clarity landing {page.url} ({len(html)} chars)")
+                if probe:
+                    save_probe(f"{state_code.lower()}_clarity_landing.html", html)
+                eid = None
+                for a in BeautifulSoup(html, "lxml").find_all("a", href=True):
+                    if re.search(label_rx, a.get_text(" ", strip=True), re.I):
+                        m = re.search(rf"/{state_code}/(\d+)", a["href"])
+                        if m:
+                            eid = m.group(1); break
+                if not eid:
+                    log(f"clarity {state_code}: 2026 general not listed yet")
+                    browser.close(); return docs
+                def text_of(url):
+                    page.goto(url, wait_until="domcontentloaded", timeout=45000)
+                    page.wait_for_timeout(1500)
+                    t = page.evaluate("() => document.body ? document.body.innerText : ''")
+                    FETCH_LOG.append(f"PW  {url} -> {len(t)} chars")
+                    return t
+                ver = text_of(f"{base}/{state_code}/{eid}/current_ver.txt").strip()
+                if not re.fullmatch(r"\d+", ver):
+                    log(f"clarity {state_code}: bad version {ver[:40]!r}")
+                    browser.close(); return docs
+                summ = text_of(f"{base}/{state_code}/{eid}/{ver}/json/en/summary.json")
+                if summ.lstrip().startswith("["):
+                    docs.append((f"{base}/{state_code}/{eid}/{ver}/json/en/summary.json", summ.encode()))
+                    if probe:
+                        save_probe(f"{state_code.lower()}_clarity_summary.json", summ)
+                browser.close()
+        except Exception as e:
+            log(f"clarity {state_code}: failed {e!r}")
+        return docs
+    return run
+
+
+def parse_clarity_summary(doc: Any, race: dict, contest_rx: re.Pattern) -> RaceResult | None:
+    """Clarity summary.json: [{"K": contest, "C": [names], "V": [votes], "P": precincts reporting %, ...}]"""
+    if not isinstance(doc, list):
+        return None
+    for item in doc:
+        if not isinstance(item, dict) or not contest_rx.search(str(item.get("K", ""))):
+            continue
+        names, votes = item.get("C") or [], item.get("V") or []
+        res = RaceResult()
+        out = []
+        for c in race["candidates"]:
+            v = None
+            for n, vv in zip(names, votes):
+                if text_matches_candidate(str(n), c):
+                    v = to_int(str(vv)); break
+            out.append(asdict(CandResult(c["name"], c["party"], v, c.get("incumbent", False))))
+        res.candidates = out
+        pr = item.get("P")
+        if isinstance(pr, (int, float)):
+            res.pct_reported = float(pr) if pr > 1 else float(pr) * 100
+        return res
+    return None
+
+
+# --------------------------------------------------------------------------- #
+# Enhanced Voting sites (Georgia uses the same platform as Virginia)
+# --------------------------------------------------------------------------- #
+def adapter_enhanced_voting(base: str, jurisdiction: str):
+    def run(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+        docs = []
+        jh = {"Accept": "application/json"}
+        slugs = []
+        for u in (f"{base}/results/public/api/elections/{jurisdiction}", f"{base}/results/public/api/jurisdictions/{jurisdiction}/elections",
+                  f"{base}/results/public/api/elections?jurisdiction={jurisdiction}"):
+            r = get(u, headers=jh)
+            if r and "json" in r.headers.get("content-type", ""):
+                if probe:
+                    save_probe(f"{jurisdiction.lower()}_ev_elections.json", r.content)
+                for _, node in walk_json(r.json()):
+                    if isinstance(node, dict):
+                        slug = node.get("publishPublicElectionId") or node.get("electionPublicId") or node.get("slug") or node.get("id")
+                        txt = json.dumps(node)
+                        if isinstance(slug, str) and re.search(r"2026", txt) and re.search(r"Nov|General", txt, re.I) and slug not in slugs:
+                            slugs.append(slug)
+                break
+        for guess in ("2026-November-General", "2026NovGen", "2026-General", "2026-Nov-General", "2026GeneralElection"):
+            if guess not in slugs:
+                slugs.append(guess)
+        for slug in slugs[:6]:
+            u = f"{base}/results/public/api/elections/{jurisdiction}/{slug}/ballot-items"
+            r = get(u, headers=jh)
+            if r and "json" in r.headers.get("content-type", ""):
+                docs.append((u, r.content))
+                if probe:
+                    save_probe(f"{jurisdiction.lower()}_ev_{slug}_ballot_items.json", r.content)
+                break
+        if probe and not docs:
+            r = get(f"{base}/results/public/{jurisdiction}")
+            if r:
+                save_probe(f"{jurisdiction.lower()}_ev_directory.html", r.content)
+        return docs
+    return run
+
+
 ADAPTERS = {"fl": adapter_fl, "mi": adapter_mi, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
-            "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES}}
+            "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES},
+            "ia": adapter_clarity("https://electionresults.iowa.gov", "IA", r"2026 General Election"),
+            "ga": adapter_enhanced_voting("https://results.sos.ga.gov", "Georgia")}
 
 
 # --------------------------------------------------------------------------- #

@@ -66,6 +66,17 @@ python3 -m http.server 8000                # open http://localhost:8000
 | MI | mvic.sos.state.mi.us `GetCountyVoteRecords?electionId=` (the state's linked results page for Nov 2026) | **Parser verified on Aug 2026 primary.** Nov 3 election not listed yet; fetcher finds it by date once posted. Legacy mielections.us is unreachable from GitHub runners. |
 | MT | electionresults.mt.gov via headless Chromium (site sits behind a Cloudflare JS challenge) | **Parser verified on June 2026 primary.** Fetcher accepts only pages labeled "General Election … 2026". |
 
+| **Statewide (Senate / Governor)** | | |
+| OH | liveresults.ohiosos.gov JSON API (via headless browser) | **Live.** Senate special + Governor contests present with Nov 2026 candidates. |
+| IA | electionresults.iowa.gov (Clarity) `summary.json` | **Live.** 2026 General (id 127077) listed; Senate contest present. |
+| GA | results.sos.ga.gov (Enhanced Voting) | Parser proven on Virginia's identical platform; Nov 3 election not listed yet — discovered by date automatically. |
+| MN | electionresults.sos.mn.gov | Plain HTML; general not posted yet (site still on Aug primary). Fetcher only accepts pages marked General/11-3-2026. |
+| MI (Senate) | same MVIC feed as MI-04 | Same status as MI-04. |
+| FL (Governor) | same Florida Election Watch feed | **Live** (zeros). |
+| KS | ent.sos.ks.gov | Site currently returns a Cloudflare error (not live yet). Browser fallback in place; **manual override likely**. |
+| NY | results.elections.ny.gov | Historical database that posts "Latest Results"; untested for election night — **manual override likely**. |
+| ME, WI | no official statewide election-night site | **Manual override** from AP/network numbers. Maine is ranked-choice: first-round only on election night. |
+
 Pre-election, cards show "pending"/zeros. Run a **probe** on Election Day afternoon to confirm TX/MI/MT have switched over; if any hasn't by 7 PM CT, use the manual override.
 
 ## Caveats

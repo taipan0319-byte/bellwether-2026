@@ -428,7 +428,7 @@
       ],
       "source": {
         "adapter": "oh",
-        "contest_pattern": "U\\.?S\\.? Senat.*(unexpired|special)|Senat.*Unexpired|United States Senator.*(01/03/2029|2029)"
+        "contest_pattern": "\"contestName\":\\s*\"U\\.S\\. Senator\"|U\\.?S\\.? Senator"
       }
     },
     {
@@ -545,7 +545,7 @@
       ],
       "source": {
         "adapter": "oh",
-        "contest_pattern": "Governor"
+        "contest_pattern": "Governor and Lieutenant Governor"
       }
     },
     {

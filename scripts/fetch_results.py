@@ -351,6 +351,15 @@ def extract(content: bytes, race: dict, source_url: str) -> RaceResult | None:
             res = None
     if res is None and "<" in stripped[:200]:
         res = extract_from_html(text, race, rx)
+    if res is not None and race["source"]["adapter"] == "oh" and (not res.precincts_total):
+        try:
+            stats = {x.get("name"): x.get("value") for x in json.loads(text).get("contestStatistics", {}).get("allStatistics", [])}
+            rep = to_int(str(stats.get("Election Day Precincts Reporting", "")).split(" ")[0]) 
+            tot = to_int(str(stats.get("Total Number of Election Day Precincts", "")))
+            if tot:
+                res.precincts_reporting, res.precincts_total, res.pct_reported = rep, tot, round((rep or 0) / tot * 100, 1)
+        except Exception:
+            pass
     if res is not None:
         res.source_url = source_url
     return res
@@ -1110,7 +1119,40 @@ def adapter_enhanced_voting(base: str, jurisdiction: str):
 
 
 def adapter_oh(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
-    docs = _browser_capture(["https://liveresults.ohiosos.gov/"], probe, "oh", click_rx="U\\.S\\. Congress|U\\.S\\. Senator|Statewide Offices|Governor and Lieutenant Governor")
+    """Ohio Decides (liveresults.ohiosos.gov): Cloudflare-fronted JS app with a JSON API.
+    Pass the challenge once in a browser, then read the contest endpoints directly."""
+    docs = []
+    base = "https://liveresults.ohiosos.gov"
+    targets = {"U.S. Senator": "U.S.%20Senator", "Governor and Lieutenant Governor": "Governor%20and%20Lieutenant%20Governor"}
+    try:
+        from playwright.sync_api import sync_playwright  # type: ignore
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+            ctx = browser.new_context(user_agent=UA["User-Agent"], locale="en-US")
+            page = ctx.new_page()
+            page.goto(base + "/", wait_until="domcontentloaded", timeout=60000)
+            for _ in range(20):
+                if not is_challenge(page.content()):
+                    break
+                page.wait_for_timeout(1000)
+            page.wait_for_timeout(1500)
+            for label, enc in targets.items():
+                u = f"{base}/Api/v1/Contest/GetContestDetailsObject?contestName={enc}&contestObjectId=&resultsLevel=&countyId="
+                try:
+                    page.goto(u, wait_until="domcontentloaded", timeout=45000)
+                    page.wait_for_timeout(800)
+                    t = page.evaluate("() => document.body ? document.body.innerText : ''")
+                    FETCH_LOG.append(f"PW  {u} -> {len(t)} chars")
+                    if t.lstrip().startswith("{"):
+                        docs.append((u, t.encode()))
+                        if probe:
+                            save_probe("oh_" + re.sub(r"[^A-Za-z0-9]+", "_", label) + ".json", t)
+                except Exception as e:
+                    FETCH_LOG.append(f"PW  {u} -> EXC {e!r}")
+            browser.close()
+    except Exception as e:
+        log(f"OH: browser failed {e!r}; falling back to capture")
+        docs = _browser_capture([base + "/"], probe, "oh", click_rx="U\\.S\\. Congress|U\\.S\\. Senator|Statewide Offices|Governor and Lieutenant Governor")
     return docs
 
 

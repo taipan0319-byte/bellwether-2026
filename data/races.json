@@ -502,13 +502,13 @@
       "seat_status": "Held by Republican Dan Sullivan (since 2015)",
       "rating": "Toss-up (Cook, Sabato, DDHQ) / Tilt R (Inside Elections)",
       "baseline": "Trump +13 (2024); Sullivan 54\u201341 (2020); polls: Peltola +2 to +5 first-choice",
-      "watch_for": "Last to close. Rural precincts and ~40% of ballots (absentee/early) come in over the following 10 days \u2014 election-night numbers here are the least final on the board.",
+      "watch_for": "Last to close. Ballot lists the incumbent as 'Sullivan, Dan S.' and the challenger as 'Sullivan, Daniel J. Jr.' \u2014 the dashboard matches on those exact forms. Rural precincts and ~40% of ballots (absentee/early) arrive over the following 10 days; RCV tabulation ~Nov. 18.",
       "candidates": [
         {
-          "name": "Dan Sullivan",
+          "name": "Dan S. Sullivan",
           "party": "REP",
           "incumbent": true,
-          "match": "Daniel\\s+S\\.?\\s*Sullivan|Sullivan,?\\s*Daniel(\\s+S\\.?)?\\b|\\bDan(iel)?\\s+S\\.\\s*Sullivan"
+          "match": "Sullivan,?\\s*Dan\\s+S\\b|\\bDan\\s+S\\.?\\s+Sullivan|Daniel\\s+S\\.?\\s+Sullivan"
         },
         {
           "name": "Mary Peltola",
@@ -516,10 +516,10 @@
           "incumbent": false
         },
         {
-          "name": "Dan J. Sullivan",
+          "name": "Daniel J. Sullivan Jr.",
           "party": "REP",
           "incumbent": false,
-          "match": "Dan\\s+J\\.?\\s*Sullivan|Sullivan,?\\s*Dan\\s+J\\.?\\b"
+          "match": "Sullivan,?\\s*Daniel\\s+J\\b|Daniel\\s+J\\.?\\s*(Jr\\.?\\s*)?Sullivan|\\bDan\\s+J\\.?\\s+Sullivan"
         },
         {
           "name": "Gerald Heikes",

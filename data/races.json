@@ -123,6 +123,39 @@
       }
     },
     {
+      "id": "NC-11",
+      "state": "NC",
+      "district": 11,
+      "label": "North Carolina 11th",
+      "region": "Western North Carolina \u2014 Asheville, Hendersonville, the mountain counties",
+      "polls_close_et": "19:30",
+      "seat_status": "Open seat \u2014 Rep. Chuck Edwards (R) withdrew Aug. 2026 after a House Ethics report; GOP substituted state Rep. Jennifer Balkcom",
+      "rating": "Toss-up (Sabato) / Lean R (Cook); R+5 PVI",
+      "baseline": "Trump +~10 (2024); Edwards won 2024 by ~14; no Democrat has held the seat since 2012 (Shuler)",
+      "watch_for": "Helene-recovery anger plus a scandal-driven candidate swap \u2014 a Democratic win here means the wave reached deep-red Appalachia.",
+      "candidates": [
+        {
+          "name": "Jennifer Balkcom",
+          "party": "REP",
+          "incumbent": false
+        },
+        {
+          "name": "Jamie Ager",
+          "party": "DEM",
+          "incumbent": false
+        },
+        {
+          "name": "Travis Groo",
+          "party": "LIB",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "nc",
+        "contest_pattern": "US HOUSE OF REPRESENTATIVES\\s*DISTRICT\\s*11\\b"
+      }
+    },
+    {
       "id": "TX-35",
       "state": "TX",
       "district": 35,
@@ -270,6 +303,11 @@
       "name": "Montana Secretary of State \u2014 Election Night Reporting",
       "home": "https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY",
       "notes": "Counties must post to this site before releasing results elsewhere (HB 196, 2023). Polls close 8 PM MT / 10 PM ET."
+    },
+    "nc": {
+      "name": "North Carolina State Board of Elections \u2014 Election Night Results",
+      "home": "https://er.ncsbe.gov/?election_dt=11/03/2026",
+      "notes": "Precinct-level TSV snapshot re-uploaded every ~5 minutes: s3.amazonaws.com/dl.ncsbe.gov/ENRS/2026_11_03/results_pct_20261103.zip. Polls close 7:30 PM ET."
     }
   }
 }

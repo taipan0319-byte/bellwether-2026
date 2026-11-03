@@ -229,6 +229,38 @@
       ],
       "error": null,
       "source_url": null
+    },
+    "NC-11": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Jennifer Balkcom",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Jamie Ager",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Travis Groo",
+          "party": "LIB",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
     }
   }
 }

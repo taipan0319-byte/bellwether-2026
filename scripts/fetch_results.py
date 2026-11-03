@@ -341,7 +341,7 @@ def extract(content: bytes, race: dict, source_url: str) -> RaceResult | None:
             doc = json.loads(text)
             if race["source"]["adapter"] == "va":
                 res = parse_va_ballot_items(doc, race, rx)
-            elif race["source"]["adapter"] == "tx":
+            elif race["source"]["adapter"] in ("tx", "nc"):
                 res = parse_tx_office_summary(doc, race, rx)
             if res is None:
                 res = extract_from_json(doc, race, rx)
@@ -760,7 +760,65 @@ def adapter_mt(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
     return docs
 
 
-ADAPTERS = {"fl": adapter_fl, "mi": adapter_mi, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt}
+def adapter_nc(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+    """North Carolina: NCSBE re-uploads a precinct-level TSV zip every ~5 minutes on election night.
+    Aggregate it into the OfficeSummary-style JSON the TX parser already understands."""
+    import csv, io, zipfile
+    docs = []
+    url = "https://s3.amazonaws.com/dl.ncsbe.gov/ENRS/2026_11_03/results_pct_20261103.zip"
+    r = get(url, headers={"Accept": "*/*"})
+    if not r:
+        return docs
+    try:
+        zf = zipfile.ZipFile(io.BytesIO(r.content))
+        name = [n for n in zf.namelist() if n.lower().endswith((".txt", ".tsv", ".csv"))][0]
+        raw = zf.read(name).decode("utf-8", errors="replace")
+    except Exception as e:
+        log(f"NC: zip/tsv read failed: {e!r}")
+        return docs
+    if probe:
+        save_probe("nc_results_pct_head.txt", "\n".join(raw.splitlines()[:200]))
+    rdr = csv.DictReader(io.StringIO(raw), delimiter="\t")
+    cols = {c.lower().strip(): c for c in (rdr.fieldnames or [])}
+    def col(*names):
+        for n in names:
+            if n.lower() in cols:
+                return cols[n.lower()]
+        return None
+    c_contest, c_choice, c_party, c_total, c_pct, c_real = (
+        col("Contest Name", "contest_name"), col("Choice", "choice", "name_on_ballot"), col("Choice Party", "choice_party", "party_cd"),
+        col("Total Votes", "total_votes", "ballot_count"), col("Precinct", "precinct"), col("Real Precinct", "real_precinct"))
+    if not (c_contest and c_choice and c_total):
+        log(f"NC: unexpected columns {rdr.fieldnames}")
+        return docs
+    want = [re.compile(rc["source"]["contest_pattern"], re.I) for rc in races]
+    agg: dict[str, dict] = {}
+    for row in rdr:
+        cn = row.get(c_contest, "")
+        if not any(w.search(cn) for w in want):
+            continue
+        a = agg.setdefault(cn, {"C": {}, "P_all": set(), "P_rep": set()})
+        ch = row.get(c_choice, "").strip()
+        v = to_int((row.get(c_total) or "0").strip() or "0") or 0
+        ent = a["C"].setdefault(ch, {"N": ch, "P": (row.get(c_party) or "").strip(), "T": 0})
+        ent["T"] += v
+        if c_pct and (not c_real or str(row.get(c_real, "")).strip().upper() in ("Y", "TRUE", "1", "")):
+            pk = (row.get("County") or row.get("county") or "") + "|" + row.get(c_pct, "")
+            a["P_all"].add(pk)
+            if v > 0:
+                a["P_rep"].add(pk)
+    out = {"OS": []}
+    for cn, a in agg.items():
+        out["OS"].append({"ON": cn, "C": list(a["C"].values()), "PR": len(a["P_rep"]), "PT": len(a["P_all"]),
+                          "note": "precincts counted = precincts with any votes for this contest (approximation)"})
+    payload = json.dumps(out).encode()
+    docs.append((url, payload))
+    if probe:
+        save_probe("nc_aggregated.json", payload)
+    return docs
+
+
+ADAPTERS = {"fl": adapter_fl, "mi": adapter_mi, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc}
 
 
 # --------------------------------------------------------------------------- #

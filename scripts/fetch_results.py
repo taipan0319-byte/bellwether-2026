@@ -877,8 +877,6 @@ GENERIC_SITES = {
            "links": r"U\.S\. Senate|scenario=USSenate|ersElectionId=\d+$", "require": r"11/0?3/2026|November 3, 2026"},
     "ks": {"urls": ["https://ent.sos.ks.gov/", "https://ent.sos.ks.gov/kssos_ent.html"],
            "links": r"Senat|General|2026|\.json", "require": r"General|2026", "browser_first": True},
-    "ak": {"urls": ["https://www.elections.alaska.gov/election-results/", "https://www.elections.alaska.gov/enr26/", "https://www.elections.alaska.gov/enr/"],
-           "links": r"Combined|\.htm|Summary|ENR|results/", "require": r"GENERAL ELECTION|November 3, 2026|11/0?3/2026"},
     "ny": {"urls": ["https://nyenr.elections.ny.gov/", "https://nyenr.elections.ny.gov/Governor", "https://results.elections.ny.gov/"],
            "links": r"Governor|Statewide|Election Districts|Nov.*2026|General Election|2026|\.json", "require": r"2026 General|General Election|Nov(ember)?\.? 0?3, 2026|Election Districts Reporting", "browser_first": True},
 }
@@ -1252,10 +1250,70 @@ def adapter_ga(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
     return docs
 
 
+def adapter_ak(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+    """Alaska DOE election-night app (elections.alaska.gov/enr/<ELECTION>/): a jQuery page with a
+    contest <select>; results are fetched by includes/map.js. Render in a browser, choose the
+    contest, and keep both the rendered HTML and any data files the page fetched."""
+    docs = []
+    try:
+        from playwright.sync_api import sync_playwright  # type: ignore
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+            ctx = browser.new_context(user_agent=UA["User-Agent"], locale="en-US", ignore_https_errors=True)
+            page = ctx.new_page()
+            seen = {}
+            def on_response(resp):
+                try:
+                    u = resp.url
+                    if "elections.alaska.gov" in u and resp.status == 200 and re.search(r"\.(json|csv|txt|xml|htm|html)(\?|$)|results|data", u, re.I) and not re.search(r"\.(js|css|png|jpg|gif|svg|woff2?)(\?|$)", u, re.I):
+                        body = resp.body()
+                        if 50 < len(body) < 20_000_000:
+                            seen[u] = body
+                except Exception:
+                    pass
+            page.on("response", on_response)
+            for u in ("https://www.elections.alaska.gov/enr/26GENR/", "https://www.elections.alaska.gov/enr26/", "https://www.elections.alaska.gov/enr/"):
+                try:
+                    page.goto(u, wait_until="networkidle", timeout=60000)
+                except Exception:
+                    try:
+                        page.goto(u, wait_until="domcontentloaded", timeout=60000)
+                    except Exception as e:
+                        FETCH_LOG.append(f"PW  {u} -> EXC {e!r}"); continue
+                page.wait_for_timeout(2500)
+                FETCH_LOG.append(f"PW  AK {u} -> {page.url}")
+                try:
+                    sel = page.locator("select#contest")
+                    if sel.count():
+                        sel.select_option(label="U.S. Senator")
+                        page.wait_for_timeout(3500)
+                except Exception as e:
+                    FETCH_LOG.append(f"PW  AK select failed {e!r}")
+                html = page.content()
+                is_general = bool(re.search(r"GENERAL ELECTION|November 3, 2026|26GENR", html + page.url, re.I))
+                tag = "" if is_general else "#probe-only"
+                docs.append((page.url + tag, html.encode("utf-8")))
+                if probe:
+                    save_probe("ak_enr_" + re.sub(r"[^A-Za-z0-9]+", "_", page.url)[-60:] + ".html", html)
+                if "26PRIM" in page.url and not probe:
+                    FETCH_LOG.append("AK: ENR still on the August primary; general not posted yet")
+                break
+            browser.close()
+            for u, body in seen.items():
+                FETCH_LOG.append(f"PW  AK data {u} ({len(body)} bytes)")
+                is_general = "26GENR" in u or b"GENERAL" in body[:5000].upper()
+                docs.append((u + ("" if is_general else "#probe-only"), body))
+                if probe:
+                    save_probe("ak_data_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-70:] + ".bin", body)
+    except Exception as e:
+        log(f"AK: browser failed {e!r}")
+    return docs
+
+
 ADAPTERS = {"fl": adapter_fl, "mi": adapter_mi, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
             "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES},
             "ia": adapter_clarity("https://electionresults.iowa.gov", "IA", r"2026 General Election"),
-            "ga": adapter_ga, "oh": adapter_oh}
+            "ga": adapter_ga, "oh": adapter_oh, "ak": adapter_ak}
 
 
 # --------------------------------------------------------------------------- #

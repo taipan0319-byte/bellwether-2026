@@ -493,6 +493,46 @@
       }
     },
     {
+      "id": "SEN-AK",
+      "chamber": "senate",
+      "state": "AK",
+      "label": "Alaska \u2014 U.S. Senate",
+      "region": "Statewide (ranked-choice; first-choice totals on election night, RCV tabulation ~Nov. 18)",
+      "polls_close_et": "24:00",
+      "seat_status": "Held by Republican Dan Sullivan (since 2015)",
+      "rating": "Toss-up (Cook, Sabato, DDHQ) / Tilt R (Inside Elections)",
+      "baseline": "Trump +13 (2024); Sullivan 54\u201341 (2020); polls: Peltola +2 to +5 first-choice",
+      "watch_for": "Last to close. Rural precincts and ~40% of ballots (absentee/early) come in over the following 10 days \u2014 election-night numbers here are the least final on the board.",
+      "candidates": [
+        {
+          "name": "Dan Sullivan",
+          "party": "REP",
+          "incumbent": true,
+          "match": "Daniel\\s+S\\.?\\s*Sullivan|Sullivan,?\\s*Daniel(\\s+S\\.?)?\\b|\\bDan(iel)?\\s+S\\.\\s*Sullivan"
+        },
+        {
+          "name": "Mary Peltola",
+          "party": "DEM",
+          "incumbent": false
+        },
+        {
+          "name": "Dan J. Sullivan",
+          "party": "REP",
+          "incumbent": false,
+          "match": "Dan\\s+J\\.?\\s*Sullivan|Sullivan,?\\s*Dan\\s+J\\.?\\b"
+        },
+        {
+          "name": "Gerald Heikes",
+          "party": "REP",
+          "incumbent": false
+        }
+      ],
+      "source": {
+        "adapter": "ak",
+        "contest_pattern": "U\\.?S\\.? Senator|United States Senator"
+      }
+    },
+    {
       "id": "GOV-WI",
       "chamber": "governor",
       "state": "WI",
@@ -670,6 +710,11 @@
       "name": "New York State Board of Elections \u2014 Election Night Reporting",
       "home": "https://nyenr.elections.ny.gov/",
       "notes": "Live ENR site (the results.elections.ny.gov database is post-canvass)."
+    },
+    "ak": {
+      "name": "Alaska Division of Elections \u2014 Election Night Results",
+      "home": "https://www.elections.alaska.gov/election-results/",
+      "notes": "State posts a combined HTML statewide report plus per-district PDFs; first results ~9 PM AKST."
     }
   }
 }

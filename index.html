@@ -124,7 +124,7 @@
   function toCT(hhmmET){ // display both ET and CT
     const [h,m]=hhmmET.split(':').map(Number);
     const ct=((h-1)+24)%24;
-    const f=(hh)=>{const ap=hh>=12?'PM':'AM';const x=hh%12||12;return x+(m?':'+String(m).padStart(2,'0'):'')+' '+ap;};
+    const f=(hh)=>{hh=hh%24;const ap=hh>=12?'PM':'AM';const x=hh%12||12;return x+(m?':'+String(m).padStart(2,'0'):'')+' '+ap;};
     return f(h)+' ET / '+f(ct)+' CT';
   }
   function pollsCloseDate(hhmmET){ // Date object for Election Day close, ET (EST in Nov = UTC-5)
@@ -204,7 +204,7 @@
     const called=repCalled+demCalled, gopHolding=repCalled+repLead, demTaking=demCalled+demLead;
     if(called===0 && reporting===0){
       text=chamber==='house'?'<b>Waiting for returns.</b> Virginia and Florida close first (7 PM ET / 6 PM CT), North Carolina at 7:30 ET, then Michigan and Texas (8 PM ET), Montana last (10 PM ET).'
-          :chamber==='senate'?'<b>Waiting for returns.</b> Georgia closes first (7 PM ET), Ohio 7:30, Maine/Michigan/Kansas 8 PM, Minnesota and Iowa 9 PM ET. Maine is ranked-choice: first-round only on election night.'
+          :chamber==='senate'?'<b>Waiting for returns.</b> Georgia closes first (7 PM ET), Ohio 7:30, Maine/Michigan/Kansas 8 PM, Minnesota and Iowa 9 PM ET, Alaska midnight ET. Maine and Alaska are ranked-choice: first-choice totals only on election night.'
           :'<b>Waiting for returns.</b> Ohio closes 7:30 PM ET, Florida 8 PM (panhandle 9), New York and Wisconsin 9 PM ET.';
     } else {
       const parts=[`<b>${called} of ${totalRaces} called</b>, ${reporting} still counting.`];

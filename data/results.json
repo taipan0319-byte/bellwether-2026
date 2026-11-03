@@ -613,6 +613,44 @@
       ],
       "error": null,
       "source_url": "https://nyenr.elections.ny.gov/"
+    },
+    "SEN-AK": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Dan Sullivan",
+          "party": "REP",
+          "votes": null,
+          "incumbent": true
+        },
+        {
+          "name": "Mary Peltola",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Dan J. Sullivan",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Gerald Heikes",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
     }
   }
 }

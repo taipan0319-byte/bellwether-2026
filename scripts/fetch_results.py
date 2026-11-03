@@ -146,6 +146,8 @@ def name_tokens(name: str) -> tuple[str, str]:
 
 
 def text_matches_candidate(text: str, cand: dict) -> bool:
+    if cand.get("match"):
+        return re.search(cand["match"], text, re.I) is not None
     t = re.sub(r"[^a-z]", "", text.lower())
     first, last = name_tokens(cand["name"])
     if not last or last not in t:
@@ -875,6 +877,8 @@ GENERIC_SITES = {
            "links": r"U\.S\. Senate|scenario=USSenate|ersElectionId=\d+$", "require": r"11/0?3/2026|November 3, 2026"},
     "ks": {"urls": ["https://ent.sos.ks.gov/", "https://ent.sos.ks.gov/kssos_ent.html"],
            "links": r"Senat|General|2026|\.json", "require": r"General|2026", "browser_first": True},
+    "ak": {"urls": ["https://www.elections.alaska.gov/election-results/", "https://www.elections.alaska.gov/enr26/", "https://www.elections.alaska.gov/enr/"],
+           "links": r"Combined|\.htm|Summary|ENR|results/", "require": r"GENERAL ELECTION|November 3, 2026|11/0?3/2026"},
     "ny": {"urls": ["https://nyenr.elections.ny.gov/", "https://nyenr.elections.ny.gov/Governor", "https://results.elections.ny.gov/"],
            "links": r"Governor|Statewide|Election Districts|Nov.*2026|General Election|2026|\.json", "require": r"2026 General|General Election|Nov(ember)?\.? 0?3, 2026|Election Districts Reporting", "browser_first": True},
 }

@@ -12,7 +12,7 @@ We'd like a critical review: wrong assumptions, better data sources, failure mod
 | Tab | Races |
 |---|---|
 | House (9) | FL-25 Moskowitz(D) v. Singer(R) · VA-01 Wittman(R) v. Taylor(D) · VA-02 Kiggans(R) v. Luria(D) · NC-11 Balkcom(R) v. Ager(D), open · MI-04 Huizenga(R) v. McCann(D) · TX-01 Moran(R) v. Prince(D) · TX-15 De La Cruz(R) v. Pulido(D) · TX-35 C. De La Cruz(R) v. Garcia(D), open · MT-01 Flint(R) v. Forstag(D), open |
-| Senate (7) | ME Collins(R) v. Troy Jackson(D) · MI Rogers(R) v. El-Sayed(D) · MN Flanagan(D) v. Tafoya(R) · KS Marshall(R) v. Hamilton(D) · OH-special Husted(R) v. Brown(D) · GA Ossoff(D) v. M. Collins(R) · IA Hinson(R) v. Turek(D) |
+| Senate (8) | ME Collins(R) v. Troy Jackson(D) · MI Rogers(R) v. El-Sayed(D) · MN Flanagan(D) v. Tafoya(R) · KS Marshall(R) v. Hamilton(D) · OH-special Husted(R) v. Brown(D) · GA Ossoff(D) v. M. Collins(R) · IA Hinson(R) v. Turek(D) · AK D. Sullivan(R) v. Peltola(D), RCV |
 | Governors (4) | WI Crowley(D) v. Tiffany(R) · OH Ramaswamy(R) v. Acton(D) · NY Hochul(D) v. Blakeman(R) · FL Donalds(R) v. Jolly(D) |
 
 Note: TX and FL districts use the 2025–26 mid-decade maps. ME Senate is ranked-choice (first-round only on election night). GA goes to a Dec. 1 runoff under 50%.

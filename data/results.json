@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-11-03T01:08:05+00:00",
+  "generated_at": "2026-11-03T01:15:18+00:00",
   "election_date": "2026-11-03",
   "status": "pre-election",
-  "feed_errors": 5,
+  "feed_errors": 14,
   "races": {
     "FL-25": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:07:14+00:00",
+      "source_updated": "2026-11-03T01:13:08+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -36,6 +36,32 @@
       "error": null,
       "source_url": "https://floridaelectionwatch.gov/FederalOffices/USRepresentative"
     },
+    "GOV-FL": {
+      "status": "not_started",
+      "source_status": "ok",
+      "source_updated": "2026-11-03T01:13:08+00:00",
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Byron Donalds",
+          "party": "REP",
+          "votes": 0,
+          "incumbent": false
+        },
+        {
+          "name": "David Jolly",
+          "party": "DEM",
+          "votes": 0,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": "https://floridaelectionwatch.gov/StateOffices/Governor"
+    },
     "MI-04": {
       "status": "not_started",
       "source_status": "pending",
@@ -62,10 +88,36 @@
       "error": null,
       "source_url": null
     },
+    "SEN-MI": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Mike Rogers",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Abdul El-Sayed",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
     "VA-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:07:38+00:00",
+      "source_updated": "2026-11-03T01:13:33+00:00",
       "precincts_reporting": 0,
       "precincts_total": 18,
       "pct_reported": 0.0,
@@ -91,7 +143,7 @@
     "VA-02": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:07:38+00:00",
+      "source_updated": "2026-11-03T01:13:33+00:00",
       "precincts_reporting": 0,
       "precincts_total": 8,
       "pct_reported": 0.0,
@@ -117,7 +169,7 @@
     "NC-11": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:07:38+00:00",
+      "source_updated": "2026-11-03T01:13:34+00:00",
       "precincts_reporting": 0,
       "precincts_total": 290,
       "pct_reported": 0.0,
@@ -288,7 +340,7 @@
       "error": null,
       "source_url": null
     },
-    "SEN-MI": {
+    "GOV-WI": {
       "status": "not_started",
       "source_status": "pending",
       "source_updated": null,
@@ -299,14 +351,14 @@
       "winner": null,
       "candidates": [
         {
-          "name": "Mike Rogers",
-          "party": "REP",
+          "name": "David Crowley",
+          "party": "DEM",
           "votes": null,
           "incumbent": false
         },
         {
-          "name": "Abdul El-Sayed",
-          "party": "DEM",
+          "name": "Tom Tiffany",
+          "party": "REP",
           "votes": null,
           "incumbent": false
         }
@@ -315,30 +367,30 @@
       "source_url": null
     },
     "SEN-MN": {
-      "status": "not_started",
-      "source_status": "pending",
-      "source_updated": null,
+      "status": "counting",
+      "source_status": "ok",
+      "source_updated": "2026-11-03T01:14:09+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
-      "pct_reported": null,
+      "pct_reported": 100.0,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Peggy Flanagan",
           "party": "DEM",
-          "votes": null,
+          "votes": 411853,
           "incumbent": false
         },
         {
           "name": "Michele Tafoya",
           "party": "REP",
-          "votes": null,
+          "votes": 211813,
           "incumbent": false
         }
       ],
       "error": null,
-      "source_url": null
+      "source_url": "https://electionresults.sos.mn.gov/Results/Index?ersElectionId=200&scenario=AllwithoutJudicial&electionDate=8%2F11%2F2026%2012%3A00%3A00%20AM"
     },
     "SEN-KS": {
       "status": "not_started",
@@ -390,6 +442,32 @@
         },
         {
           "name": "Sherrod Brown",
+          "party": "DEM",
+          "votes": null,
+          "incumbent": false
+        }
+      ],
+      "error": null,
+      "source_url": null
+    },
+    "GOV-OH": {
+      "status": "not_started",
+      "source_status": "pending",
+      "source_updated": null,
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": null,
+      "called": null,
+      "winner": null,
+      "candidates": [
+        {
+          "name": "Vivek Ramaswamy",
+          "party": "REP",
+          "votes": null,
+          "incumbent": false
+        },
+        {
+          "name": "Amy Acton",
           "party": "DEM",
           "votes": null,
           "incumbent": false
@@ -456,58 +534,6 @@
       "error": null,
       "source_url": null
     },
-    "GOV-WI": {
-      "status": "not_started",
-      "source_status": "pending",
-      "source_updated": null,
-      "precincts_reporting": null,
-      "precincts_total": null,
-      "pct_reported": null,
-      "called": null,
-      "winner": null,
-      "candidates": [
-        {
-          "name": "David Crowley",
-          "party": "DEM",
-          "votes": null,
-          "incumbent": false
-        },
-        {
-          "name": "Tom Tiffany",
-          "party": "REP",
-          "votes": null,
-          "incumbent": false
-        }
-      ],
-      "error": null,
-      "source_url": null
-    },
-    "GOV-OH": {
-      "status": "not_started",
-      "source_status": "pending",
-      "source_updated": null,
-      "precincts_reporting": null,
-      "precincts_total": null,
-      "pct_reported": null,
-      "called": null,
-      "winner": null,
-      "candidates": [
-        {
-          "name": "Vivek Ramaswamy",
-          "party": "REP",
-          "votes": null,
-          "incumbent": false
-        },
-        {
-          "name": "Amy Acton",
-          "party": "DEM",
-          "votes": null,
-          "incumbent": false
-        }
-      ],
-      "error": null,
-      "source_url": null
-    },
     "GOV-NY": {
       "status": "not_started",
       "source_status": "pending",
@@ -527,32 +553,6 @@
         {
           "name": "Bruce Blakeman",
           "party": "REP",
-          "votes": null,
-          "incumbent": false
-        }
-      ],
-      "error": null,
-      "source_url": null
-    },
-    "GOV-FL": {
-      "status": "not_started",
-      "source_status": "pending",
-      "source_updated": null,
-      "precincts_reporting": null,
-      "precincts_total": null,
-      "pct_reported": null,
-      "called": null,
-      "winner": null,
-      "candidates": [
-        {
-          "name": "Byron Donalds",
-          "party": "REP",
-          "votes": null,
-          "incumbent": false
-        },
-        {
-          "name": "David Jolly",
-          "party": "DEM",
           "votes": null,
           "incumbent": false
         }

@@ -239,6 +239,19 @@ def extract_from_html(html: str, race: dict, contest_rx: re.Pattern) -> RaceResu
             big = [n for n in nums if n >= 10] or nums
             votes = max(big) if big else None
         out.append(asdict(CandResult(c["name"], c["party"], votes, c.get("incumbent", False))))
+    # "Other": contest total votes (if the block states one) minus the tracked candidates
+    try:
+        blk = container.get_text(" ", strip=True) if container is not soup else ""
+        after = " ".join(str(x) for x in found[-1].find_all_next(string=True, limit=40))
+        m = re.search(r"(?:Total(?:\s+Votes)?|total votes)\s*:?\s*(\d[\d,]*)", after, re.I) or re.search(r"(?:Total(?:\s+Votes)?|total votes)\s*:?\s*(\d[\d,]*)", blk, re.I)
+        if m and all(c["votes"] is not None for c in out):
+            tot = to_int(m.group(1)) or 0
+            matched = sum(c["votes"] for c in out)
+            # plausibility: minor candidates/write-ins never exceed a third of the major vote
+            if tot >= matched and (matched == 0 or tot <= matched * 1.34):
+                out.append(asdict(CandResult("Other / write-in", "OTH", tot - matched, False)))
+    except Exception:
+        pass
     res.candidates = out
     # Reporting status: look first in the text immediately preceding the first candidate row
     # (between the contest heading and the candidates), then the contest container, then the page.
@@ -308,6 +321,19 @@ def extract_from_json(doc: Any, race: dict, contest_rx: re.Pattern) -> RaceResul
                 if votes is not None:
                     break
         out.append(asdict(CandResult(c["name"], c["party"], votes, c.get("incumbent", False))))
+    # "Other": every vote-bearing candidate dict in the contest that was not matched
+    matched_total = sum((c["votes"] or 0) for c in out)
+    all_total = 0
+    for _, node in walk_json(contest):
+        if isinstance(node, dict) and any(isinstance(v, str) and re.search(r"[A-Za-z]{2,}\s+[A-Za-z]{2,}", v) for k, v in node.items() if k.lower() in ("name", "primarycandidate", "candidate", "candidatename", "fullname", "n", "choice")):
+            for k, v in node.items():
+                if k.lower().replace("_", "") in [x.replace("_", "") for x in VOTE_KEYS] and isinstance(v, (int, float, str)):
+                    iv = to_int(str(v).split(".")[0])
+                    if iv is not None:
+                        all_total += iv
+                        break
+    if all_total >= matched_total and (matched_total == 0 or all_total <= matched_total * 1.34) and all(c["votes"] is not None for c in out):
+        out.append(asdict(CandResult("Other / write-in", "OTH", all_total - matched_total, False)))
     res.candidates = out
     # precincts: look for numeric fields in the contest dict
     def pick(keys):
@@ -393,13 +419,17 @@ def parse_va_ballot_items(doc: dict, race: dict, contest_rx: re.Pattern) -> Race
         res = RaceResult()
         opts = ((it.get("summaryResults") or {}).get("ballotOptions")) or []
         out = []
+        used = set()
         for c in race["candidates"]:
             votes = None
-            for o in opts:
-                if text_matches_candidate(_en(o.get("name")), c):
+            for i, o in enumerate(opts):
+                if i not in used and text_matches_candidate(_en(o.get("name")), c):
                     votes = to_int(str(o.get("voteCount", "")))
+                    used.add(i)
                     break
             out.append(asdict(CandResult(c["name"], c["party"], votes, c.get("incumbent", False))))
+        other = sum((to_int(str(o.get("voteCount", "0"))) or 0) for i, o in enumerate(opts) if i not in used)
+        out.append(asdict(CandResult("Other / write-in", "OTH", other, False)))
         res.candidates = out
         rs = it.get("reportingStatus") or {}
         res.precincts_reporting = rs.get("reportingUnits")
@@ -424,13 +454,18 @@ def parse_tx_office_summary(doc: Any, race: dict, contest_rx: re.Pattern) -> Rac
             continue
         res = RaceResult()
         out = []
+        used = set()
+        opts = off.get("C") or []
         for c in race["candidates"]:
             votes = None
-            for o in off.get("C") or []:
-                if text_matches_candidate(str(o.get("N", "")), c):
+            for i, o in enumerate(opts):
+                if i not in used and text_matches_candidate(str(o.get("N", "")), c):
                     votes = to_int(str(o.get("T", "")))
+                    used.add(i)
                     break
             out.append(asdict(CandResult(c["name"], c["party"], votes, c.get("incumbent", False))))
+        other = sum((to_int(str(o.get("T", "0"))) or 0) for i, o in enumerate(opts) if i not in used)
+        out.append(asdict(CandResult("Other / write-in", "OTH", other, False)))
         res.candidates = out
         # precincts, if the summary carries them under any of the usual keys
         for k in ("PR", "PrecinctsReporting", "PRC"):
@@ -724,7 +759,7 @@ def adapter_mt(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
                         page.wait_for_timeout(2500)
                         html = page.content()
                         FETCH_LOG.append(f"PW  {u} -> {page.url} ({len(html)} chars)")
-                        is_general = bool(re.search(r"General Election", html, re.I) and "2026" in html)
+                        is_general = bool(re.search(r"General Election\s*[-–]\s*November 3, 2026|November 3, 2026|11/0?3/2026", html, re.I))
                         if "electionresults.mt.gov" in page.url and "Just a moment" not in html and (is_general or probe):
                             if not is_general:
                                 log("MT: page is not the 2026 general (probe only) — not used for results")
@@ -744,7 +779,7 @@ def adapter_mt(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
                         page.wait_for_timeout(1000)
                     html = page.content()
                     FETCH_LOG.append(f"PW  {u} -> {len(html)} chars; challenge={'Just a moment' in html}")
-                    if "Just a moment" in html or not (re.search(r"General Election", html, re.I) and "2026" in html):
+                    if is_challenge(html) or not re.search(r"November 3, 2026|11/0?3/2026", html, re.I):
                         FETCH_LOG.append(f"PW  {u} skipped (not the 2026 general)")
                         continue
                     docs.append((u, html.encode("utf-8")))
@@ -837,7 +872,7 @@ def adapter_nc(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 # --------------------------------------------------------------------------- #
 GENERIC_SITES = {
     "mn": {"urls": ["https://electionresults.sos.mn.gov/"],
-           "links": r"U\.S\. Senate|scenario=USSenate|ersElectionId=\d+$", "require": r"General Election|11/0?3/2026"},
+           "links": r"U\.S\. Senate|scenario=USSenate|ersElectionId=\d+$", "require": r"11/0?3/2026|November 3, 2026"},
     "ks": {"urls": ["https://ent.sos.ks.gov/", "https://ent.sos.ks.gov/kssos_ent.html"],
            "links": r"Senat|General|2026|\.json", "require": r"General|2026", "browser_first": True},
     "ny": {"urls": ["https://nyenr.elections.ny.gov/", "https://nyenr.elections.ny.gov/Governor", "https://results.elections.ny.gov/"],
@@ -1064,12 +1099,15 @@ def parse_clarity_summary(doc: Any, race: dict, contest_rx: re.Pattern) -> RaceR
             continue
         res = RaceResult()
         out = []
+        used = set()
         for c in race["candidates"]:
             v = None
-            for n, vv in zip(names, votes):
-                if text_matches_candidate(str(n), c):
-                    v = to_int(str(vv)); break
+            for i, (n, vv) in enumerate(zip(names, votes)):
+                if i not in used and text_matches_candidate(str(n), c):
+                    v = to_int(str(vv)); used.add(i); break
             out.append(asdict(CandResult(c["name"], c["party"], v, c.get("incumbent", False))))
+        other = sum((to_int(str(vv)) or 0) for i, (n, vv) in enumerate(zip(names, votes)) if i not in used)
+        out.append(asdict(CandResult("Other / write-in", "OTH", other, False)))
         res.candidates = out
         pr, tp = item.get("PR"), item.get("TP")
         if isinstance(pr, (int, float)) and isinstance(tp, (int, float)) and tp:
@@ -1271,11 +1309,12 @@ def main():
                 except Exception as e:
                     log(f"extract {rid} from {url} failed: {e!r}")
                     cand = None
-                if cand and any(c["votes"] is not None for c in cand.candidates):
-                    result = cand
-                    break
-                if cand and result is None:
-                    result = cand  # structure found but no votes yet (pre-close zeros)
+                if cand:
+                    majors = [c for c in cand.candidates if c["party"] in ("REP", "DEM")]
+                    if majors and all(c["votes"] is not None for c in majors):
+                        result = cand
+                        break
+                    log(f"{rid}: partial parse from {url} (missing a major-party candidate) — rejected")
             if result is None:
                 errors += 1
                 if pre_election:

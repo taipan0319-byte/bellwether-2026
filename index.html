@@ -149,18 +149,21 @@
     const order=[...races.races].filter(r=>(r.chamber||'house')===chamber).sort((a,b)=>a.polls_close_et.localeCompare(b.polls_close_et));
     for(const r of order){
       const res=(results.races||{})[r.id]||{};
-      const cands=(res.candidates&&res.candidates.length)?res.candidates:r.candidates.map(c=>({...c,votes:null}));
+      const cands=((res.candidates&&res.candidates.length)?res.candidates:r.candidates.map(c=>({...c,votes:null}))).filter(c=>!(c.party==='OTH' && !(c.votes>0)));
       const total=cands.reduce((s,c)=>s+(c.votes||0),0);
       const sorted=[...cands].sort((a,b)=>(b.votes||0)-(a.votes||0));
       const leader=total>0?sorted[0]:null, second=total>0?sorted[1]:null;
       const margin=(leader&&second)?((leader.votes-second.votes)/total*100):null;
       const closeAt=pollsCloseDate(r.polls_close_et);
       const called=res.called||null;
+      const srcAge=res.source_updated?(now-new Date(res.source_updated).getTime())/60000:null;
+      const fresh = res.source_status==='manual' || (res.source_status==='ok' && srcAge!=null && srcAge<=20);
+      const conf = called?'':(res.source_status==='manual'?'manual':(res.source_status==='ok'?(fresh?'verified':'delayed'):'unverified'));
       const incumbentParty=(r.candidates.find(c=>c.incumbent)||{}).party||null;
       const seatHeldBy = /Held by (appointed )?Democrat/i.test(r.seat_status)?'DEM':(/Held by (appointed )?Republican/i.test(r.seat_status)?'REP':(/\((D|DFL)\) (retiring|term-limited)/i.test(r.seat_status)?'DEM':(/\(R\) (retiring|term-limited|withdrew)/i.test(r.seat_status)?'REP':(incumbentParty||(r.id==='TX-35'?'DEM':'REP')))));
       let status, badgeCls='';
       if(called){ status=(called==='REP'?'GOP win':'Dem win'); badgeCls='called-'+called; if(called==='REP')repCalled++; else demCalled++; if(called!==seatHeldBy) flips.push(r.label+' → '+(called==='REP'?'R':'D')); }
-      else if(total>0){ status='Counting'; badgeCls='counting'; reporting++; if(leader){ if(bucket(leader.party)==='REP')repLead++; else if(bucket(leader.party)==='DEM')demLead++; } }
+      else if(total>0){ status='Counting'; badgeCls='counting'; reporting++; if(leader && fresh){ if(bucket(leader.party)==='REP')repLead++; else if(bucket(leader.party)==='DEM')demLead++; } }
       else if(now<closeAt.getTime()){ status='Polls open'; }
       else { status='Awaiting returns'; }
 
@@ -189,7 +192,7 @@
           <p><b>Seat:</b> ${r.seat_status}<br><b>Baseline:</b> ${r.baseline}<br>${r.watch_for}</p>
           <p><a href="${(races.sources[r.source.adapter]||{}).home||'#'}" target="_blank" rel="noopener">Source: ${(races.sources[r.source.adapter]||{}).name||r.state}</a></p>
         </details>
-        <div class="foot"><span>${res.source_status==='manual'?'Manual entry':(r.source.adapter==='manual'?'No state feed — manual entry':'Feed: '+(res.source_status||'pending'))}</span><span>${res.source_updated?'Updated '+ago(res.source_updated):''}</span></div>
+        <div class="foot"><span>${conf==='verified'?'<span style="color:var(--good)">✓ Verified feed</span>':conf==='delayed'?'<span style="color:var(--warn)">◷ Delayed — feed '+Math.round(srcAge)+' min old (not counted in signal)</span>':conf==='manual'?'Manual entry':conf==='unverified'?'<span style="color:var(--warn)">⚠ Unverified'+(res.error?' — last good data':'')+'</span>':''}${!conf&&r.source.adapter==='manual'?'No state feed — manual entry':''}</span><span>${res.source_updated?'Updated '+ago(res.source_updated):''}</span></div>
         ${res.error?`<div class="err">${res.error}</div>`:''}`;
       grid.appendChild(card);
     }
@@ -212,9 +215,9 @@
         else parts.push('Mixed board so far — margins matter more than wins; watch VA-02, NC-11, TX-15, FL-25 and MI-04.');
         parts.push('<span style="color:var(--ink-3)">Caution: nine hand-picked seats, several on new GOP-drawn maps — a signal, not a sample. Early leads can be early-vote only.</span>');
       } else if(chamber==='senate'){
-        const demNeeds='Democrats need a net gain of 4 seats for a majority; on this board that means holding MI, MN, GA and flipping at least two of ME, OH, IA, KS.';
+        const demNeeds='Democrats need a net gain of 4 nationally. This board holds their three most exposed seats (MI, MN, GA) and four of the likeliest pickups (ME, OH, IA, KS); it is a read on direction, not a majority calculator.';
         const dFlips=flips.filter(f=>/→ D$/.test(f)).length, rFlips=flips.filter(f=>/→ R$/.test(f)).length;
-        if(dFlips>=2 && rFlips===0) parts.push('Democrats have flipped two or more GOP seats here with no losses — a Senate majority is live. '+demNeeds);
+        if(dFlips>=2 && rFlips===0) parts.push('Democrats have flipped two or more GOP seats here with no losses — the Senate is competitive; they would still need pickups elsewhere. '+demNeeds);
         else if(rFlips>=1) parts.push('Republicans have taken a Democratic seat — the Senate stays Republican barring surprises elsewhere.');
         else parts.push(demNeeds);
       } else {

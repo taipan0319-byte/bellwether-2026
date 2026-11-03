@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-11-03T01:26:01+00:00",
+  "generated_at": "2026-11-03T01:31:18+00:00",
   "election_date": "2026-11-03",
   "status": "pre-election",
-  "feed_errors": 14,
+  "feed_errors": 12,
   "races": {
     "FL-25": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:24:31+00:00",
+      "source_updated": "2026-11-03T01:29:48+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -39,7 +39,7 @@
     "GOV-FL": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:24:31+00:00",
+      "source_updated": "2026-11-03T01:29:48+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -117,7 +117,7 @@
     "VA-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:24:55+00:00",
+      "source_updated": "2026-11-03T01:30:13+00:00",
       "precincts_reporting": 0,
       "precincts_total": 18,
       "pct_reported": 0.0,
@@ -143,7 +143,7 @@
     "VA-02": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:24:55+00:00",
+      "source_updated": "2026-11-03T01:30:13+00:00",
       "precincts_reporting": 0,
       "precincts_total": 8,
       "pct_reported": 0.0,
@@ -169,7 +169,7 @@
     "NC-11": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:24:56+00:00",
+      "source_updated": "2026-11-03T01:30:14+00:00",
       "precincts_reporting": 0,
       "precincts_total": 290,
       "pct_reported": 0.0,
@@ -426,10 +426,10 @@
     },
     "SEN-OH": {
       "status": "not_started",
-      "source_status": "pending",
-      "source_updated": null,
+      "source_status": "ok",
+      "source_updated": "2026-11-03T01:31:06+00:00",
       "precincts_reporting": null,
-      "precincts_total": null,
+      "precincts_total": 0,
       "pct_reported": null,
       "called": null,
       "winner": null,
@@ -437,25 +437,25 @@
         {
           "name": "Jon Husted",
           "party": "REP",
-          "votes": null,
+          "votes": 0,
           "incumbent": true
         },
         {
           "name": "Sherrod Brown",
           "party": "DEM",
-          "votes": null,
+          "votes": 0,
           "incumbent": false
         }
       ],
       "error": null,
-      "source_url": null
+      "source_url": "https://liveresults.ohiosos.gov/Api/v1/Contest/GetContestDetailsObject?contestName=U.S.%20Senator&contestObjectId=&resultsLevel=&countyId="
     },
     "GOV-OH": {
       "status": "not_started",
-      "source_status": "pending",
-      "source_updated": null,
+      "source_status": "ok",
+      "source_updated": "2026-11-03T01:31:06+00:00",
       "precincts_reporting": null,
-      "precincts_total": null,
+      "precincts_total": 0,
       "pct_reported": null,
       "called": null,
       "winner": null,
@@ -463,18 +463,18 @@
         {
           "name": "Vivek Ramaswamy",
           "party": "REP",
-          "votes": null,
+          "votes": 0,
           "incumbent": false
         },
         {
           "name": "Amy Acton",
           "party": "DEM",
-          "votes": null,
+          "votes": 0,
           "incumbent": false
         }
       ],
       "error": null,
-      "source_url": null
+      "source_url": "https://liveresults.ohiosos.gov/Api/v1/Contest/GetContestDetailsObject?contestName=Governor%20and%20Lieutenant%20Governor&contestObjectId=&resultsLevel=&countyId="
     },
     "SEN-GA": {
       "status": "not_started",
@@ -505,7 +505,7 @@
     "SEN-IA": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-03T01:25:57+00:00",
+      "source_updated": "2026-11-03T01:31:14+00:00",
       "precincts_reporting": 2,
       "precincts_total": 99,
       "pct_reported": 2.0,

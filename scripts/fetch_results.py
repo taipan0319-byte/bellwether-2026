@@ -830,9 +830,6 @@ GENERIC_SITES = {
            "links": r"U\.S\. Senate|scenario=USSenate|ersElectionId=\d+$", "require": r"General Election|11/0?3/2026"},
     "ks": {"urls": ["https://ent.sos.ks.gov/", "https://ent.sos.ks.gov/kssos_ent.html"],
            "links": r"Senat|General|2026|\.json", "require": r"General|2026", "browser_first": True},
-    "oh": {"urls": ["https://www.ohiosos.gov/elections/election-results-and-data/2026-official-elections-results/",
-                    "https://www.ohiosos.gov/elections/election-results-and-data/"],
-           "links": r"Senat|Governor|2026.*(General|Results)|Election Night|results", "require": r"2026", "browser_first": True},
     "ny": {"urls": ["https://results.elections.ny.gov/"],
            "links": r"Governor|Nov.*2026|General Election|2026", "require": r"Nov(ember)?\.? 0?3, 2026|General Election", "browser_first": True},
 }
@@ -888,6 +885,57 @@ def _browser_fetch(urls: list[str], probe: bool, tag: str, link_rx: re.Pattern) 
             browser.close()
     except Exception as e:
         log(f"{tag}: playwright failed: {e!r}")
+    return docs
+
+
+
+def _browser_capture(urls: list[str], probe: bool, tag: str, click_rx: str | None = None) -> list[tuple[str, bytes]]:
+    """Load a JS app in a headless browser and keep every JSON response it fetches."""
+    docs = []
+    try:
+        from playwright.sync_api import sync_playwright  # type: ignore
+    except Exception as e:
+        log(f"{tag}: playwright unavailable {e!r}")
+        return docs
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+            ctx = browser.new_context(user_agent=UA["User-Agent"], locale="en-US")
+            page = ctx.new_page()
+            seen = {}
+            def on_response(resp):
+                try:
+                    ct = resp.headers.get("content-type", "")
+                    if "json" in ct and resp.status == 200:
+                        body = resp.body()
+                        if len(body) > 50:
+                            seen[resp.url] = body
+                except Exception:
+                    pass
+            page.on("response", on_response)
+            for u in urls:
+                try:
+                    page.goto(u, wait_until="networkidle", timeout=60000)
+                except Exception:
+                    pass
+                page.wait_for_timeout(3000)
+                if click_rx:
+                    for txt in [t for t in re.split(r"\|", click_rx) if t]:
+                        try:
+                            loc = page.get_by_text(re.compile(txt, re.I)).first
+                            if loc.count():
+                                loc.click(timeout=5000)
+                                page.wait_for_timeout(3500)
+                        except Exception:
+                            pass
+                FETCH_LOG.append(f"PW  capture {u} -> {len(seen)} json responses")
+            browser.close()
+            for u, body in seen.items():
+                docs.append((u, body))
+                if probe:
+                    save_probe(f"{tag}_cap_" + re.sub(r"[^A-Za-z0-9]+", "_", u)[-90:] + ".json", body)
+    except Exception as e:
+        log(f"{tag}: capture failed {e!r}")
     return docs
 
 
@@ -994,9 +1042,14 @@ def parse_clarity_summary(doc: Any, race: dict, contest_rx: re.Pattern) -> RaceR
     if not isinstance(doc, list):
         return None
     for item in doc:
-        if not isinstance(item, dict) or not contest_rx.search(str(item.get("K", ""))):
+        if not isinstance(item, dict):
             continue
-        names, votes = item.get("C") or [], item.get("V") or []
+        title = " ".join(str(item.get(k, "")) for k in ("C", "K", "SUBCAT") if not isinstance(item.get(k), list))
+        if not contest_rx.search(title):
+            continue
+        names, votes = item.get("CH") or item.get("C") or [], item.get("V") or []
+        if not isinstance(names, list):
+            continue
         res = RaceResult()
         out = []
         for c in race["candidates"]:
@@ -1006,9 +1059,10 @@ def parse_clarity_summary(doc: Any, race: dict, contest_rx: re.Pattern) -> RaceR
                     v = to_int(str(vv)); break
             out.append(asdict(CandResult(c["name"], c["party"], v, c.get("incumbent", False))))
         res.candidates = out
-        pr = item.get("P")
-        if isinstance(pr, (int, float)):
-            res.pct_reported = float(pr) if pr > 1 else float(pr) * 100
+        pr, tp = item.get("PR"), item.get("TP")
+        if isinstance(pr, (int, float)) and isinstance(tp, (int, float)) and tp:
+            res.precincts_reporting, res.precincts_total = int(pr), int(tp)
+            res.pct_reported = round(pr / tp * 100, 1)
         return res
     return None
 
@@ -1053,10 +1107,47 @@ def adapter_enhanced_voting(base: str, jurisdiction: str):
     return run
 
 
+def adapter_oh(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+    docs = _browser_capture(["https://liveresults.ohiosos.gov/"], probe, "oh", click_rx="U\\.S\\. Senator|Governor and Lieutenant Governor")
+    return docs
+
+
+def adapter_ga(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+    docs = adapter_enhanced_voting("https://results.sos.ga.gov", "Georgia")(cfg, races, probe)
+    if docs:
+        return docs
+    # discover the election slug from the API calls the directory app makes
+    caps = _browser_capture(["https://results.sos.ga.gov/results/public/Georgia"], probe, "ga")
+    slugs = []
+    for u, body in caps:
+        try:
+            for _, node in walk_json(json.loads(body)):
+                if isinstance(node, dict):
+                    slug = node.get("publishPublicElectionId") or node.get("electionPublicId")
+                    txt = json.dumps(node)
+                    if isinstance(slug, str) and "2026" in txt and re.search(r"Nov|General", txt, re.I) and slug not in slugs:
+                        slugs.append(slug)
+        except Exception:
+            pass
+    for m in re.finditer(r"elections/([A-Za-z0-9\-_]+)", " ".join(u for u, _ in caps)):
+        if m.group(1) not in slugs and "2026" in m.group(1):
+            slugs.append(m.group(1))
+    FETCH_LOG.append(f"GA slugs discovered: {slugs}")
+    for slug in slugs[:4]:
+        u = f"https://results.sos.ga.gov/results/public/api/elections/Georgia/{slug}/ballot-items"
+        r = get(u, headers={"Accept": "application/json"})
+        if r and "json" in r.headers.get("content-type", ""):
+            docs.append((u, r.content))
+            if probe:
+                save_probe(f"ga_ev_{slug}_ballot_items.json", r.content)
+            break
+    return docs
+
+
 ADAPTERS = {"fl": adapter_fl, "mi": adapter_mi, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
             "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES},
             "ia": adapter_clarity("https://electionresults.iowa.gov", "IA", r"2026 General Election"),
-            "ga": adapter_enhanced_voting("https://results.sos.ga.gov", "Georgia")}
+            "ga": adapter_ga, "oh": adapter_oh}
 
 
 # --------------------------------------------------------------------------- #

@@ -652,9 +652,9 @@
       "notes": "Election-night reporting site."
     },
     "oh": {
-      "name": "Ohio Secretary of State \u2014 Election Night Results",
-      "home": "https://www.ohiosos.gov/elections/election-results-and-data/",
-      "notes": "Election-night results portal."
+      "name": "Ohio Secretary of State \u2014 Ohio Decides Election Night Reporting",
+      "home": "https://liveresults.ohiosos.gov/",
+      "notes": "JS app; the fetcher captures its JSON calls in a headless browser."
     },
     "ga": {
       "name": "Georgia Secretary of State \u2014 Election Night Results",

@@ -210,6 +210,7 @@
         if(demTaking>=5) parts.push('Democrats are winning or leading in a majority of these bellwethers — consistent with a Democratic House.');
         else if(gopHolding>=8) parts.push('Republicans are holding nearly the whole board — consistent with the GOP keeping the House.');
         else parts.push('Mixed board so far — margins matter more than wins; watch VA-02, NC-11, TX-15, FL-25 and MI-04.');
+        parts.push('<span style="color:var(--ink-3)">Caution: nine hand-picked seats, several on new GOP-drawn maps — a signal, not a sample. Early leads can be early-vote only.</span>');
       } else if(chamber==='senate'){
         const demNeeds='Democrats need a net gain of 4 seats for a majority; on this board that means holding MI, MN, GA and flipping at least two of ME, OH, IA, KS.';
         const dFlips=flips.filter(f=>/→ D$/.test(f)).length, rFlips=flips.filter(f=>/→ R$/.test(f)).length;
@@ -226,7 +227,9 @@
     const st=results.status||'pre-election';
     const dot=el('#feedDot'); dot.className='dot '+(st==='live'?'':(st==='error'?'err':(st==='stale'?'stale':'off')));
     el('#feedState').textContent={live:'Live feed',stale:'Feed stale',error:'Feed error','pre-election':'Pre-election — feeds idle',complete:'Final unofficial'}[st]||st;
+    const ageMin=results.generated_at?(Date.now()-new Date(results.generated_at).getTime())/60000:null;
     el('#updated').textContent=results.generated_at?('Data generated '+ago(results.generated_at)):'';
+    if(st==='live' && ageMin!=null && ageMin>15){ dot.className='dot stale'; el('#feedState').textContent='Feed stale — last update '+Math.round(ageMin)+' min ago'; }
   }
 
   async function load(){

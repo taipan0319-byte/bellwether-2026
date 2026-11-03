@@ -123,6 +123,7 @@ NUM_RE = re.compile(r"(?<![\d.])\d{1,3}(?:,\d{3})+(?![\d.])|(?<![\d.,])\d+(?![\d
 PCT_RE = re.compile(r"(\d{1,3}(?:\.\d+)?)\s*%")
 PRECINCT_RES = [
     re.compile(r"Precincts Fully:\s*(\d+)\s*/\s*(\d+)", re.I),
+    re.compile(r"Election Districts Reporting:?\s*(\d[\d,]*)\s*of\s*(\d[\d,]*)", re.I),
     re.compile(r"Counties:\s*(\d+)\s*/\s*(\d+)", re.I),
     re.compile(r"(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)\s*(?:precincts|polling (?:places|locations)|vote centers)", re.I),
     re.compile(r"precincts?\s*(?:reporting|reported|complete)[^0-9]{0,40}(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)", re.I),
@@ -839,8 +840,8 @@ GENERIC_SITES = {
            "links": r"U\.S\. Senate|scenario=USSenate|ersElectionId=\d+$", "require": r"General Election|11/0?3/2026"},
     "ks": {"urls": ["https://ent.sos.ks.gov/", "https://ent.sos.ks.gov/kssos_ent.html"],
            "links": r"Senat|General|2026|\.json", "require": r"General|2026", "browser_first": True},
-    "ny": {"urls": ["https://results.elections.ny.gov/"],
-           "links": r"Governor|Nov.*2026|General Election|2026", "require": r"Nov(ember)?\.? 0?3, 2026|General Election", "browser_first": True},
+    "ny": {"urls": ["https://nyenr.elections.ny.gov/", "https://nyenr.elections.ny.gov/Governor", "https://results.elections.ny.gov/"],
+           "links": r"Governor|Statewide|Election Districts|Nov.*2026|General Election|2026|\.json", "require": r"2026 General|General Election|Nov(ember)?\.? 0?3, 2026|Election Districts Reporting", "browser_first": True},
 }
 
 

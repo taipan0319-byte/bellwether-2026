@@ -667,9 +667,9 @@
       "notes": "Clarity ENR; summary.json via current_ver.txt."
     },
     "ny": {
-      "name": "New York State Board of Elections \u2014 Election Night Results",
-      "home": "https://results.elections.ny.gov/",
-      "notes": "ENR site introduced 2022."
+      "name": "New York State Board of Elections \u2014 Election Night Reporting",
+      "home": "https://nyenr.elections.ny.gov/",
+      "notes": "Live ENR site (the results.elections.ny.gov database is post-canvass)."
     }
   }
 }

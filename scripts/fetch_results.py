@@ -1323,12 +1323,12 @@ def adapter_ak(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 # Renders the page in a browser and lets the name-anchored HTML extractor read candidate rows.
 # --------------------------------------------------------------------------- #
 AP_PAGES = {
-    "mi": ["https://apnews.com/projects/elections-2026/michigan/", "https://apnews.com/projects/elections-2026/michigan/us-house/", "https://apnews.com/projects/elections-2026/michigan/us-senate/"],
+    "mi": ["https://apnews.com/projects/elections-2026/", "https://www.270towin.com/2026-election-results-live/state/michigan/", "https://www.270towin.com/2026-election-results-live/", "https://www.clickondetroit.com/decision-2026/"],
     "me": ["https://apnews.com/projects/elections-2026/maine/", "https://apnews.com/projects/elections-2026/maine/us-senate/"],
     "wi": ["https://apnews.com/projects/elections-2026/wisconsin/", "https://apnews.com/projects/elections-2026/wisconsin/governor/"],
     "ks": ["https://apnews.com/projects/elections-2026/kansas/", "https://apnews.com/projects/elections-2026/kansas/us-senate/"],
 }
-AP_LINK_RX = {"mi": r"elections-2026/michigan/.*(house|senate)", "me": r"elections-2026/maine/.*senate", "wi": r"elections-2026/wisconsin/.*governor", "ks": r"elections-2026/kansas/.*senate"}
+AP_LINK_RX = {"mi": r"michigan", "me": r"elections-2026/maine/.*senate", "wi": r"elections-2026/wisconsin/.*governor", "ks": r"elections-2026/kansas/.*senate"}
 
 
 def adapter_ap(state: str, primary=None):

@@ -123,6 +123,7 @@ NUM_RE = re.compile(r"(?<![\d.])\d{1,3}(?:,\d{3})+(?![\d.])|(?<![\d.,])\d+(?![\d
 PCT_RE = re.compile(r"(\d{1,3}(?:\.\d+)?)\s*%")
 PRECINCT_RES = [
     re.compile(r"Precincts Fully:\s*(\d+)\s*/\s*(\d+)", re.I),
+    re.compile(r"Polling Locations Reporting:?\s*(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)", re.I),
     re.compile(r"Election Districts Reporting:?\s*(\d[\d,]*)\s*of\s*(\d[\d,]*)", re.I),
     re.compile(r"Counties:\s*(\d+)\s*/\s*(\d+)", re.I),
     re.compile(r"(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)\s*(?:precincts|polling (?:places|locations)|vote centers)", re.I),
@@ -130,6 +131,7 @@ PRECINCT_RES = [
     re.compile(r"(\d[\d,]*)\s*(?:of|/)\s*(\d[\d,]*)\s*(?:precincts|counties)?\s*reporting", re.I),
 ]
 PCT_REPORTED_RES = [
+    re.compile(r"Polling Locations Reporting:?\s*(\d{1,3}(?:\.\d+)?)\s*%", re.I),
     re.compile(r"(\d{1,3}(?:\.\d+)?)\s*%\s*(?:of\s+)?(?:precincts|expected vote|reporting|reported|counted)", re.I),
     re.compile(r"(?:precincts|expected vote|est\.? votes?)[^%\d]{0,40}(\d{1,3}(?:\.\d+)?)\s*%", re.I),
 ]
@@ -637,70 +639,21 @@ def adapter_va(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 
 
 def adapter_tx(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
-    """Texas SOS portal (results.texas-election.com). The Angular app reads static JSON:
-       static/data/Version.json -> ElectionConstants_{v}.json (currentelectionInfo.ID)
-       -> static/data/election/{ID}/Version.json -> election/{ID}/{v}/Race.json | OfficeSummary.json"""
+    """Texas SOS, Nov 2026: static HTML results page (electionresults.sos.state.tx.us/results.html)
+    with one table per contest; fallback to the new Civix ENR app rendered in a browser."""
     docs = []
-    base = "https://results.texas-election.com/static/data"
-    jh = {"Accept": "application/json, text/plain, */*", "Referer": "https://results.texas-election.com/races",
-          "Sec-Fetch-Dest": "empty", "Sec-Fetch-Mode": "cors", "Sec-Fetch-Site": "same-origin"}
-
-    def gj(url):
-        r = get(url, headers=jh)
-        if not r:
-            return None
-        if probe:
-            save_probe("tx_" + re.sub(r"[^A-Za-z0-9]+", "_", url.replace(base, ""))[-80:] + ".json", r.content)
-        try:
-            return r.json()
-        except Exception:
-            return None
-
-    v = gj(f"{base}/Version.json")
-    vno = (v or {}).get("___versionNo") or (v or {}).get("versionNo")
-    consts = gj(f"{base}/ElectionConstants_{vno}.json") if vno else None
-    election_ids = []
-    if consts:
-        def is_2026_general(node) -> bool:
-            return bool(node.get("ID")) and str(node.get("Y", "")) == "2026" and (
-                str(node.get("ET", "")).upper() == "G" or re.search(r"general", str(node.get("N", "")), re.I))
-        cur = consts.get("currentelectionInfo") or {}
-        if is_2026_general(cur):
-            election_ids.append(cur["ID"])
-        else:
-            log(f"TX: current election is {cur.get('N')!r} — not the 2026 general; waiting for SOS to switch")
-        for _, node in walk_json(consts):
-            if isinstance(node, dict) and is_2026_general(node) and node["ID"] not in election_ids:
-                election_ids.append(node["ID"])
-    for eid in election_ids[:3]:
-        ev = gj(f"{base}/election/{eid}/Version.json")
-        evno = (ev or {}).get("___versionNo") or (ev or {}).get("versionNo")
-        if not evno:
-            continue
-        for fn in ("OfficeSummary.json", "Race.json"):
-            url = f"{base}/election/{eid}/{evno}/{fn}"
-            r = get(url, headers=jh)
-            if r:
-                docs.append((url, r.content))
-                if probe:
-                    save_probe(f"tx_election_{eid}_{evno}_{fn}", r.content)
-        if probe:
-            # discover the per-race detail file naming (for precinct counts)
-            try:
-                rj = json.loads(docs[-1][1]) if docs else {}
-                rid = None
-                for _, node in walk_json(rj):
-                    if isinstance(node, dict) and re.search(r"REPRESENTATIVE DISTRICT 1\b", str(node.get("N", "")), re.I):
-                        rid = node.get("id"); break
-                if rid:
-                    for cand in (f"race/{rid}.json", f"Race_{rid}.json", f"Races/{rid}.json", f"{rid}.json", f"Race/{rid}.json", f"race_{rid}.json"):
-                        rr = get(f"{base}/election/{eid}/{evno}/{cand}", headers=jh)
-                        if rr:
-                            save_probe(f"tx_racedetail_{cand.replace('/', '_')}", rr.content)
-            except Exception as e:
-                log(f"tx race-detail probe failed: {e!r}")
-        if docs:
-            break
+    for u in ("https://electionresults.sos.state.tx.us/results.html", "https://electionresults.sos.state.tx.us/"):
+        r = get(u)
+        if r and re.search(r"November 3, 2026", r.text):
+            docs.append((u, r.content))
+            if probe:
+                save_probe("tx_results_html.html", r.content)
+            return docs
+    # browser fallbacks: the static page via Chromium, then the Civix app
+    docs = _browser_fetch(["https://electionresults.sos.state.tx.us/results.html"], probe, "tx", re.compile(r"results"))
+    docs = [(u, c) for u, c in docs if b"November 3, 2026" in c]
+    if not docs:
+        docs = _browser_capture(["https://goelect.txelections.civixapps.com/ivis-enr-ui/races"], probe, "tx")
     return docs
 
 

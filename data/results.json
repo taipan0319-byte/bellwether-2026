@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T01:08:16+00:00",
+  "generated_at": "2026-11-04T01:11:23+00:00",
   "election_date": "2026-11-03",
   "status": "live",
   "feed_errors": 8,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:06:45+00:00",
+      "source_updated": "2026-11-04T01:09:48+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -45,7 +45,7 @@
     "GOV-FL": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:06:45+00:00",
+      "source_updated": "2026-11-04T01:09:48+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -55,19 +55,19 @@
         {
           "name": "Byron Donalds",
           "party": "REP",
-          "votes": 3478661,
+          "votes": 3534045,
           "incumbent": false
         },
         {
           "name": "David Jolly",
           "party": "DEM",
-          "votes": 3569574,
+          "votes": 3600465,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 86992,
+          "votes": 88386,
           "incumbent": false
         }
       ],
@@ -97,7 +97,7 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read MI feed (0 documents tried). Showing last good data.",
+      "error": "Could not read MI feed (1 documents tried). Showing last good data.",
       "source_url": null
     },
     "SEN-MI": {
@@ -123,13 +123,13 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read MI feed (0 documents tried). Showing last good data.",
+      "error": "Could not read MI feed (1 documents tried). Showing last good data.",
       "source_url": null
     },
     "VA-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:07:09+00:00",
+      "source_updated": "2026-11-04T01:10:13+00:00",
       "precincts_reporting": 15,
       "precincts_total": 18,
       "pct_reported": 83.3,
@@ -139,19 +139,19 @@
         {
           "name": "Rob Wittman",
           "party": "REP",
-          "votes": 71076,
+          "votes": 71843,
           "incumbent": true
         },
         {
           "name": "Shannon Taylor",
           "party": "DEM",
-          "votes": 72196,
+          "votes": 72694,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 414,
+          "votes": 421,
           "incumbent": false
         }
       ],
@@ -161,29 +161,29 @@
     "VA-02": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:07:09+00:00",
-      "precincts_reporting": 4,
+      "source_updated": "2026-11-04T01:10:13+00:00",
+      "precincts_reporting": 5,
       "precincts_total": 8,
-      "pct_reported": 50.0,
+      "pct_reported": 62.5,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Jen Kiggans",
           "party": "REP",
-          "votes": 13883,
+          "votes": 14408,
           "incumbent": true
         },
         {
           "name": "Elaine Luria",
           "party": "DEM",
-          "votes": 12466,
+          "votes": 13043,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 689,
+          "votes": 724,
           "incumbent": false
         }
       ],
@@ -193,7 +193,7 @@
     "NC-11": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:07:10+00:00",
+      "source_updated": "2026-11-04T01:10:14+00:00",
       "precincts_reporting": 0,
       "precincts_total": 290,
       "pct_reported": 0.0,
@@ -341,7 +341,7 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read MT feed (0 documents tried). Showing last good data.",
+      "error": "Could not read MT feed (6 documents tried). Showing last good data.",
       "source_url": null
     },
     "SEN-ME": {
@@ -399,7 +399,7 @@
     "SEN-MN": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:07:35+00:00",
+      "source_updated": "2026-11-04T01:10:41+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 0.0,
@@ -425,7 +425,7 @@
     "SEN-KS": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:07:45+00:00",
+      "source_updated": "2026-11-04T01:10:51+00:00",
       "precincts_reporting": 3,
       "precincts_total": 4168,
       "pct_reported": 0.1,
@@ -463,7 +463,7 @@
     "SEN-OH": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:07:49+00:00",
+      "source_updated": "2026-11-04T01:10:56+00:00",
       "precincts_reporting": 1,
       "precincts_total": 8834,
       "pct_reported": 0.0,
@@ -473,13 +473,19 @@
         {
           "name": "Jon Husted",
           "party": "REP",
-          "votes": 1337268,
+          "votes": 517812,
           "incumbent": true
         },
         {
           "name": "Sherrod Brown",
           "party": "DEM",
-          "votes": 1337268,
+          "votes": 845264,
+          "incumbent": false
+        },
+        {
+          "name": "Other / write-in",
+          "party": "OTH",
+          "votes": 21330,
           "incumbent": false
         }
       ],
@@ -489,7 +495,7 @@
     "GOV-OH": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:07:49+00:00",
+      "source_updated": "2026-11-04T01:10:56+00:00",
       "precincts_reporting": 1,
       "precincts_total": 8834,
       "pct_reported": 0.0,
@@ -499,13 +505,19 @@
         {
           "name": "Vivek Ramaswamy",
           "party": "REP",
-          "votes": 1334448,
+          "votes": 506430,
           "incumbent": false
         },
         {
           "name": "Amy Acton",
           "party": "DEM",
-          "votes": 1334448,
+          "votes": 866848,
+          "incumbent": false
+        },
+        {
+          "name": "Other / write-in",
+          "party": "OTH",
+          "votes": 31788,
           "incumbent": false
         }
       ],
@@ -515,7 +527,7 @@
     "SEN-GA": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:07:49+00:00",
+      "source_updated": "2026-11-04T01:10:56+00:00",
       "precincts_reporting": 101,
       "precincts_total": 159,
       "pct_reported": 63.5,
@@ -547,7 +559,7 @@
     "SEN-IA": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:07:57+00:00",
+      "source_updated": "2026-11-04T01:11:03+00:00",
       "precincts_reporting": 2,
       "precincts_total": 99,
       "pct_reported": 2.0,
@@ -585,7 +597,7 @@
     "SEN-AK": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:08:06+00:00",
+      "source_updated": "2026-11-04T01:11:12+00:00",
       "precincts_reporting": 0,
       "precincts_total": 403,
       "pct_reported": 0.0,
@@ -623,7 +635,7 @@
     "GOV-NY": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:08:16+00:00",
+      "source_updated": "2026-11-04T01:11:23+00:00",
       "precincts_reporting": 0,
       "precincts_total": 13187,
       "pct_reported": 0.0,

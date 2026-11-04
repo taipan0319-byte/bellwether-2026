@@ -1273,8 +1273,37 @@ def adapter_ak(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
     return docs
 
 
-ADAPTERS = {"fl": adapter_fl, "mi": adapter_mi, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
+
+# --------------------------------------------------------------------------- #
+# AP-powered news-page fallback (personal use) for states without a usable official live feed.
+# Renders the page in a browser and lets the name-anchored HTML extractor read candidate rows.
+# --------------------------------------------------------------------------- #
+AP_PAGES = {
+    "mi": ["https://apnews.com/projects/election-results-2026/michigan/", "https://apnews.com/hub/michigan-election-results"],
+    "me": ["https://apnews.com/projects/election-results-2026/maine/"],
+    "wi": ["https://apnews.com/projects/election-results-2026/wisconsin/"],
+    "ks": ["https://apnews.com/projects/election-results-2026/kansas/"],
+}
+
+
+def adapter_ap(state: str, primary=None):
+    def run(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
+        docs = primary(cfg, races, probe) if primary else []
+        # if the official adapter produced something usable, keep it; otherwise try AP
+        usable = [d for d in docs if not d[0].endswith("#probe-only")]
+        if usable:
+            return docs
+        ap_docs = _browser_fetch(AP_PAGES.get(state, []), probe, f"ap_{state}", re.compile(r"Senate|House|Governor|District"))
+        for u, c in ap_docs:
+            if re.search(r"2026", c.decode("utf-8", "replace")):
+                docs.append((u, c))
+        return docs
+    return run
+
+
+ADAPTERS = {"fl": adapter_fl, "mi": adapter_ap("mi", adapter_mi), "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
             "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES},
+            "me": adapter_ap("me"), "wi": adapter_ap("wi"), "ks": adapter_ap("ks", adapter_generic("ks")),
             "ia": adapter_clarity("https://electionresults.iowa.gov", "IA", r"2026 General Election"),
             "ga": adapter_ga, "oh": adapter_oh, "ak": adapter_ak}
 

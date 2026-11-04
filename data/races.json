@@ -62,7 +62,7 @@
       ],
       "source": {
         "adapter": "mi",
-        "contest_pattern": "(4th|04|\\b4\\b).*(Representative in Congress|U\\.?S\\.? (House|Rep))|(Representative in Congress|U\\.?S\\.? (House|Rep)).*(4th|\\b04\\b|District\\s*4\\b)"
+        "contest_pattern": "(4th|04|\\b4\\b).*(Representative in Congress|U\\.?S\\.? (House|Rep)|District)|(Representative in Congress|U\\.?S\\.? (House|Rep)|House).*(4th|\\b04\\b|District\\s*4\\b)"
       },
       "chamber": "house"
     },
@@ -310,8 +310,8 @@
         }
       ],
       "source": {
-        "adapter": "manual",
-        "contest_pattern": "United States Senator|U\\.?S\\.? Senat"
+        "adapter": "me",
+        "contest_pattern": "U\\.?S\\.? Senate|Senate"
       }
     },
     {
@@ -339,7 +339,7 @@
       ],
       "source": {
         "adapter": "mi",
-        "contest_pattern": "UNITED STATES SENATOR"
+        "contest_pattern": "UNITED STATES SENATOR|U\\.?S\\.? Senate|Senate"
       }
     },
     {
@@ -556,7 +556,7 @@
         }
       ],
       "source": {
-        "adapter": "manual",
+        "adapter": "wi",
         "contest_pattern": "Governor"
       }
     },
@@ -715,6 +715,16 @@
       "name": "Alaska Division of Elections \u2014 Election Night Results",
       "home": "https://www.elections.alaska.gov/election-results/",
       "notes": "State posts a combined HTML statewide report plus per-district PDFs; first results ~9 PM AKST."
+    },
+    "me": {
+      "name": "AP via apnews.com (no official Maine live feed)",
+      "home": "https://apnews.com/projects/election-results-2026/maine/",
+      "notes": "Personal-use fallback."
+    },
+    "wi": {
+      "name": "AP via apnews.com (no official Wisconsin live feed)",
+      "home": "https://apnews.com/projects/election-results-2026/wisconsin/",
+      "notes": "Personal-use fallback."
     }
   }
 }

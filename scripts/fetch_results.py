@@ -1430,7 +1430,7 @@ def adapter_ap(state: str, primary=None):
         usable = [d for d in docs if not d[0].endswith("#probe-only") and name_rx.search(d[1].decode("utf-8", "replace"))]
         if usable:
             return docs
-        wait_rx = name_rx if surnames else None
+        wait_rx = re.compile(r"candidate\s+votes\s+pct", re.I)  # AP's results table has rendered
         ap_docs = []
         for u in AP_PAGES.get(state, []):
             ap_docs += _browser_fetch([u], probe, f"ap_{state}", re.compile(AP_LINK_RX.get(state, r"$^"), re.I), wait_rx)

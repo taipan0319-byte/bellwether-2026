@@ -9,10 +9,22 @@
       "called": null,
       "source_note": "Entered by hand from AP",
       "candidates": [
-        {"name": "Carlos De La Cruz", "party": "REP", "votes": 61234},
-        {"name": "Johnny Garcia", "party": "DEM", "votes": 57890}
+        {
+          "name": "Carlos De La Cruz",
+          "party": "REP",
+          "votes": 61234
+        },
+        {
+          "name": "Johnny Garcia",
+          "party": "DEM",
+          "votes": 57890
+        }
       ]
     }
   },
-  "overrides": {}
+  "overrides": {},
+  "_help_calls": "'calls' marks a race as called by AP/networks WITHOUT touching the vote feed: {\"SEN-GA\": \"DEM\"}. Remove the entry to un-call.",
+  "calls": {
+    "SEN-GA": "DEM"
+  }
 }

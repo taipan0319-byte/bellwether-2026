@@ -1323,11 +1323,12 @@ def adapter_ak(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 # Renders the page in a browser and lets the name-anchored HTML extractor read candidate rows.
 # --------------------------------------------------------------------------- #
 AP_PAGES = {
-    "mi": ["https://apnews.com/projects/election-results-2026/michigan/", "https://apnews.com/hub/michigan-election-results"],
-    "me": ["https://apnews.com/projects/election-results-2026/maine/"],
-    "wi": ["https://apnews.com/projects/election-results-2026/wisconsin/"],
-    "ks": ["https://apnews.com/projects/election-results-2026/kansas/"],
+    "mi": ["https://apnews.com/projects/elections-2026/michigan/", "https://apnews.com/projects/elections-2026/michigan/us-house/", "https://apnews.com/projects/elections-2026/michigan/us-senate/"],
+    "me": ["https://apnews.com/projects/elections-2026/maine/", "https://apnews.com/projects/elections-2026/maine/us-senate/"],
+    "wi": ["https://apnews.com/projects/elections-2026/wisconsin/", "https://apnews.com/projects/elections-2026/wisconsin/governor/"],
+    "ks": ["https://apnews.com/projects/elections-2026/kansas/", "https://apnews.com/projects/elections-2026/kansas/us-senate/"],
 }
+AP_LINK_RX = {"mi": r"elections-2026/michigan/.*(house|senate)", "me": r"elections-2026/maine/.*senate", "wi": r"elections-2026/wisconsin/.*governor", "ks": r"elections-2026/kansas/.*senate"}
 
 
 def adapter_ap(state: str, primary=None):
@@ -1337,7 +1338,7 @@ def adapter_ap(state: str, primary=None):
         usable = [d for d in docs if not d[0].endswith("#probe-only")]
         if usable:
             return docs
-        ap_docs = _browser_fetch(AP_PAGES.get(state, []), probe, f"ap_{state}", re.compile(r"Senate|House|Governor|District"))
+        ap_docs = _browser_fetch(AP_PAGES.get(state, []), probe, f"ap_{state}", re.compile(AP_LINK_RX.get(state, r"$^"), re.I))
         for u, c in ap_docs:
             if re.search(r"2026", c.decode("utf-8", "replace")):
                 docs.append((u, c))
@@ -1374,7 +1375,9 @@ def main():
         log("races.json missing or invalid")
         sys.exit(1)
     prev = load_json(DATA / "results.json", {"races": {}})
-    overrides = load_json(DATA / "manual_overrides.json", {}).get("overrides", {})
+    ov_file = load_json(DATA / "manual_overrides.json", {})
+    overrides = ov_file.get("overrides", {})
+    calls = ov_file.get("calls", {})
 
     out_races: dict[str, dict] = {}
     any_ok = False
@@ -1454,6 +1457,9 @@ def main():
         total = sum((c.get("votes") or 0) for c in cur.get("candidates", []))
         cur["status"] = "called" if cur.get("called") else ("counting" if total > 0 else "not_started")
 
+    for rid, party in calls.items():
+        if rid in out_races and party in ("REP", "DEM"):
+            out_races[rid]["called"] = party
     for rid, r in out_races.items():
         if r.get("called"):
             r["status"] = "called"

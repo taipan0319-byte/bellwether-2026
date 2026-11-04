@@ -1338,7 +1338,7 @@ def adapter_ak(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 # Renders the page in a browser and lets the name-anchored HTML extractor read candidate rows.
 # --------------------------------------------------------------------------- #
 AP_PAGES = {
-    "mi": ["https://apnews.com/projects/elections-2026/michigan-us-senate-results/", "https://apnews.com/projects/elections-2026/michigan-us-house-results/"],
+    "mi": ["https://apnews.com/projects/elections-2026/michigan-us-senate-results/", "https://apnews.com/projects/elections-2026/michigan-us-house-results/#4"],
     "me": ["https://apnews.com/projects/elections-2026/maine-us-senate-results/"],
     "wi": ["https://apnews.com/projects/elections-2026/wisconsin-governor-results/"],
     "ks": ["https://apnews.com/projects/elections-2026/kansas-us-senate-results/"],

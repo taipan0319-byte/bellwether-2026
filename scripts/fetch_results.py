@@ -395,6 +395,11 @@ def extract(content: bytes, race: dict, source_url: str) -> RaceResult | None:
         if res is None:
             return None  # never fall back to the fuzzy extractor on this page
     if res is None and "apnews.com/projects/elections-2026" in source_url:
+        # a House page addressed with #N is only valid for district N
+        hm = re.search(r"#(\d+)$", source_url)
+        dm = re.search(r"-(\d+)$", race["id"])
+        if hm and dm and int(hm.group(1)) != int(dm.group(1)):
+            return None
         res = parse_ap_page(text, race, rx)
         if res is None:
             return None  # structured AP parser only; never guess on these pages
@@ -1394,6 +1399,8 @@ def parse_ap_page(html: str, race: dict, contest_rx: re.Pattern) -> RaceResult |
     cands = race["candidates"]
     majors = [c for c in cands if c["party"] in ("REP", "DEM")]
     blocks = list(re.finditer(r"candidate\s+votes\s+pct(.*?)(?=Updated\s+\w{3}\s+\d|candidate\s+votes\s+pct|$)", text, re.S))
+    best: RaceResult | None = None
+    best_total = -1
     for i, m in enumerate(blocks):
         body = m.group(1)
         rows, other = [], None
@@ -1426,8 +1433,12 @@ def parse_ap_page(html: str, race: dict, contest_rx: re.Pattern) -> RaceResult |
         pm = re.search(r"(\d{1,3})%\s*of\s*votes\s*counted", pre)
         if pm:
             res.pct_reported = float(pm.group(1))
-        return res
-    return None
+        # keep the block with the most votes: the statewide/district total always exceeds any
+        # county block or a stale sidebar module for the same race
+        total = sum((c["votes"] or 0) for c in out)
+        if total > best_total:
+            best, best_total = res, total
+    return best
 
 
 def adapter_ap(state: str, primary=None):

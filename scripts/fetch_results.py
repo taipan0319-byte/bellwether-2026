@@ -1092,7 +1092,13 @@ def adapter_clarity(base: str, state_code: str, label_rx: str):
                     t = page.evaluate("() => document.body ? document.body.innerText : ''")
                     FETCH_LOG.append(f"PW  {url} -> {len(t)} chars")
                     return t
-                ver = text_of(f"{base}/{state_code}/{eid}/current_ver.txt").strip()
+                ver = ""
+                for _try in range(3):
+                    ver = text_of(f"{base}/{state_code}/{eid}/current_ver.txt").strip()
+                    if re.fullmatch(r"\d+", ver):
+                        break
+                    FETCH_LOG.append(f"clarity {state_code}: version text {ver[:60]!r}; retrying")
+                    page.wait_for_timeout(3000)
                 if not re.fullmatch(r"\d+", ver):
                     log(f"clarity {state_code}: bad version {ver[:40]!r}")
                     browser.close(); return docs

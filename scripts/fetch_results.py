@@ -695,18 +695,30 @@ def adapter_tx(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
     """Texas SOS, Nov 2026: static HTML results page (electionresults.sos.state.tx.us/results.html)
     with one table per contest; fallback to the new Civix ENR app rendered in a browser."""
     docs = []
-    for u in ("https://electionresults.sos.state.tx.us/results.html", "https://electionresults.sos.state.tx.us/"):
-        r = get(u)
-        if r and re.search(r"November 3, 2026", r.text):
-            docs.append((u, r.content))
-            if probe:
-                save_probe("tx_results_html.html", r.content)
-            return docs
+    # the page is complete only if every tracked district's table is present and the page is closed
+    wanted = [re.compile(r["source"]["contest_pattern"], re.I) for r in races]
+    def complete(html: str) -> bool:
+        return bool(re.search(r"</html>", html, re.I)) and all(rx.search(html) for rx in wanted)
+    best = None
+    for attempt in range(4):
+        for u in ("https://electionresults.sos.state.tx.us/results.html", "https://electionresults.sos.state.tx.us/"):
+            r = get(u)
+            if r and re.search(r"November 3, 2026", r.text):
+                if complete(r.text):
+                    docs.append((u, r.content))
+                    if probe:
+                        save_probe("tx_results_html.html", r.content)
+                    return docs
+                FETCH_LOG.append(f"tx: truncated page ({len(r.content)} bytes), retrying")
+                best = (u, r.content)
+        time.sleep(3)
     # browser fallbacks: the static page via Chromium, then the Civix app
     docs = _browser_fetch(["https://electionresults.sos.state.tx.us/results.html"], probe, "tx", re.compile(r"results"))
     docs = [(u, c) for u, c in docs if b"November 3, 2026" in c]
     if not docs:
         docs = _browser_capture(["https://goelect.txelections.civixapps.com/ivis-enr-ui/races"], probe, "tx")
+    if not docs and best:
+        docs = [best]  # partial static page: districts present still parse exactly; missing ones error
     return docs
 
 

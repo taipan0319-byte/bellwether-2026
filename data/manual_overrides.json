@@ -30,6 +30,9 @@
     "GOV-NY": "DEM",
     "GOV-FL": "REP",
     "GOV-OH": "DEM",
-    "GOV-WI": "DEM"
+    "GOV-WI": "DEM",
+    "SEN-OH": "DEM",
+    "SEN-KS": "DEM",
+    "SEN-IA": "DEM"
   }
 }

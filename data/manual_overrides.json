@@ -29,6 +29,7 @@
     "FL-25": "DEM",
     "GOV-NY": "DEM",
     "GOV-FL": "REP",
-    "GOV-OH": "DEM"
+    "GOV-OH": "DEM",
+    "GOV-WI": "DEM"
   }
 }

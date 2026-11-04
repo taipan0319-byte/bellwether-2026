@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T02:02:57+00:00",
+  "generated_at": "2026-11-04T02:08:13+00:00",
   "election_date": "2026-11-03",
   "status": "live",
   "feed_errors": 0,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:01:30+00:00",
+      "source_updated": "2026-11-04T02:06:39+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -17,19 +17,19 @@
         {
           "name": "Jared Moskowitz",
           "party": "DEM",
-          "votes": 142019,
+          "votes": 142737,
           "incumbent": true
         },
         {
           "name": "Scott Singer",
           "party": "REP",
-          "votes": 129228,
+          "votes": 129871,
           "incumbent": false
         },
         {
           "name": "Peter Jassenoff",
           "party": "LPF",
-          "votes": 5792,
+          "votes": 5841,
           "incumbent": false
         },
         {
@@ -45,7 +45,7 @@
     "GOV-FL": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:01:30+00:00",
+      "source_updated": "2026-11-04T02:06:39+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -55,19 +55,19 @@
         {
           "name": "Byron Donalds",
           "party": "REP",
-          "votes": 4054238,
+          "votes": 4064533,
           "incumbent": false
         },
         {
           "name": "David Jolly",
           "party": "DEM",
-          "votes": 3950678,
+          "votes": 3962057,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 102111,
+          "votes": 102441,
           "incumbent": false
         }
       ],
@@ -77,7 +77,7 @@
     "MI-04": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:00+00:00",
+      "source_updated": "2026-11-04T02:07:10+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 1.0,
@@ -109,29 +109,29 @@
     "SEN-MI": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:00+00:00",
+      "source_updated": "2026-11-04T02:07:10+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
-      "pct_reported": 13.0,
+      "pct_reported": 14.0,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Mike Rogers",
           "party": "REP",
-          "votes": 280163,
+          "votes": 290923,
           "incumbent": false
         },
         {
           "name": "Abdul El-Sayed",
           "party": "DEM",
-          "votes": 357417,
+          "votes": 367892,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 7958,
+          "votes": 8326,
           "incumbent": false
         }
       ],
@@ -141,7 +141,7 @@
     "VA-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:03+00:00",
+      "source_updated": "2026-11-04T02:07:12+00:00",
       "precincts_reporting": 18,
       "precincts_total": 18,
       "pct_reported": 100.0,
@@ -173,7 +173,7 @@
     "VA-02": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:03+00:00",
+      "source_updated": "2026-11-04T02:07:13+00:00",
       "precincts_reporting": 7,
       "precincts_total": 8,
       "pct_reported": 87.5,
@@ -205,7 +205,7 @@
     "NC-11": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:04+00:00",
+      "source_updated": "2026-11-04T02:07:13+00:00",
       "precincts_reporting": 265,
       "precincts_total": 290,
       "pct_reported": 91.4,
@@ -243,7 +243,7 @@
     "TX-35": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:05+00:00",
+      "source_updated": "2026-11-04T02:07:14+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 0.0,
@@ -275,7 +275,7 @@
     "TX-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:05+00:00",
+      "source_updated": "2026-11-04T02:07:14+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 9.0,
@@ -313,7 +313,7 @@
     "TX-15": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:05+00:00",
+      "source_updated": "2026-11-04T02:07:14+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 1.0,
@@ -345,7 +345,7 @@
     "MT-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:07+00:00",
+      "source_updated": "2026-11-04T02:07:16+00:00",
       "precincts_reporting": 0,
       "precincts_total": 346,
       "pct_reported": 0.0,
@@ -383,23 +383,23 @@
     "SEN-ME": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:11+00:00",
+      "source_updated": "2026-11-04T02:07:25+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
-      "pct_reported": 4.0,
+      "pct_reported": 5.0,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Susan Collins",
           "party": "REP",
-          "votes": 13840,
+          "votes": 17372,
           "incumbent": true
         },
         {
           "name": "Troy Jackson",
           "party": "DEM",
-          "votes": 18545,
+          "votes": 21456,
           "incumbent": false
         },
         {
@@ -415,7 +415,7 @@
     "SEN-MN": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:13+00:00",
+      "source_updated": "2026-11-04T02:07:27+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 0.0,
@@ -441,29 +441,29 @@
     "SEN-KS": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:23+00:00",
+      "source_updated": "2026-11-04T02:07:41+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
-      "pct_reported": 36.0,
+      "pct_reported": 38.0,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Roger Marshall",
           "party": "REP",
-          "votes": 156293,
+          "votes": 168190,
           "incumbent": true
         },
         {
           "name": "Adam Hamilton",
           "party": "DEM",
-          "votes": 279641,
+          "votes": 291992,
           "incumbent": false
         },
         {
           "name": "David Graham",
           "party": "LIB",
-          "votes": 8301,
+          "votes": 12174,
           "incumbent": false
         },
         {
@@ -479,29 +479,29 @@
     "SEN-OH": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:27+00:00",
-      "precincts_reporting": 1766,
+      "source_updated": "2026-11-04T02:07:45+00:00",
+      "precincts_reporting": 2077,
       "precincts_total": 8834,
-      "pct_reported": 20.0,
+      "pct_reported": 23.5,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Jon Husted",
           "party": "REP",
-          "votes": 919377,
+          "votes": 986873,
           "incumbent": true
         },
         {
           "name": "Sherrod Brown",
           "party": "DEM",
-          "votes": 1123766,
+          "votes": 1159966,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 36816,
+          "votes": 39532,
           "incumbent": false
         }
       ],
@@ -511,29 +511,29 @@
     "GOV-OH": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:27+00:00",
-      "precincts_reporting": 1766,
+      "source_updated": "2026-11-04T02:07:45+00:00",
+      "precincts_reporting": 2077,
       "precincts_total": 8834,
-      "pct_reported": 20.0,
+      "pct_reported": 23.5,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Vivek Ramaswamy",
           "party": "REP",
-          "votes": 902372,
+          "votes": 969423,
           "incumbent": false
         },
         {
           "name": "Amy Acton",
           "party": "DEM",
-          "votes": 1160604,
+          "votes": 1199116,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 61090,
+          "votes": 66388,
           "incumbent": false
         }
       ],
@@ -543,23 +543,23 @@
     "SEN-GA": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:28+00:00",
-      "precincts_reporting": 134,
+      "source_updated": "2026-11-04T02:07:46+00:00",
+      "precincts_reporting": 137,
       "precincts_total": 159,
-      "pct_reported": 84.3,
+      "pct_reported": 86.2,
       "called": "DEM",
       "winner": "Jon Ossoff",
       "candidates": [
         {
           "name": "Jon Ossoff",
           "party": "DEM",
-          "votes": 1835574,
+          "votes": 1863444,
           "incumbent": true
         },
         {
           "name": "Mike Collins",
           "party": "REP",
-          "votes": 1198129,
+          "votes": 1232321,
           "incumbent": false
         },
         {
@@ -575,7 +575,7 @@
     "SEN-IA": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:35+00:00",
+      "source_updated": "2026-11-04T02:07:52+00:00",
       "precincts_reporting": 2,
       "precincts_total": 99,
       "pct_reported": 2.0,
@@ -585,19 +585,19 @@
         {
           "name": "Ashley Hinson",
           "party": "REP",
-          "votes": 1691,
+          "votes": 2914,
           "incumbent": false
         },
         {
           "name": "Josh Turek",
           "party": "DEM",
-          "votes": 1563,
+          "votes": 2798,
           "incumbent": false
         },
         {
           "name": "Thomas Laehn",
           "party": "LIB",
-          "votes": 107,
+          "votes": 144,
           "incumbent": false
         },
         {
@@ -608,12 +608,12 @@
         }
       ],
       "error": null,
-      "source_url": "https://electionresults.iowa.gov/IA/127077/383981/json/en/summary.json"
+      "source_url": "https://electionresults.iowa.gov/IA/127077/384036/json/en/summary.json"
     },
     "SEN-AK": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:44+00:00",
+      "source_updated": "2026-11-04T02:08:01+00:00",
       "precincts_reporting": 0,
       "precincts_total": 403,
       "pct_reported": 0.0,
@@ -651,7 +651,7 @@
     "GOV-WI": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:48+00:00",
+      "source_updated": "2026-11-04T02:08:04+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 0.0,
@@ -681,31 +681,31 @@
       "source_url": "https://apnews.com/projects/elections-2026/wisconsin-governor-results/"
     },
     "GOV-NY": {
-      "status": "not_started",
+      "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T02:02:57+00:00",
-      "precincts_reporting": 0,
+      "source_updated": "2026-11-04T02:08:13+00:00",
+      "precincts_reporting": 165,
       "precincts_total": 13187,
-      "pct_reported": 0.0,
+      "pct_reported": 1.3,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Kathy Hochul",
           "party": "DEM",
-          "votes": 0,
+          "votes": 102129,
           "incumbent": true
         },
         {
           "name": "Bruce Blakeman",
           "party": "REP",
-          "votes": 0,
+          "votes": 50677,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 0,
+          "votes": 1319,
           "incumbent": false
         }
       ],

@@ -898,7 +898,7 @@ def is_challenge(html: str) -> bool:
     return ("<title>just a moment" in h) or ("just a moment..." in h and len(html) < 20000) or (len(html) < 6000 and "enable javascript and cookies" in h)
 
 
-def _browser_fetch(urls: list[str], probe: bool, tag: str, link_rx: re.Pattern) -> list[tuple[str, bytes]]:
+def _browser_fetch(urls: list[str], probe: bool, tag: str, link_rx: re.Pattern, wait_rx: re.Pattern | None = None) -> list[tuple[str, bytes]]:
     docs = []
     try:
         from playwright.sync_api import sync_playwright  # type: ignore
@@ -926,6 +926,17 @@ def _browser_fetch(urls: list[str], probe: bool, tag: str, link_rx: re.Pattern) 
                             break
                         page.wait_for_timeout(1000)
                     page.wait_for_timeout(2500)
+                    if wait_rx is not None:
+                        # client-rendered race lists: scroll and wait until the expected names appear
+                        for _ in range(20):
+                            try:
+                                body = page.inner_text("body")
+                            except Exception:
+                                body = ""
+                            if wait_rx.search(body):
+                                break
+                            page.evaluate("window.scrollBy(0, 1200)")
+                            page.wait_for_timeout(1000)
                     html = page.content()
                     FETCH_LOG.append(f"PW  {u} -> {page.url} ({len(html)} chars) challenge={is_challenge(html)}")
                     if is_challenge(html):
@@ -1396,7 +1407,11 @@ def adapter_ap(state: str, primary=None):
         usable = [d for d in docs if not d[0].endswith("#probe-only")]
         if usable:
             return docs
-        ap_docs = _browser_fetch(AP_PAGES.get(state, []), probe, f"ap_{state}", re.compile(AP_LINK_RX.get(state, r"$^"), re.I))
+        surnames = sorted({name_tokens(c["name"])[1] for r in races for c in r["candidates"] if c["party"] in ("REP", "DEM")})
+        wait_rx = re.compile("|".join(surnames), re.I) if surnames else None
+        ap_docs = []
+        for u in AP_PAGES.get(state, []):
+            ap_docs += _browser_fetch([u], probe, f"ap_{state}", re.compile(AP_LINK_RX.get(state, r"$^"), re.I), wait_rx)
         for u, c in ap_docs:
             if re.search(r"2026", c.decode("utf-8", "replace")):
                 docs.append((u, c))

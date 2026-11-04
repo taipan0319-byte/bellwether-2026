@@ -394,6 +394,10 @@ def extract(content: bytes, race: dict, source_url: str) -> RaceResult | None:
         res = parse_tx_html(text, race, rx)
         if res is None:
             return None  # never fall back to the fuzzy extractor on this page
+    if res is None and "apnews.com/projects/elections-2026" in source_url:
+        res = parse_ap_page(text, race, rx)
+        if res is None:
+            return None  # structured AP parser only; never guess on these pages
     if res is None and "<" in stripped[:200]:
         res = extract_from_html(text, race, rx)
     if res is not None and race["source"]["adapter"] == "oh" and (not res.precincts_total):
@@ -1323,12 +1327,66 @@ def adapter_ak(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
 # Renders the page in a browser and lets the name-anchored HTML extractor read candidate rows.
 # --------------------------------------------------------------------------- #
 AP_PAGES = {
-    "mi": ["https://apnews.com/projects/elections-2026/", "https://www.270towin.com/2026-election-results-live/state/michigan/", "https://www.270towin.com/2026-election-results-live/", "https://www.clickondetroit.com/decision-2026/"],
-    "me": ["https://apnews.com/projects/elections-2026/maine/", "https://apnews.com/projects/elections-2026/maine/us-senate/"],
-    "wi": ["https://apnews.com/projects/elections-2026/wisconsin/", "https://apnews.com/projects/elections-2026/wisconsin/governor/"],
-    "ks": ["https://apnews.com/projects/elections-2026/kansas/", "https://apnews.com/projects/elections-2026/kansas/us-senate/"],
+    "mi": ["https://apnews.com/projects/elections-2026/michigan-us-senate-results/", "https://apnews.com/projects/elections-2026/michigan-us-house-results/"],
+    "me": ["https://apnews.com/projects/elections-2026/maine-us-senate-results/"],
+    "wi": ["https://apnews.com/projects/elections-2026/wisconsin-governor-results/"],
+    "ks": ["https://apnews.com/projects/elections-2026/kansas-us-senate-results/"],
 }
-AP_LINK_RX = {"mi": r"michigan", "me": r"elections-2026/maine/.*senate", "wi": r"elections-2026/wisconsin/.*governor", "ks": r"elections-2026/kansas/.*senate"}
+AP_LINK_RX = {}  # no link-following: the race pages are addressed directly
+
+
+AP_ROW_RX = re.compile(r"\s*(?P<name>.+?)\s+(?P<party>Dem|GOP|Lib|Grn|Ind|UST|WFP|Con|NPA|Oth|[A-Z][A-Za-z]{1,3})\s+(?P<votes>\d[\d,]*)\s+(?P<pct>\d+(?:\.\d+)?)%")
+AP_OTHER_RX = re.compile(r"\s*Other candidates\s+(?P<votes>\d[\d,]*)\s+(?P<pct>\d+(?:\.\d+)?)%")
+
+
+def parse_ap_page(html: str, race: dict, contest_rx: re.Pattern) -> RaceResult | None:
+    """AP results page (apnews.com/projects/elections-2026/<state>-<office>-results/). The rendered
+    text reads '... estimates N% of votes counted candidate votes pct <Name> <Party> <votes> <pct>% ...
+    Updated ...'. The statewide block comes first; county blocks follow. On a House page every
+    district has its own block, so we take the first block whose rows name both major candidates."""
+    soup = BeautifulSoup(html, "lxml")
+    for t in soup(["script", "style", "noscript"]):
+        t.decompose()
+    text = soup.get_text(" ", strip=True).replace("\u2011", "-").replace("\u2010", "-").replace("\u00a0", " ")
+    if not contest_rx.search(text):
+        return None
+    cands = race["candidates"]
+    majors = [c for c in cands if c["party"] in ("REP", "DEM")]
+    blocks = list(re.finditer(r"candidate\s+votes\s+pct(.*?)(?=Updated\s+\w{3}\s+\d|candidate\s+votes\s+pct|$)", text, re.S))
+    for i, m in enumerate(blocks):
+        body = m.group(1)
+        rows, other = [], None
+        pos = 0
+        while pos < len(body):
+            mo = AP_OTHER_RX.match(body, pos)
+            if mo:
+                other = to_int(mo.group("votes")); pos = mo.end(); continue
+            mr = AP_ROW_RX.match(body, pos)
+            if not mr:
+                break
+            rows.append((mr.group("name").strip(), mr.group("party"), to_int(mr.group("votes"))))
+            pos = mr.end()
+        if not rows:
+            continue
+        if not all(any(text_matches_candidate(n, c) for n, _, _ in rows) for c in majors):
+            continue
+        res = RaceResult()
+        out, used = [], set()
+        for c in cands:
+            v = None
+            for j, (n, _, votes) in enumerate(rows):
+                if j not in used and text_matches_candidate(n, c):
+                    v = votes; used.add(j); break
+            out.append(asdict(CandResult(c["name"], c["party"], v, c.get("incumbent", False))))
+        rest = sum((v or 0) for j, (_, _, v) in enumerate(rows) if j not in used) + (other or 0)
+        out.append(asdict(CandResult("Other / write-in", "OTH", rest, False)))
+        res.candidates = out
+        pre = text[max(0, m.start() - 200):m.start()]
+        pm = re.search(r"(\d{1,3})%\s*of\s*votes\s*counted", pre)
+        if pm:
+            res.pct_reported = float(pm.group(1))
+        return res
+    return None
 
 
 def adapter_ap(state: str, primary=None):

@@ -280,7 +280,8 @@ def walk_json(obj: Any, path=()) -> Iterable[tuple[tuple, Any]]:
             yield from walk_json(v, path + (i,))
 
 
-VOTE_KEYS = ("votes", "votecount", "vote_count", "totalvotes", "total_votes", "ballots", "count", "total", "tally", "v")
+# priority order: per-candidate keys first; contest-level "total*" keys last
+VOTE_KEYS = ("votecount", "vcount", "vote_count", "votes", "tally", "ballots", "v", "count", "total_votes", "totalvotes", "total")
 
 
 def extract_from_json(doc: Any, race: dict, contest_rx: re.Pattern) -> RaceResult | None:
@@ -314,9 +315,11 @@ def extract_from_json(doc: Any, race: dict, contest_rx: re.Pattern) -> RaceResul
         votes = None
         for _, node in walk_json(contest):
             if isinstance(node, dict) and any(isinstance(v, str) and text_matches_candidate(v, c) for v in node.values()):
-                for k, v in node.items():
-                    if k.lower().replace("_", "") in [x.replace("_", "") for x in VOTE_KEYS] and isinstance(v, (int, float, str)):
-                        iv = to_int(str(v).split(".")[0])
+                keymap = {k.lower().replace("_", ""): k for k in node.keys()}
+                for pk in VOTE_KEYS:
+                    k = keymap.get(pk.replace("_", ""))
+                    if k is not None and isinstance(node[k], (int, float, str)):
+                        iv = to_int(str(node[k]).split(".")[0])
                         if iv is not None:
                             votes = iv
                             break
@@ -328,9 +331,11 @@ def extract_from_json(doc: Any, race: dict, contest_rx: re.Pattern) -> RaceResul
     all_total = 0
     for _, node in walk_json(contest):
         if isinstance(node, dict) and any(isinstance(v, str) and re.search(r"[A-Za-z]{2,}\s+[A-Za-z]{2,}", v) for k, v in node.items() if k.lower() in ("name", "primarycandidate", "candidate", "candidatename", "fullname", "n", "choice")):
-            for k, v in node.items():
-                if k.lower().replace("_", "") in [x.replace("_", "") for x in VOTE_KEYS] and isinstance(v, (int, float, str)):
-                    iv = to_int(str(v).split(".")[0])
+            keymap = {k.lower().replace("_", ""): k for k in node.keys()}
+            for pk in VOTE_KEYS:
+                k = keymap.get(pk.replace("_", ""))
+                if k is not None and isinstance(node[k], (int, float, str)):
+                    iv = to_int(str(node[k]).split(".")[0])
                     if iv is not None:
                         all_total += iv
                         break

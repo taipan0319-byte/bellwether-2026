@@ -1444,6 +1444,67 @@ def parse_ap_page(html: str, race: dict, contest_rx: re.Pattern) -> RaceResult |
     return best
 
 
+# AP race page for every tracked race (used to pick up AP race calls automatically)
+AP_RACE_URL = {
+    "FL-25": "https://apnews.com/projects/elections-2026/florida-us-house-results/#25",
+    "GOV-FL": "https://apnews.com/projects/elections-2026/florida-governor-results/",
+    "MI-04": "https://apnews.com/projects/elections-2026/michigan-us-house-results/#4",
+    "SEN-MI": "https://apnews.com/projects/elections-2026/michigan-us-senate-results/",
+    "VA-01": "https://apnews.com/projects/elections-2026/virginia-us-house-results/#1",
+    "VA-02": "https://apnews.com/projects/elections-2026/virginia-us-house-results/#2",
+    "NC-11": "https://apnews.com/projects/elections-2026/north-carolina-us-house-results/#11",
+    "TX-35": "https://apnews.com/projects/elections-2026/texas-us-house-results/#35",
+    "TX-01": "https://apnews.com/projects/elections-2026/texas-us-house-results/#1",
+    "TX-15": "https://apnews.com/projects/elections-2026/texas-us-house-results/#15",
+    "MT-01": "https://apnews.com/projects/elections-2026/montana-us-house-results/#1",
+    "SEN-ME": "https://apnews.com/projects/elections-2026/maine-us-senate-results/",
+    "SEN-MN": "https://apnews.com/projects/elections-2026/minnesota-us-senate-results/",
+    "SEN-KS": "https://apnews.com/projects/elections-2026/kansas-us-senate-results/",
+    "SEN-OH": "https://apnews.com/projects/elections-2026/ohio-us-senate-results/",
+    "GOV-OH": "https://apnews.com/projects/elections-2026/ohio-governor-results/",
+    "SEN-GA": "https://apnews.com/projects/elections-2026/georgia-us-senate-results/",
+    "SEN-IA": "https://apnews.com/projects/elections-2026/iowa-us-senate-results/",
+    "SEN-AK": "https://apnews.com/projects/elections-2026/alaska-us-senate-results/",
+    "GOV-WI": "https://apnews.com/projects/elections-2026/wisconsin-governor-results/",
+    "GOV-NY": "https://apnews.com/projects/elections-2026/new-york-governor-results/",
+}
+AP_CALL_RX = re.compile(r"([A-Z][\w.'\u2019\-]+(?: [A-Z][\w.'\u2019\-]+){0,4}) wins\. AP race call at ([^.]+\.\s*[ap]\.m\.[^\n]{0,30}?2026)", re.I)
+
+
+def ap_call_from_html(html: str, race: dict) -> tuple[str | None, str | None]:
+    """Return (party, call_time_text) if AP has declared a winner on this race page."""
+    soup = BeautifulSoup(html, "lxml")
+    for t in soup(["script", "style", "noscript"]):
+        t.decompose()
+    text = soup.get_text(" ", strip=True).replace("\u2011", "-").replace("\u2010", "-")
+    first = text.find("candidate votes pct")
+    window = text[max(0, first - 400):first] if first > 0 else text[:4000]
+    m = re.search(r"((?:[A-Z][\w.'\u2019\-]*\s+){1,5})wins\. AP race call at (.{5,60}?2026)", window)
+    if not m:
+        return None, None
+    who = m.group(1).split("counted")[-1].strip()
+    for c in race["candidates"]:
+        if text_matches_candidate(who, c):
+            return c["party"], m.group(2).strip()
+    return None, None
+
+
+def fetch_ap_calls(races: list[dict], probe: bool) -> dict[str, tuple[str, str]]:
+    found: dict[str, tuple[str, str]] = {}
+    wait_rx = re.compile(r"candidate\s+votes\s+pct", re.I)
+    for race in races:
+        u = AP_RACE_URL.get(race["id"])
+        if not u:
+            continue
+        docs = _browser_fetch([u], probe, f"apcall_{race['id']}", re.compile(r"$^"), wait_rx)
+        for _, c in docs:
+            party, when = ap_call_from_html(c.decode("utf-8", "replace"), race)
+            if party:
+                found[race["id"]] = (party, when)
+                FETCH_LOG.append(f"AP CALL {race['id']} -> {party} ({when})")
+    return found
+
+
 def adapter_ap(state: str, primary=None):
     def run(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
         docs = primary(cfg, races, probe) if primary else []
@@ -1586,6 +1647,14 @@ def main():
     for rid, party in calls.items():
         if rid in out_races and party in ("REP", "DEM"):
             out_races[rid]["called"] = party
+    # AP race calls for races not yet called (manual calls above still take precedence)
+    try:
+        uncalled = [r for r in cfg["races"] if r["id"] in out_races and not out_races[r["id"]].get("called")]
+        for rid, (party, when) in fetch_ap_calls(uncalled, args.probe).items():
+            out_races[rid]["called"] = party
+            out_races[rid]["call_source"] = f"AP race call {when}"
+    except Exception as e:
+        log(f"AP call check failed: {e!r}")
     for rid, r in out_races.items():
         if r.get("called"):
             r["status"] = "called"

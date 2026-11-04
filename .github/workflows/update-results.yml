@@ -7,6 +7,10 @@ on:
         description: "Save raw fetched documents as a downloadable artifact"
         type: boolean
         default: false
+      il35:
+        description: "Also run the Illinois Senate 35 discovery probe"
+        type: boolean
+        default: false
   schedule:
     # Plain every-5-minutes schedule (GitHub honors simple crons far more reliably than
     # day/month-restricted ones). A step below exits early outside the election window.
@@ -57,6 +61,11 @@ jobs:
           else
             python3 scripts/fetch_results.py
           fi
+
+      - name: IL-35 discovery probe
+        if: ${{ inputs.il35 }}
+        continue-on-error: true
+        run: python3 scripts/il35_probe.py
 
       - name: Commit results
         if: steps.window.outputs.run == 'true'

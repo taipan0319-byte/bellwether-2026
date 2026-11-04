@@ -591,7 +591,10 @@ def adapter_fl(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
                 if u2 not in [d[0] for d in docs]:
                     r2 = get(u2)
                     if r2:
-                        docs.append((u2, r2.content))
+                        # by-county breakdown pages are kept for the probe only; the generic extractor
+                        # misreads their layout (statewide total lands on every row)
+                        tag = "#probe-only" if "ContestResultsByCounty" in u2 else ""
+                        docs.append((u2 + tag, r2.content))
                         if probe:
                             save_probe("fl_" + re.sub(r"[^A-Za-z0-9]+", "_", u2)[-80:] + ".html", r2.content)
     return docs

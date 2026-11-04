@@ -1450,7 +1450,7 @@ def adapter_ap(state: str, primary=None):
     return run
 
 
-ADAPTERS = {"fl": adapter_fl, "mi": adapter_ap("mi")  # MVIC county page is per-county, not statewide; AP tonight, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
+ADAPTERS = {"fl": adapter_fl, "mi": adapter_ap("mi"), "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
             "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES},
             "me": adapter_ap("me"), "wi": adapter_ap("wi"), "ks": adapter_ap("ks", adapter_generic("ks")),
             "ia": adapter_ap("ia", adapter_clarity("https://electionresults.iowa.gov", "IA", r"2026 General Election")),

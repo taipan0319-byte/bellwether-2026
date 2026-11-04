@@ -428,7 +428,7 @@
       ],
       "source": {
         "adapter": "oh",
-        "contest_pattern": "\"contestName\":\\s*\"U\\.S\\. Senator\"|U\\.?S\\.? Senator"
+        "contest_pattern": "\"contestName\":\\s*\"U\\.S\\. Senator\"|U\\.?S\\.? Senator|U\\.?S\\.? Senate"
       }
     },
     {
@@ -489,7 +489,7 @@
       ],
       "source": {
         "adapter": "ia",
-        "contest_pattern": "U\\.?S\\.? Senat|United States Senat"
+        "contest_pattern": "U\\.?S\\.? Senat|United States Senat|U\\.?S\\.? Senate"
       }
     },
     {
@@ -585,7 +585,7 @@
       ],
       "source": {
         "adapter": "oh",
-        "contest_pattern": "Governor and Lieutenant Governor"
+        "contest_pattern": "Governor and Lieutenant Governor|Governor results"
       }
     },
     {

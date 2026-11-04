@@ -25,6 +25,7 @@
   "overrides": {},
   "_help_calls": "'calls' marks a race as called by AP/networks WITHOUT touching the vote feed: {\"SEN-GA\": \"DEM\"}. Remove the entry to un-call.",
   "calls": {
-    "SEN-GA": "DEM"
+    "SEN-GA": "DEM",
+    "FL-25": "DEM"
   }
 }

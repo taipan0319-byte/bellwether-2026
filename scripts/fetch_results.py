@@ -1348,6 +1348,8 @@ AP_PAGES = {
     "me": ["https://apnews.com/projects/elections-2026/maine-us-senate-results/"],
     "wi": ["https://apnews.com/projects/elections-2026/wisconsin-governor-results/"],
     "ks": ["https://apnews.com/projects/elections-2026/kansas-us-senate-results/"],
+    "oh": ["https://apnews.com/projects/elections-2026/ohio-us-senate-results/", "https://apnews.com/projects/elections-2026/ohio-governor-results/"],
+    "ia": ["https://apnews.com/projects/elections-2026/iowa-us-senate-results/"],
 }
 AP_LINK_RX = {}  # no link-following: the race pages are addressed directly
 
@@ -1410,11 +1412,13 @@ def adapter_ap(state: str, primary=None):
     def run(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, bytes]]:
         docs = primary(cfg, races, probe) if primary else []
         # if the official adapter produced something usable, keep it; otherwise try AP
-        usable = [d for d in docs if not d[0].endswith("#probe-only")]
+        # usable = a non-probe document that actually mentions a tracked candidate
+        surnames = sorted({name_tokens(c["name"])[1] for r in races for c in r["candidates"] if c["party"] in ("REP", "DEM")})
+        name_rx = re.compile("|".join(surnames), re.I) if surnames else re.compile(r"$^")
+        usable = [d for d in docs if not d[0].endswith("#probe-only") and name_rx.search(d[1].decode("utf-8", "replace"))]
         if usable:
             return docs
-        surnames = sorted({name_tokens(c["name"])[1] for r in races for c in r["candidates"] if c["party"] in ("REP", "DEM")})
-        wait_rx = re.compile("|".join(surnames), re.I) if surnames else None
+        wait_rx = name_rx if surnames else None
         ap_docs = []
         for u in AP_PAGES.get(state, []):
             ap_docs += _browser_fetch([u], probe, f"ap_{state}", re.compile(AP_LINK_RX.get(state, r"$^"), re.I), wait_rx)
@@ -1428,8 +1432,8 @@ def adapter_ap(state: str, primary=None):
 ADAPTERS = {"fl": adapter_fl, "mi": adapter_ap("mi", adapter_mi), "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
             "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES},
             "me": adapter_ap("me"), "wi": adapter_ap("wi"), "ks": adapter_ap("ks", adapter_generic("ks")),
-            "ia": adapter_clarity("https://electionresults.iowa.gov", "IA", r"2026 General Election"),
-            "ga": adapter_ga, "oh": adapter_oh, "ak": adapter_ak}
+            "ia": adapter_ap("ia", adapter_clarity("https://electionresults.iowa.gov", "IA", r"2026 General Election")),
+            "ga": adapter_ga, "oh": adapter_ap("oh", adapter_oh), "ak": adapter_ak}
 
 
 # --------------------------------------------------------------------------- #

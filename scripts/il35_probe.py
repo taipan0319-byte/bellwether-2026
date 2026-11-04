@@ -19,30 +19,14 @@ OUT = fr.ROOT / "probe" / "il35"
 LOG: list[str] = []
 
 AUTHORITIES = {
-    "rockford": {
-        "start": ["https://voterockfordil.gov/election-results", "https://results.enr.clarityelections.com/WRC/Rockford/127559/"],
-    },
-    "winnebago": {
-        "start": ["https://clerk.wincoil.gov/", "https://clerk.wincoil.gov/elections", "https://clerk.wincoil.gov/elections/election-results",
-                  "https://wincoil.gov/", "https://platinumelectionresults.com/"],
-    },
-    "boone": {
-        "start": ["https://www.boonecountyil.gov/", "https://www.boonecountyil.gov/government/county_clerk___recorder/elections",
-                  "https://www.boonecountyil.gov/government/county_clerk___recorder/elections/election_results"],
-    },
-    "dekalb": {
-        "start": ["https://dekalbcounty.org/", "https://dekalbcounty.org/departments/county-clerk-recorder/elections/",
-                  "https://dekalbcounty.org/departments/county-clerk-recorder/elections/election-results/"],
-    },
-    "kane": {
-        "start": ["https://www.kanecountyclerk.org/", "https://www.kanecountyclerk.org/Elections/Pages/Election-Results.aspx",
-                  "https://electionresults.kanecountyil.gov/", "https://results.enr.clarityelections.com/IL/Kane/"],
-    },
-    "mchenry": {
-        "start": ["https://www.mchenrycountyil.gov/county-government/departments-a-i/county-clerk/elections",
-                  "https://www.mchenrycountyil.gov/county-government/departments-a-i/county-clerk/elections/election-results",
-                  "https://results.mchenrycountyil.gov/", "https://www.mchenrycountyil.gov/"],
-    },
+    "rockford": {"start": [], "clarity": "https://results.enr.clarityelections.com/WRC/Rockford/127559"},
+    "winnebago": {"start": [], "clarity": "https://results.enr.clarityelections.com/WRC/Winnebago/127560"},
+    "boone": {"start": ["https://il-boone.pollresults.net/"], "hops": 0},
+    "dekalb": {"start": ["https://platinumelectionresults.com/races/66/4", "https://platinumelectionresults.com/summary/66"], "hops": 1},
+    "kane": {"start": ["https://electionresults.kanecountyil.gov/2026-11-03/Contests/"], "hops": 0},
+    "mchenry": {"start": ["https://www.mchenrycountyil.gov/county-government/departments-a-i/county-clerk/elections/election-results",
+                          "https://results.mchenrycountyil.gov/", "https://electionresults.mchenrycountyil.gov/",
+                          "https://www.mchenrycountyil.gov/county-government/departments-a-i/county-clerk/elections"], "hops": 1, "browser": True},
 }
 
 LINK_RX = re.compile(r"result|election|clarity|platinum|unofficial|summary|\.pdf|enr|canvass|2026", re.I)
@@ -101,6 +85,14 @@ def crawl(auth: str, starts: list[str], hops: int = 2):
                 continue
             seen.add(u)
             r = fr.get(u)
+            if r is None and AUTHORITIES[auth].get("browser"):
+                docs = fr._browser_fetch([u], False, f"il35_{auth}", re.compile(r"result|election|contest|summary", re.I))
+                for du, dc in docs:
+                    LOG.append(f"{auth}: browser {du} -> {len(dc)} bytes")
+                    save(auth, du, dc, ".html")
+                    for m in CLARITY_RX.finditer(dc.decode("utf-8", "replace")):
+                        clarity_pull(auth, m.group(1))
+                continue
             if r is None:
                 LOG.append(f"{auth}: GET {u} -> no response")
                 continue
@@ -129,11 +121,12 @@ def crawl(auth: str, starts: list[str], hops: int = 2):
 def main():
     for auth, cfg in AUTHORITIES.items():
         try:
-            crawl(auth, cfg["start"])
+            if cfg.get("clarity"):
+                clarity_pull(auth, cfg["clarity"])
+            if cfg["start"]:
+                crawl(auth, cfg["start"], hops=cfg.get("hops", 2))
         except Exception as e:
             LOG.append(f"{auth}: crawl crashed {e!r}")
-    # Rockford is known to be Clarity; make sure its summary is pulled even if the landing page failed
-    clarity_pull("rockford", "https://results.enr.clarityelections.com/WRC/Rockford/127559")
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "il35_log.txt").write_text("\n".join(LOG + fr.FETCH_LOG))
     print("\n".join(LOG))

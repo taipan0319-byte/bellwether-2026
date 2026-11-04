@@ -1532,8 +1532,12 @@ def main():
                 if cand:
                     majors = [c for c in cand.candidates if c["party"] in ("REP", "DEM")]
                     if majors and all(c["votes"] is not None for c in majors):
-                        result = cand
-                        break
+                        # several sources may parse (official + AP fallback): keep the one with the
+                        # most votes counted, so a lagging source never rolls the count backwards
+                        tot = sum((c["votes"] or 0) for c in cand.candidates)
+                        if result is None or tot > sum((c["votes"] or 0) for c in result.candidates):
+                            result = cand
+                        continue
                     log(f"{rid}: partial parse from {url} (missing a major-party candidate) — rejected")
             if result is None:
                 errors += 1

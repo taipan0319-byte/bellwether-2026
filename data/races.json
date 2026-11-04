@@ -185,7 +185,7 @@
       ],
       "source": {
         "adapter": "tx",
-        "contest_pattern": "U\\.?\\s*S\\.?\\s*Representative\\s*District\\s*35\\b"
+        "contest_pattern": "U\\.?\\s*S\\.?\\s*Representative\\s*District\\s*35\\b|U\\.?S\\.? House"
       },
       "chamber": "house"
     },
@@ -219,7 +219,7 @@
       ],
       "source": {
         "adapter": "tx",
-        "contest_pattern": "U\\.?\\s*S\\.?\\s*Representative\\s*District\\s*1\\b"
+        "contest_pattern": "U\\.?\\s*S\\.?\\s*Representative\\s*District\\s*1\\b|U\\.?S\\.? House"
       },
       "chamber": "house"
     },
@@ -248,7 +248,7 @@
       ],
       "source": {
         "adapter": "tx",
-        "contest_pattern": "U\\.?\\s*S\\.?\\s*Representative\\s*District\\s*15\\b"
+        "contest_pattern": "U\\.?\\s*S\\.?\\s*Representative\\s*District\\s*15\\b|U\\.?S\\.? House"
       },
       "chamber": "house"
     },

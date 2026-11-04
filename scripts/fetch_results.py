@@ -1371,6 +1371,7 @@ AP_PAGES = {
     "ks": ["https://apnews.com/projects/elections-2026/kansas-us-senate-results/"],
     "oh": ["https://apnews.com/projects/elections-2026/ohio-us-senate-results/", "https://apnews.com/projects/elections-2026/ohio-governor-results/"],
     "ia": ["https://apnews.com/projects/elections-2026/iowa-us-senate-results/"],
+    "tx": ["https://apnews.com/projects/elections-2026/texas-us-house-results/#1", "https://apnews.com/projects/elections-2026/texas-us-house-results/#15", "https://apnews.com/projects/elections-2026/texas-us-house-results/#35"],
 }
 AP_LINK_RX = {}  # no link-following: the race pages are addressed directly
 
@@ -1437,8 +1438,11 @@ def adapter_ap(state: str, primary=None):
         surnames = sorted({name_tokens(c["name"])[1] for r in races for c in r["candidates"] if c["party"] in ("REP", "DEM")})
         name_rx = re.compile("|".join(surnames), re.I) if surnames else re.compile(r"$^")
         usable = [d for d in docs if not d[0].endswith("#probe-only") and name_rx.search(d[1].decode("utf-8", "replace"))]
-        if usable:
+        joined = " ".join(d[1].decode("utf-8", "replace") for d in usable)
+        if usable and all(re.search(n, joined, re.I) for n in surnames):
             return docs
+        if usable:
+            FETCH_LOG.append(f"ap_{state}: official docs incomplete (missing a tracked candidate); adding AP pages")
         wait_rx = re.compile(r"candidate\s+votes\s+pct", re.I)  # AP's results table has rendered
         ap_docs = []
         for u in AP_PAGES.get(state, []):
@@ -1450,7 +1454,7 @@ def adapter_ap(state: str, primary=None):
     return run
 
 
-ADAPTERS = {"fl": adapter_fl, "mi": adapter_ap("mi"), "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
+ADAPTERS = {"fl": adapter_fl, "mi": adapter_ap("mi"), "va": adapter_va, "tx": adapter_ap("tx", adapter_tx), "mt": adapter_mt, "nc": adapter_nc,
             "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES},
             "me": adapter_ap("me"), "wi": adapter_ap("wi"), "ks": adapter_ap("ks", adapter_generic("ks")),
             "ia": adapter_ap("ia", adapter_clarity("https://electionresults.iowa.gov", "IA", r"2026 General Election")),

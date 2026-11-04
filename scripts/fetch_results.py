@@ -826,6 +826,9 @@ def adapter_mt(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
                     break
                 except Exception as e:
                     FETCH_LOG.append(f"PW  {u} -> EXC {e!r}")
+                    if "navigating" in repr(e) and u not in [q for q in queue]:
+                        seen.discard(u); queue.insert(0, u); hops -= 0  # one more try after the page settles
+                        page.wait_for_timeout(3000)
             browser.close()
     except Exception as e:
         log(f"MT playwright failed: {e!r}")
@@ -963,6 +966,9 @@ def _browser_fetch(urls: list[str], probe: bool, tag: str, link_rx: re.Pattern, 
                                 queue.append(u2)
                 except Exception as e:
                     FETCH_LOG.append(f"PW  {u} -> EXC {e!r}")
+                    if "navigating" in repr(e) and u not in [q for q in queue]:
+                        seen.discard(u); queue.insert(0, u); hops -= 0  # one more try after the page settles
+                        page.wait_for_timeout(3000)
             browser.close()
     except Exception as e:
         log(f"{tag}: playwright failed: {e!r}")
@@ -1230,6 +1236,9 @@ def adapter_oh(cfg: dict, races: list[dict], probe: bool) -> list[tuple[str, byt
                             save_probe("oh_" + re.sub(r"[^A-Za-z0-9]+", "_", label) + ".json", t)
                 except Exception as e:
                     FETCH_LOG.append(f"PW  {u} -> EXC {e!r}")
+                    if "navigating" in repr(e) and u not in [q for q in queue]:
+                        seen.discard(u); queue.insert(0, u); hops -= 0  # one more try after the page settles
+                        page.wait_for_timeout(3000)
             browser.close()
     except Exception as e:
         log(f"OH: browser failed {e!r}; falling back to capture")
@@ -1441,7 +1450,7 @@ def adapter_ap(state: str, primary=None):
     return run
 
 
-ADAPTERS = {"fl": adapter_fl, "mi": adapter_ap("mi", adapter_mi), "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
+ADAPTERS = {"fl": adapter_fl, "mi": adapter_ap("mi")  # MVIC county page is per-county, not statewide; AP tonight, "va": adapter_va, "tx": adapter_tx, "mt": adapter_mt, "nc": adapter_nc,
             "manual": adapter_manual, **{k: adapter_generic(k) for k in GENERIC_SITES},
             "me": adapter_ap("me"), "wi": adapter_ap("wi"), "ks": adapter_ap("ks", adapter_generic("ks")),
             "ia": adapter_ap("ia", adapter_clarity("https://electionresults.iowa.gov", "IA", r"2026 General Election")),

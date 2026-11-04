@@ -8,13 +8,9 @@ on:
         type: boolean
         default: false
   schedule:
-    # GitHub cron is UTC. Election night Nov 3, 2026 (CT = UTC-6 after Nov 1 DST change).
-    # 6:00 PM CT Nov 3 = 00:00 UTC Nov 4. Poll every 5 min from 5 PM CT Nov 3 through 6 AM CT Nov 4,
-    # then every 30 min through Nov 6 for late counting (TX/MT/FL mail ballots, VA provisionals).
-    - cron: "*/5 23 3 11 *"
-    - cron: "*/5 0-11 4 11 *"
-    - cron: "*/30 12-23 4 11 *"
-    - cron: "*/30 * 5-6 11 *"
+    # Plain every-5-minutes schedule (GitHub honors simple crons far more reliably than
+    # day/month-restricted ones). A step below exits early outside the election window.
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: write
@@ -47,7 +43,14 @@ jobs:
           pip install --quiet requests beautifulsoup4 lxml playwright
           python -m playwright install --with-deps chromium > /dev/null 2>&1 || python -m playwright install chromium
 
+      - name: Skip outside the election window (Nov 3 22:00 UTC → Nov 7 00:00 UTC)
+        id: window
+        run: |
+          now=$(date -u +%s); start=$(date -u -d "2026-11-03 22:00:00" +%s); end=$(date -u -d "2026-11-07 00:00:00" +%s)
+          if [ "${{ github.event_name }}" = "schedule" ] && { [ "$now" -lt "$start" ] || [ "$now" -gt "$end" ]; }; then echo "run=false" >> $GITHUB_OUTPUT; else echo "run=true" >> $GITHUB_OUTPUT; fi
+
       - name: Fetch results
+        if: steps.window.outputs.run == 'true'
         run: |
           if [ "${{ inputs.probe }}" = "true" ]; then
             python3 scripts/fetch_results.py --probe
@@ -56,6 +59,7 @@ jobs:
           fi
 
       - name: Commit results
+        if: steps.window.outputs.run == 'true'
         run: |
           git config user.name "results-bot"
           git config user.email "results-bot@users.noreply.github.com"

@@ -1,0 +1,596 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head><title>
+	Montana Secretary of State
+</title><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta content="text/html; charset=windows-1252" http-equiv="Content-Type" /><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" /><link href="/Styles/styles.css" rel="stylesheet" /><link href="/Styles/stylesmobile.css" rel="stylesheet" /><link href="/Styles/sidemenu.css" rel="stylesheet" /><link href="/Styles/font_PT_Sans.css" rel="stylesheet" />
+    
+    <script src="/Scripts/jquery/jquery-3.6.0.min.js"></script>
+
+    <script src="/Scripts/Chart.min.js"></script>
+    <script src="/Scripts/utils.js"></script>
+    <!-- Twitter Widget -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function ()
+            { (i[r].q = i[r].q || []).push(arguments) }
+
+            , i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-31899828-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <script>
+        var ServiceRoot = 'https://esersws.mt.gov/';
+        var Maps = {};
+        var Bound = {};
+        var mapBuilt = [];
+
+        window.onload = function () {
+            //WatchList = document.getElementById("hidWatchedRaces");
+            //var temp = document.cookie;
+            var WatchList = getCookie("MTTracked");
+            if (WatchList === undefined) { WatchList = ""; }
+
+            var checked = WatchList.split("_");
+            for (var i = 0; i < checked.length; i++) {
+                var checkbox = document.getElementById("chk-" + checked[i]);
+                if (checkbox !== null) { checkbox.checked = true; }
+            };
+        };
+    </script>
+    
+    
+</head>
+<body>
+    <form method="post" action="./ResultsExport.aspx" id="ctl01">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['ctl01'];
+if (!theForm) {
+    theForm = document.ctl01;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="73C1085B" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="lOu1CgtvUhdzNvE8Ji7+lo/tPt8jaOxdfnB2HbDhRbUMHGBC3dZDNDJ3XojMMlorA+pqUwXFU5KOLaQ94T5a+H34ejVpJBx8ULz1Malp9ZW2jdXsWyow3rV17Y25sF+kztZz9QvptpOyxXt7JYygtKGD8YMCaeMCc20Lc4cUWtNMAq53ZvhKJ2b2VekJY9Gn4CzV8Y+Onh6zHPQm8ZnXQotuKUUn9eYjnVkPqsrd7rumvapd/JsdeSVKuUKxj9/v39CZ3nu92Lbx7Kb3xP5lC30x4PS8kFErMrTpjJmcUTvFNK6pCqXk+iESjgaChw5hKo9reMvAasq/UxFrVrRSUFhx4mRoEAyDjo+U8Aivn2MYCGXpQYDoGZemLkecHk5EhVX4G45yN/5MpyaRv+b0MBVD6tzB5IFWiTMsXG5RIuUz4JobV1RpBvqhVpPd2ecSUbUvilVzejDO137JCgn2UFI6vh9NM77iuqdzXEQt+xB/SrobcVFezxguYiuTkNfSDRgSX6BjWpbEWF0tMsVTJlc8wc/nqyYhTxPLHBTh51vUsX9frOQRn51TXKSZQCSf2k8U6aMWFV9FPY6TREEMgvqf0uwQBZiKtVvXagsjimDwtny1vw1/NU3idt8D6h7HVsTldUilu7MNRwVAQIe3Pl7B0TtGZwnAIHlQlo3VAJaYqrMWxL6qIrg89Gj+k5EYMjpj+Ojh4ZJEWGztnM8J/k9TVm0XJzf1BX80MxJOE6Sq43byDVpRXnlrL0uWyY3ZhVLODji1Bibqf5iEhfVEeRSTpSJXDXG9qWYZK6lNu/aTmHQ7Q6q6qaf7KxR3+TZMvykaTQ99i8krD4DeIiw13LBvOQfVesmMnYtz4p/mnMbe6Nau9tFFa+/1cyFAdiGM4fixO5Qw7OqlyKfvNGHTcP4jbigrYJejDlWwoXqHdpAWiHkcQuiXNtIbSS5dRo5CWzj3ciT7GCYkoddHsBhrqTN+XwhwtxcPW4hD1ReKfIULuVDu1yEgmHZni86Uv65lMyOGeWVYQVYWM7oqNF2Uu9piDp/V2QmvLgAvJn8R0LDTYZhGpl53OjwprLlipQdeAuBFVuE9Ueg4qTY1Bn6c7FglpcWyD4gB3aDGF3WDRnf9irAlzioEuZ9iJ7sIZfo0FVt8TODRz1Y8KCW3Rxxj91eyIBfsm+ksZ5adKKkm2INc6QPAInquN28i2cJEufvZtDqSBbETFJ7W2GXEawKxV+wV4sysW+3TSj40Bkki18wfCQka0hKrCtCjD9TNXCAbhz5NY7+ER/Wajaabq8izCw9EfqO+HCJjs4roj39xvzGbQhFZeaACdHGYYXMTf3jb3ooHnEc5QllvmEIbFOk8PFCY3Z6cr9dRHRIOJlqC83Y=" />
+</div>
+        
+        <input type="hidden" name="ctl00$hidElectionType" id="hidElectionType" value="General" />
+        <input type="hidden" name="ctl00$hidElectionDate" id="hidElectionDate" value="11/3/2026" />
+        <div id="fader"><h1>Preparing Export...</h1></div>
+        <div class="outside-wrapper">
+            <div class="top-bluebar">
+                <div>
+                    
+                    
+                </div>
+                <div>
+                    
+                </div>
+                <div class="last-updated">
+                    Results last updated: 11/4/2026 6:55:23 AM MT
+                </div>
+            </div>
+            <!--End Top Blue Bar-->
+            <div class="top-header">
+                <div id="pnlHeader" class="section group">
+	
+                    <div class="col desktop" style="padding: 3px 0 0 8px;">
+                        <img alt="Montana State Seal" src="/Images/State-Seal.png" style="height: 78px;" title="Montana State Seal"/>
+                    </div>
+                    <div class="col mobile" style="padding: 3px 0 0 8px;">
+                        <img alt="Montana State Seal" src="/Images/State-Seal.png" style="height: 59px;" title="Montana State Seal"/>
+                    </div>
+                    <div class="header-banner">TEST</div>
+                    <div class="col top-header-box2">
+                        
+    <div class="dropdown mtc-icon-position">
+        <img class="share-icon dropbtn" alt="" title="Share" src="Images/my-tracked-contests-icon.png">
+        <div class="dropdown-content">
+            <div class="share-header">SHARE ON</div>
+            <div class="facebook">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://electionresults.mt.gov/ResultsExport.aspx" target="_blank"><img alt="Share on Facebook" title="Facebook" src="Images/facebook-icon.png" /></a>
+            </div>
+            <div class="twitter">
+                <a href="https://twitter.com/intent/tweet?text=https://electionresults.mt.gov/ResultsExport.aspx&hashtags=Vote" target="_blank"><img alt="Share on Twitter" title="Twitter" src="Images/twitter-icon.png" /></a>
+            </div>
+        </div>
+    </div>
+    <h2>
+        <a id="NavLinks_lnkTracked" href="MyTrackedContests.aspx">My Tracked Contests</a>
+    </h2>
+    <h3>
+        <a id="NavLinks_lnkHome" href="Default.aspx">Home</a>
+    </h3>
+
+                    </div>
+                    <!--End top-header-box2-->
+                
+</div>
+                <!--End Section Group-->
+            </div>
+            <!--End Top Header-->
+            <div class="header-box-wrapper">
+                <div class="section group">
+                    <div class="col header-box1">
+                        <h1>2026</h1>
+                        <h2>General Election - November 3, 2026</h2>
+                    </div>
+                    <!--End Header Box 1-->
+                    <div class="col header-box2">
+                        <div class="header-box-content-top">
+                            <h1>
+                                <a id="lnkVoterTurnout" class="button" href="VoterTurnoutDetails.aspx?map=TURN">Statewide Voter Turnout</a>
+                            </h1>
+                        </div>
+                        <!--End header-box2-content-top-->
+                        <div class="header-box-content-bottom">
+                            
+                            <div class="animate-position desktop">
+                                <div style="height: 150px"><canvas id="voter-turnout" voterturnout='450953' votertotal='357797'></canvas><div class="dough-percent"><span class="int">55</span><span class="dec">.76%</span></div></div>
+                            </div>
+                            <!--End Animate Position-->
+                            <div class="animate-position mobile" style="margin-top: -6px;">
+                                <div><canvas id="voter-turnout-mobile" voterturnout='450953' votertotal='357797'></canvas><div class="dough-percent"><span class="int">55</span><span class="dec">.76%</span></div></div>
+                            </div>
+                            <!--End Animate Position-->
+                        </div>
+                        <!--End header-box-content-bottom-->
+                        <div class="header-box-content-reg">
+                            <h2>Total Turnout <span>450,953</span><br />Registered Voters <span style='color: white;'>808,750</span></h2>
+                        </div>
+                    </div>
+                    <!--End Header Box 2-->
+                    <div class="col header-box3">
+                        <div class="header-box-content-top">
+                            <h1>
+                                <a id="lnkPrecinctsReporting" class="button" href="VoterTurnoutDetails.aspx?map=PREC">Precincts Reporting</a>
+                            </h1>
+                        </div>
+                        <!--End header-box2-content-top-->
+                        <div class="header-box-content-bottom">
+                            
+                            <div class="animate-position desktop">
+                                <div style="height: 150px"><canvas id="precinct-reported" precinctsreported='454' precinctspartial='274' precinctsnotreported='0'></canvas><div class="dough-percent"><span class="int">62</span><span class="dec">.36%</span></div></div>
+                            </div>
+                            <!--End Animate Position-->
+                            <div class="animate-position mobile">
+                                <div><canvas id="precinct-reported-mobile" precinctsreported='454' precinctspartial='274' precinctsnotreported='0'></canvas><div class="dough-percent"><span class="int">62</span><span class="dec">.36%</span></div></div>
+                            </div>
+                            <!--End Animate Position-->
+                        </div>
+                        <!--End header-box-content-bottom-->
+                        <div class="header-box-content-reg header-box-content-prec">
+                            <h2><div class='colordisc-yellow'></div>Partially <span style='color: #FFFF00;'>274</span><br/><div class='colordisc-orange'></div>Fully <span>454</span></h2>
+                        </div>
+                    </div>
+                    <div id="chartjs-tooltip"></div>
+                    <!--End Header Box 3-->
+                </div>
+                <!--End Section Group-->
+                
+            </div>
+            <!--End Header Box Wrapper-->
+            <!--Main Content-->
+            
+    <div class="wrapper-inside" style="padding-bottom: 20px;">
+        <div class="display-results-box-wrapper">
+            <h1 style="text-align: center; padding-bottom: 8px;">Statewide and County Exports</h1>
+        </div>
+        <div class="export-links-centered">
+            <div class="statewide-exoport-listitem">
+                <a onclick="DownloadFile();" id="MainContent_Statewide" href="javascript:__doPostBack(&#39;ctl00$MainContent$Statewide&#39;,&#39;&#39;)">Statewide Export</a>
+            </div>
+            <div class="statewide-exoport-listitem">
+                <a onclick="DownloadFile();" id="MainContent_Legislative" href="javascript:__doPostBack(&#39;ctl00$MainContent$Legislative&#39;,&#39;&#39;)">Legislative Export</a>
+            </div>
+        </div>
+        <div class="county-export-list">
+            
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_0" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl00$LinkButton1&#39;,&#39;&#39;)">Beaverhead</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_1" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl01$LinkButton1&#39;,&#39;&#39;)">Big Horn</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_2" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl02$LinkButton1&#39;,&#39;&#39;)">Blaine</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_3" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl03$LinkButton1&#39;,&#39;&#39;)">Broadwater</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_4" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl04$LinkButton1&#39;,&#39;&#39;)">Carbon</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_5" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl05$LinkButton1&#39;,&#39;&#39;)">Carter</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_6" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl06$LinkButton1&#39;,&#39;&#39;)">Cascade</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_7" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl07$LinkButton1&#39;,&#39;&#39;)">Chouteau</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_8" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl08$LinkButton1&#39;,&#39;&#39;)">Custer</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_9" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl09$LinkButton1&#39;,&#39;&#39;)">Daniels</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_10" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl10$LinkButton1&#39;,&#39;&#39;)">Dawson</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_11" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl11$LinkButton1&#39;,&#39;&#39;)">Deer Lodge</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_12" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl12$LinkButton1&#39;,&#39;&#39;)">Fallon</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_13" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl13$LinkButton1&#39;,&#39;&#39;)">Fergus</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_14" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl14$LinkButton1&#39;,&#39;&#39;)">Flathead</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_15" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl15$LinkButton1&#39;,&#39;&#39;)">Gallatin</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_16" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl16$LinkButton1&#39;,&#39;&#39;)">Garfield</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_17" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl17$LinkButton1&#39;,&#39;&#39;)">Glacier</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_18" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl18$LinkButton1&#39;,&#39;&#39;)">Golden Valley</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_19" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl19$LinkButton1&#39;,&#39;&#39;)">Granite</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_20" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl20$LinkButton1&#39;,&#39;&#39;)">Hill</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_21" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl21$LinkButton1&#39;,&#39;&#39;)">Jefferson</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_22" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl22$LinkButton1&#39;,&#39;&#39;)">Judith Basin</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_23" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl23$LinkButton1&#39;,&#39;&#39;)">Lake</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_24" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl24$LinkButton1&#39;,&#39;&#39;)">Lewis & Clark</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_25" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl25$LinkButton1&#39;,&#39;&#39;)">Liberty</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_26" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl26$LinkButton1&#39;,&#39;&#39;)">Lincoln</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_27" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl27$LinkButton1&#39;,&#39;&#39;)">Madison</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_28" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl28$LinkButton1&#39;,&#39;&#39;)">McCone</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_29" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl29$LinkButton1&#39;,&#39;&#39;)">Meagher</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_30" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl30$LinkButton1&#39;,&#39;&#39;)">Mineral</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_31" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl31$LinkButton1&#39;,&#39;&#39;)">Missoula</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_32" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl32$LinkButton1&#39;,&#39;&#39;)">Musselshell</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_33" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl33$LinkButton1&#39;,&#39;&#39;)">Park</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_34" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl34$LinkButton1&#39;,&#39;&#39;)">Petroleum</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_35" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl35$LinkButton1&#39;,&#39;&#39;)">Phillips</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_36" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl36$LinkButton1&#39;,&#39;&#39;)">Pondera</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_37" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl37$LinkButton1&#39;,&#39;&#39;)">Powder River</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_38" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl38$LinkButton1&#39;,&#39;&#39;)">Powell</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_39" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl39$LinkButton1&#39;,&#39;&#39;)">Prairie</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_40" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl40$LinkButton1&#39;,&#39;&#39;)">Ravalli</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_41" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl41$LinkButton1&#39;,&#39;&#39;)">Richland</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_42" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl42$LinkButton1&#39;,&#39;&#39;)">Roosevelt</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_43" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl43$LinkButton1&#39;,&#39;&#39;)">Rosebud</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_44" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl44$LinkButton1&#39;,&#39;&#39;)">Sanders</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_45" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl45$LinkButton1&#39;,&#39;&#39;)">Sheridan</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_46" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl46$LinkButton1&#39;,&#39;&#39;)">Silver Bow</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_47" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl47$LinkButton1&#39;,&#39;&#39;)">Stillwater</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_48" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl48$LinkButton1&#39;,&#39;&#39;)">Sweet Grass</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_49" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl49$LinkButton1&#39;,&#39;&#39;)">Teton</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_50" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl50$LinkButton1&#39;,&#39;&#39;)">Toole</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_51" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl51$LinkButton1&#39;,&#39;&#39;)">Treasure</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_52" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl52$LinkButton1&#39;,&#39;&#39;)">Valley</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_53" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl53$LinkButton1&#39;,&#39;&#39;)">Wheatland</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_54" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl54$LinkButton1&#39;,&#39;&#39;)">Wibaux</a>
+                    </div>
+                
+                    <div class="county-export-listitem">
+                        <a onclick="DownloadFile();" id="MainContent_rptCountyExport_LinkButton1_55" href="javascript:__doPostBack(&#39;ctl00$MainContent$rptCountyExport$ctl55$LinkButton1&#39;,&#39;&#39;)">Yellowstone</a>
+                    </div>
+                
+        </div>
+    </div>
+
+            
+            <input type="button" class="button" value="Election Resources" onclick="Show_Div(Div_1)" />
+            <div id="Div_1" style="display: none;" class="slidingDiv">
+                <ul style="margin: 16px 15% 16px 15%; padding: 0;">
+                    <li>
+                        <a id="lnkCountyList" href="ResultsList.aspx">Results By County</a>
+                    </li>
+                    <li>
+                        <a id="lnkERVoterTurnout" href="VoterTurnoutDetails.aspx">Voter Turnout</a>
+                    </li>
+                    <li>
+                        <a id="lnkRecount" href="ResultsSW.aspx?type=RECOUNT">Potential Recount Races</a>
+                    </li>
+                    <li>
+                        <a id="lnkResultsExport" href="ResultsExport.aspx">Statewide and County Exports</a>
+                    </li>
+                </ul>
+                <div class="disclaimer">
+                    Write-in results are not reported on this site. Unofficial write-in results for statewide or state district offices may be obtained from <a href="mailto:soselections@mt.gov" style="font-weight:bold;">soselections@mt.gov</a> after election day as counties finalize write-in totals. Unofficial write-in results for county and precinct offices may be obtained from the county election office.  Please note write-in votes are not considered in whether a precinct is marked as complete.                      
+                </div>
+                <div class="disclaimer">
+                    Election Night Results Reporting is a free service provided by the Office of Montana Secretary of State Christi Jacobsen in cooperation with Montana's Clerks & Recorders and Election Administrators.
+                </div>
+                <div class="contact-info">Montana Secretary of State<br />P.O. Box 202801<br />Helena, MT 59620-2801<br /><div class="contact-phone-number">406-444-9608 | <a href="http://sosmt.gov" style="font-weight:bold;">sosmt.gov</a> | Fax 406-444-2023</div></div>
+                <div class="resource-links">
+                    <a href="http://sosmt.gov/" target="_blank">Montana Secretary of State</a> | <a href="http://sosmt.gov/Elections/index.asp" target="_blank">Elections & Government Services</a> | <a href="http://mt.gov/1240-X06.pdf" target="_blank">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        
+        <!--End Bottom Bluebar-->
+        
+        <!--End Outside Wrapper-->
+        <nav>
+            <a href="" id="menuToggle" title="show menu"><span class="navClosed"><em>show menu</em></span></a><h1>Election Results</h1><a href="/Default.aspx" title="Home">Home</a><a href="/resultsSW.aspx?type=FED&map=CTY" title="Federal">Federal</a><a href="/resultsSW.aspx?type=PSC&map=CTY" title="Public Service Commissioner">Public Service Commissioner</a><a href="/resultsSW.aspx?type=SCJ&map=CTY" title="State Supreme Court">State Supreme Court</a><a href="/resultsSW.aspx?type=JUD&map=CTY" title="District Court Judge">District Court Judge</a><a href="/resultsSW.aspx?type=SENATE&map=DIST" title="State Senate">State Senate</a><a href="/resultsSW.aspx?type=HOUSE&map=DIST" title="State House">State House</a><a href="/resultsSW.aspx?type=BQ&map=CTY" title="Ballot Issues">Ballot Issues</a><a href="/VoterTurnoutDetails.aspx?map=TURN" title="Voter Turnout">Voter Turnout</a><a href="/VoterTurnoutDetails.aspx?map=PREC" title="Precincts Reporting">Precincts Reporting</a><a href="/ResultsSW.aspx?type=RECOUNT" title="Potential Recount Races">Potential Recount Races</a><a href="/ResultsList.aspx" title="Results By County">Results By County</a><a href="/ResultsExport.aspx" title="Statewide and County Exports">Statewide and County Exports</a>
+        </nav>
+    </form>
+    <script type="text/javascript">
+        function Show_Div(Div_id) {
+            if (false == $(Div_id).is(':visible')) {
+                $(Div_id).show(650);
+            }
+            else {
+                $(Div_id).hide(650);
+            }
+            return false;
+        }
+    </script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                $('#menuToggle').click(function (e) {
+                    var $parent = $(this).parent('nav');
+                    $parent.toggleClass('open');
+                    var navState = $parent.hasClass('open') ? 'hide' : 'show';
+                    $(this).attr('title', navState + ' navigation');
+                    setTimeout(function () {
+                        console.log('timeout set');
+                        $('#menuToggle > span').toggleClass('navClosed').toggleClass('navOpen');
+                    }, 200);
+                    e.preventDefault();
+                });
+            });
+        }(jQuery));
+        //@ sourceURL=pen.js
+    </script>
+    <script>
+        Chart.defaults.responsive = false;
+        //Chart.defaults.Doughnut.segmentShowStroke = false;
+        var chOptions = {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            layout: {
+                padding: {
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    bottom: 0
+                }
+            }
+        };
+
+        var turnout = document.getElementById("voter-turnout");
+        const turnoutChart = turnout.getContext("2d");
+
+        var voterTurnout = turnout.attributes["voterturnout"].value;
+        var totalVoters = turnout.attributes["votertotal"].value;
+        turnoutChart.canvas.width = 125;
+        turnoutChart.canvas.height = 150;
+
+        var turnoutdata = {
+            labels: ['Votes Cast', 'Votes Not Cast'],
+            datasets: [{
+                data: [voterTurnout, totalVoters],
+                backgroundColor: ['#FAA437', '#F2F2F2'],
+                cutout: '80%',
+                borderWidth: 0
+            }]
+        };
+
+        var turnoutDough = new Chart(turnoutChart, {
+            type: 'doughnut',
+            data: turnoutdata,
+            options: chOptions
+        });
+
+        var mobileTurnout = document.getElementById("voter-turnout-mobile");
+        const mobileTurnoutChart = mobileTurnout.getContext("2d");
+        mobileTurnoutChart.canvas.width = 55;
+        mobileTurnoutChart.canvas.height = 75;
+
+        var mobileTurnoutDough = new Chart(mobileTurnoutChart, {
+            type: 'doughnut',
+            data: turnoutdata,
+            options: chOptions
+        });
+
+        var prec = document.getElementById("precinct-reported"); //$('#precinct-reported');
+        var precinctsReported = prec.attributes["precinctsreported"].value;
+        var precinctsPartial = prec.attributes["precinctspartial"].value;
+        var precinctsTotal = prec.attributes["precinctsnotreported"].value;
+        const precChart = prec.getContext("2d");
+        precChart.canvas.width = 125;
+        precChart.canvas.height = 150;
+
+        var precinctData = {
+            labels: ["Precincts Reported", "Precincts Partially Reported", "Precincts Not Reported"],
+            datasets: [{
+                data: [precinctsReported, precinctsPartial, precinctsTotal],
+                backgroundColor: ["#FAA437", "#FFFF00", "#F2F2F2"],
+                cutout: '80%',
+                borderWidth: 0
+            }]
+        };           
+
+        var precDough = new Chart(precChart, {
+            type: 'doughnut',
+            data: precinctData,
+            options: chOptions
+        });
+
+        var mobilePrec = document.getElementById("precinct-reported-mobile");
+        const mobilePrecChart = mobilePrec.getContext("2d");
+        mobilePrecChart.canvas.width = 55;
+        mobilePrecChart.canvas.height = 75;
+
+        var mobilePrecDough = new Chart(mobilePrecChart, {
+            type: 'doughnut',
+            data: precinctData,
+            options: chOptions
+        });
+    </script>
+</body>
+</html>

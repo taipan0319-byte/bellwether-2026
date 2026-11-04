@@ -1,0 +1,120 @@
+GET https://floridaelectionwatch.gov/ -> 200 (23933 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/FederalOffices/USRepresentative -> 200 (178585 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/StateOffices/Governor -> 200 (35388 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140010 -> 200 (26323 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140020 -> 200 (29791 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140030 -> 200 (29496 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140040 -> 200 (26323 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140050 -> 200 (25513 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140060 -> 200 (27700 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140070 -> 200 (25518 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140080 -> 200 (25187 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140090 -> 200 (26833 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140110 -> 200 (25908 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140120 -> 200 (25532 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140130 -> 200 (25517 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140140 -> 200 (25628 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140150 -> 200 (26300 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140160 -> 200 (27113 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140170 -> 200 (25920 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140180 -> 200 (25510 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140190 -> 200 (25836 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/140200 -> 200 (25122 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/StateOffices -> 200 (50628 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/160000 -> 200 (85510 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/160200 -> 200 (46718 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/160500 -> 200 (46717 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/160800 -> 200 (51481 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/StateOffices/Governor -> 200 (35388 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/160000 -> 200 (85510 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/StateOffices/AttorneyGeneral -> 200 (27266 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/160200 -> 200 (46718 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/StateOffices/ChiefFinancialOfficer -> 200 (27281 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/160500 -> 200 (46717 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/StateOffices/CommissionerOfAgriculture -> 200 (28279 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/ContestResultsByCounty/160800 -> 200 (51481 bytes) text/html; charset=utf-8
+GET https://floridaelectionwatch.gov/Downloads -> 200 (24010 bytes) text/html; charset=utf-8
+PW  https://apnews.com/projects/elections-2026/michigan-us-senate-results/ -> https://apnews.com/projects/elections-2026/michigan-us-senate-results/ (772145 chars) challenge=False
+PW  https://apnews.com/projects/elections-2026/michigan-us-house-results/#4 -> https://apnews.com/projects/elections-2026/michigan-us-house-results/#4 (623699 chars) challenge=False
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items -> 200 (260604 bytes) application/json; charset=utf-8
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General -> 200 (10492 bytes) application/json; charset=utf-8
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/contests -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/results -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/export/json -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/summary -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/virginia/elections/2026-November-General -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/virginia/elections/2026-November-General/contests -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/virginia/2026-November-General/summary.json -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items -> 200 (260604 bytes) application/json; charset=utf-8
+GET https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballotItems -> 404 (0 bytes) 
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/2026-November-General/export/json -> 200 (13957 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/2026-November-General.json -> 404 (153 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/2026-November-General -> 200 (13957 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/polyfills-2FSRUXKO.js -> 404 (153 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/scripts-TTWY4XDY.js -> 404 (153 bytes) text/html
+GET https://enr.elections.virginia.gov/results/public/virginia/elections/main-SDUQU7SI.js -> 404 (153 bytes) text/html
+GET https://s3.amazonaws.com/dl.ncsbe.gov/ENRS/2026_11_03/results_pct_20261103.zip -> 200 (2091833 bytes) application/x-zip-compressed
+GET https://electionresults.sos.state.tx.us/results.html -> 200 (119431 bytes) text/html
+tx: truncated page (119431 bytes), retrying
+GET https://electionresults.sos.state.tx.us/ -> 404 (1606 bytes) text/html
+GET https://electionresults.sos.state.tx.us/results.html -> 200 (119431 bytes) text/html
+tx: truncated page (119431 bytes), retrying
+GET https://electionresults.sos.state.tx.us/ -> 404 (1606 bytes) text/html
+GET https://electionresults.sos.state.tx.us/results.html -> 200 (119431 bytes) text/html
+tx: truncated page (119431 bytes), retrying
+GET https://electionresults.sos.state.tx.us/ -> 404 (1606 bytes) text/html
+GET https://electionresults.sos.state.tx.us/results.html -> 200 (119431 bytes) text/html
+tx: truncated page (119431 bytes), retrying
+GET https://electionresults.sos.state.tx.us/ -> 404 (1606 bytes) text/html
+PW  https://electionresults.sos.state.tx.us/results.html -> https://electionresults.sos.state.tx.us/results.html (123396 chars) challenge=False
+ap_tx: official docs incomplete (missing a tracked candidate); adding AP pages
+PW  https://apnews.com/projects/elections-2026/texas-us-house-results/#1 -> https://apnews.com/projects/elections-2026/texas-us-house-results/#1 (1219664 chars) challenge=False
+PW  https://apnews.com/projects/elections-2026/texas-us-house-results/#15 -> https://apnews.com/projects/elections-2026/texas-us-house-results/#15 (1220088 chars) challenge=False
+PW  https://apnews.com/projects/elections-2026/texas-us-house-results/#35 -> https://apnews.com/projects/elections-2026/texas-us-house-results/#35 (1216218 chars) challenge=False
+GET https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY -> 200 (61100 bytes) text/html; charset=utf-8
+GET https://www.facebook.com/sharer/sharer.php?u=https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY -> 200 (69323 bytes) text/html; charset="utf-8"
+GET https://twitter.com/intent/tweet?text=https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY&hashtags=Vote -> 200 (28226 bytes) text/html; charset=UTF-8
+GET javascript:__doPostBack('ctl00$NavLinks$lnkbtnSWExport','') -> EXC No connection adapters were found for "javascript:__doPostBack('ctl00$NavLinks$lnkbtnSWExport','')"
+GET https://electionresults.mt.gov/ResultsExport.aspx -> 200 (46342 bytes) text/html; charset=utf-8
+GET https://electionresults.mt.gov/resultsSW.aspx?type=FED&map=CTY -> 200 (61100 bytes) text/html; charset=utf-8
+PW  https://apnews.com/projects/elections-2026/maine-us-senate-results/ -> https://apnews.com/projects/elections-2026/maine-us-senate-results/ (1424185 chars) challenge=False
+GET https://electionresults.sos.mn.gov/ -> 200 (265869 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/SelectMyRaces/Index?ersElectionId=201 -> 200 (71322 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/BallotQuestions/Index?ersElectionId=201 -> 200 (272919 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/SearchByCandidate/Index?ersElectionId=201 -> 200 (38514 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/AboutTheseResults/Index?ersElectionId=201 -> 200 (40896 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/VoterTurnOut/Index?ersElectionId=201 -> 200 (39230 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/MapCountyPrecinctsReporting/Index?ersElectionId=201 -> 200 (37876 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Results/Index?ErsElectionId=201&officeInElectionIdList=38485&officeInElectionIdList=-1&scenario=USSenate&electionDate=11%2F03%2F2026%2000%3A00%3A00 -> 200 (46096 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/MapCongressional/Index?scenario=USRepresentative&ersElectionId=201 -> 200 (38126 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/MapStateSenate/Index?scenario=StateSenate&ersElectionId=201 -> 200 (42271 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/MapLegislative/Index?scenario=StateRepresentative&ersElectionId=201 -> 200 (48442 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/MapCounty/Index?scenario=LocalCounty&ersElectionId=201 -> 200 (41720 bytes) text/html; charset=utf-8
+GET https://electionresults.sos.mn.gov/Select/MapCounty/Index?scenario=StateFedCounty&ersElectionId=201 -> 200 (41784 bytes) text/html; charset=utf-8
+PW  https://ent.sos.ks.gov/ -> https://ent.sos.ks.gov/ (1035358 chars) challenge=False
+PW  https://ent.sos.ks.gov/kssos_ent.html -> https://ent.sos.ks.gov/kssos_ent.html (659973 chars) challenge=True
+PW  https://ent.sos.ks.gov/ks-senate.html -> https://ent.sos.ks.gov/ks-senate.html (659973 chars) challenge=True
+PW  https://liveresults.ohiosos.gov/Api/v1/Contest/GetContestDetailsObject?contestName=U.S.%20Senator&contestObjectId=&resultsLevel=&countyId= -> 679 chars
+PW  https://liveresults.ohiosos.gov/Api/v1/Contest/GetContestDetailsObject?contestName=Governor%20and%20Lieutenant%20Governor&contestObjectId=&resultsLevel=&countyId= -> 679 chars
+PW  https://apnews.com/projects/elections-2026/ohio-us-senate-results/ -> https://apnews.com/projects/elections-2026/ohio-us-senate-results/ (786199 chars) challenge=False
+PW  https://apnews.com/projects/elections-2026/ohio-governor-results/ -> https://apnews.com/projects/elections-2026/ohio-governor-results/ (640493 chars) challenge=False
+GET https://results.sos.ga.gov/results/public/api/jurisdictions/Georgia -> 200 (88239 bytes) application/json; charset=utf-8
+GA elections: 11032026GeneralAndSpecialElection@2026-11-03, 08252026SpecialElectionRunoff@2026-08-25, 072826GASpecialElection@2026-07-28, 06162026GeneralPrimaryRunoff@2026-06-16, 06092026SpecialElectionRunoff@2026-06-09, RECOUNTPSCDistrict3@2026-05-19, GeneralPrimary51926@2026-05-19, 51226SpecialElection@2026-05-12
+GET https://results.sos.ga.gov/results/public/api/elections/Georgia/11032026GeneralAndSpecialElection/ballot-items -> 200 (619724 bytes) application/json; charset=utf-8
+PW  clarity landing https://electionresults.iowa.gov/IA/ (7865 chars)
+PW  https://electionresults.iowa.gov/IA/127077/current_ver.txt -> 6 chars
+PW  https://electionresults.iowa.gov/IA/127077/385580/json/en/summary.json -> 236035 chars
+PW  AK https://www.elections.alaska.gov/enr/26GENR/ -> https://www.elections.alaska.gov/enr/26GENR/
+PW  https://apnews.com/projects/elections-2026/wisconsin-governor-results/ -> https://apnews.com/projects/elections-2026/wisconsin-governor-results/ (789426 chars) challenge=False
+PW  https://nyenr.elections.ny.gov/ -> https://nyenr.elections.ny.gov/ (78729 chars) challenge=False
+PW  https://nyenr.elections.ny.gov/Governor -> https://nyenr.elections.ny.gov/Governor (1624 chars) challenge=False
+PW  https://results.elections.ny.gov/ -> https://results.elections.ny.gov/ (148191 chars) challenge=False
+PW  mailto:?subject=New York State Board of Elections Elections Database&body=Election results and vote counts for candidates for office and ballot questions, from 1994 to 2026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F -> EXC Error('Page.goto: net::ERR_ABORTED at mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F\nCall log:\n  - navigating to "mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F", waiting until "domcontentloaded"\n')
+PW  mailto:?subject=New York State Board of Elections Elections Database&body=Election results and vote counts for candidates for office and ballot questions, from 1994 to 2026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F -> EXC Error('Page.goto: net::ERR_ABORTED at mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F\nCall log:\n  - navigating to "mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F", waiting until "domcontentloaded"\n')
+PW  mailto:?subject=New York State Board of Elections Elections Database&body=Election results and vote counts for candidates for office and ballot questions, from 1994 to 2026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F -> EXC Error('Page.goto: net::ERR_ABORTED at mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F\nCall log:\n  - navigating to "mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F", waiting until "domcontentloaded"\n')
+PW  mailto:?subject=New York State Board of Elections Elections Database&body=Election results and vote counts for candidates for office and ballot questions, from 1994 to 2026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F -> EXC Error('Page.goto: net::ERR_ABORTED at mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F\nCall log:\n  - navigating to "mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F", waiting until "domcontentloaded"\n')
+PW  mailto:?subject=New York State Board of Elections Elections Database&body=Election results and vote counts for candidates for office and ballot questions, from 1994 to 2026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F -> EXC Error('Page.goto: net::ERR_ABORTED at mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F\nCall log:\n  - navigating to "mailto:?subject=New%20York%20State%20Board%20of%20Elections%20Elections%20Database&body=Election%20results%20and%20vote%20counts%20for%20candidates%20for%20office%20and%20ballot%20questions,%20from%201994%20to%202026.%0A%0Ahttps%3A%2F%2Fresults.elections.ny.gov%2F", waiting until "domcontentloaded"\n')
+PW  https://apnews.com/projects/elections-2026/michigan-us-house-results/#4 -> https://apnews.com/projects/elections-2026/michigan-us-house-results/#4 (618792 chars) challenge=False
+PW  https://apnews.com/projects/elections-2026/virginia-us-house-results/#1 -> https://apnews.com/projects/elections-2026/virginia-us-house-results/#1 (937182 chars) challenge=False
+PW  https://apnews.com/projects/elections-2026/montana-us-house-results/#1 -> https://apnews.com/projects/elections-2026/montana-us-house-results/#1 (824615 chars) challenge=False
+PW  https://apnews.com/projects/elections-2026/alaska-us-senate-results/ -> https://apnews.com/projects/elections-2026/alaska-us-senate-results/ (685419 chars) challenge=False

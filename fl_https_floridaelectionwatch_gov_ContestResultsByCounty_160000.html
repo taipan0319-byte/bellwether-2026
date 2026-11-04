@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html style="overflow-y: scroll;" xml:lang="en" lang="en">
+<head>
+
+        <!-- Global Site Tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZSJ66DYG9T"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-ZSJ66DYG9T');
+        </script>
+
+    <meta name="description" content= "Florida Election Watch displays votes collected from all Florida counties as they are being reported on election night.">
+    <meta name="keywords" content="Florida Department of State, election, election results, Florida election results, Florida election, 2026 election results, 2026 Florida election results, Florida Election Watch, election night">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florida Election Watch - Contest Results by County</title>
+    
+
+
+
+    <link href="/Scripts/umd/popper.js" rel="stylesheet"/>
+
+
+    <link href="/Content/bootstrap.css" rel="stylesheet"/>
+<link href="/Content/site.css" rel="stylesheet"/>
+
+    <script src="/Scripts/modernizr-2.8.3.js"></script>
+
+
+
+    <link rel="stylesheet" href="/Content/BSVerticalMenu.css">
+</head>
+<body style="padding-top: 0px;">
+    
+<div style="background: linear-gradient(to right,#2C5084,#2C5084, white); height: 120px;">
+    <div class="container">
+        <div class="row pt-2 ">
+            <div class="col-6 col-md pl-5 pr-0 text-left">
+                <img src="/Images/Enight Logo - transparent.png" alt="Florida Election Watch-Logo">
+            </div>
+            
+            <div class="col-6 col-md pl-5 text-center  d-none d-none d-lg-block">
+
+                <span style="color: white;">
+                    2026 General Election<br /> 
+                    November 3, 2026 <br />
+                    Unofficial Election Night Results<br />
+                     
+                </span>
+            </div>
+            
+            <div class="col-6 col-md text-right d-none d-sm-none d-md-block">
+                <a href="https://dos.fl.gov/elections/" title="Division of Elections" target="blank">
+                    <img src="/Images/Elections-Logo-Small.png" alt="Division of Elections-Logo" target="blank">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row star-bar">
+</div>
+
+
+
+
+   
+
+    <div class="row" style="background: linear-gradient(#135F8B, white);">
+        <div class="container pl-lg-5 pr-lg-5">
+            
+            <div class="row">
+                
+
+    <div class="col-lg-2 pl-0 pr-1">       
+        <nav class="navbar bootstrap-vertical-nav rounded  pt-0 mt-4" style="background-color: white;">
+            <div style="background-color: #2C5084;">
+                <button class="btn btn-dark d-lg-none" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" aria-label="Toggle navigation">
+                    <span>MENU</span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse " id="collapseExample">
+
+                        <ul class="nav flex-column list-group " id="exCollapsingNavbar3">
+
+                                    <li class="menu-item ">
+                                        <a class="menuHeader" href='/Home'>Home</a>
+                                    </li>
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/ElectionDayTurnout'>Election Day Turnout</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/CountyReportingStatus'>County Reporting Status</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/FAQs'>FAQs</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/LegislativeProjection'>Legislative Projections</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/Timeline'>Timeline</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="dropdown menuitem">
+                                            <div id="trackcounty" style="font-size:12px; font-family:Arial, Helvetica,sans-serif; padding-top:5px;padding-bottom:0px; line-height:1.3; font-weight:bold;">Track By County</div>
+                                            <div>
+                                                <a class="dropdown-toggle menuitemLink" data-toggle="dropdown" href="#">Select County <span class="caret"></a>
+
+                                                    <ul class="dropdown-menu scrollable-menu pl-2">
+                                                            <li><a class="countyDropdown" href="/TrackCounty/ALA">AlachuaCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/BAK">BakerCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/BAY">BayCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/BRA">BradfordCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/BRE">BrevardCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/BRO">BrowardCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/CAL">CalhounCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/CHA">CharlotteCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/CIT">CitrusCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/CLA">ClayCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/CLL">CollierCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/CLM">ColumbiaCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/DES">DesotoCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/DIX">DixieCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/DUV">DuvalCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/ESC">EscambiaCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/FLA">FlaglerCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/FRA">FranklinCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/GAD">GadsdenCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/GIL">GilchristCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/GLA">GladesCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/GUL">GulfCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/HAM">HamiltonCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/HAR">HardeeCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/HEN">HendryCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/HER">HernandoCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/HIG">HighlandsCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/HIL">HillsboroughCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/HOL">HolmesCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/IND">Indian RiverCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/JAC">JacksonCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/JEF">JeffersonCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/LAF">LafayetteCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/LAK">LakeCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/LEE">LeeCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/LEO">LeonCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/LEV">LevyCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/LIB">LibertyCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/MAD">MadisonCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/MAN">ManateeCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/MRN">MarionCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/MRT">MartinCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/DAD">Miami-DadeCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/MON">MonroeCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/NAS">NassauCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/OKA">OkaloosaCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/OKE">OkeechobeeCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/ORA">OrangeCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/OSC">OsceolaCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/PAL">Palm BeachCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/PAS">PascoCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/PIN">PinellasCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/POL">PolkCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/PUT">PutnamCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/SAN">Santa RosaCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/SAR">SarasotaCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/SEM">SeminoleCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/STJ">St. JohnsCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/STL">St. LucieCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/SUM">SumterCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/SUW">SuwanneeCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/TAY">TaylorCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/UNI">UnionCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/VOL">VolusiaCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/WAK">WakullaCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/WAL">WaltonCounty</a></li>
+                                                            <li><a class="countyDropdown" href="/TrackCounty/WAS">WashingtonCounty</a></li>
+
+                                                    </ul>
+                                            </div>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                    <li class="menu-item ">
+                                        <a class="menuHeader" href='/FederalOffices'>Federal Offices</a>
+                                    </li>
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/FederalOffices/USSenator'>U.S. Senator</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/FederalOffices/USRepresentative'>U.S. Representative</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                    <li class="menu-item ">
+                                        <a class="menuHeader" href='/StateOffices'>State Offices</a>
+                                    </li>
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/StateOffices/Governor'>Governor</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/StateOffices/AttorneyGeneral'>Attorney General</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/StateOffices/ChiefFinancialOfficer'>Chief Financial Officer</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/StateOffices/CommissionerOfAgriculture'>Commissioner of Agriculture</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                    <li class="menu-item ">
+                                        <a class="menuHeader" href='/DistrictOffices'>Multi-County or District Offices</a>
+                                    </li>
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/DistrictOffices/StateSenator'>State Senate</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/DistrictOffices/StateRepresentative'>State Representative</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/DistrictOffices/SpecialDistricts'>Special Districts</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                    <li class="menu-item ">
+                                        <a class="menuHeader" href='/JudicialOffices'>Judicial Offices</a>
+                                    </li>
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/JudicialOffices/SupremeCourt'>Supreme Court</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/JudicialOffices/DistrictCourtOfAppeal'>District Court of Appeal</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                        <li class="menu-item ">
+
+                                            <a class="menuitemLink" href='/JudicialOffices/CircuitCourt'>Circuit Court</a>
+                                        </li>
+                                    <hr class="mt-0 mb-0" />
+                                    <li class="menu-item ">
+                                        <a class="menuHeader" href='/Amendments'>Amendments</a>
+                                    </li>
+                                    <li class="menu-item ">
+                                        <a class="menuHeader" href='/Downloads'>Downloads</a>
+                                    </li>
+                        </ul>
+                        <br /><br /><br />
+            </div>
+        </nav>
+    </div>
+
+                <div class="col-lg-10 footerstyle">
+                    
+
+
+
+    <div class="card rounded ml-2 mt-4 "  style=width:1150px;border:0px;>
+       
+
+        <h4 class="card-header card-title  pt-2 pb-1 pl-2" style="background-color: #a52a2a; color: white; padding-top: 1px; padding-bottom:2px;font-size: 20px;font-weight:bold;font-family: Arial, Helvetica,sans-serif;">Contest Results by County</h4>
+
+        <div class="card-body  pl-2 pr-2">
+            <div class="btn-block pl-1 resultsHeader">
+                 
+            </div>
+
+            <div class="btn-block titleDescription" style="border-left-color:white;bo">
+                Governor and Lieutenant Governor
+            </div>
+
+            <div>
+                <div class="btn-block ">
+                     
+                </div>
+
+                <div>
+                    <div class="row ">
+                        <div class="sub-title pull-left col-md-6">
+                            <strong> General </strong>
+                        </div>
+                        <div class=" text-right col-md-6 pr-4">
+                            <a href="/CompareStateToCounty/160000" style="font-size:12px;color:#1f3d51;font-weight:bold;text-decoration:underline;">Compare State to County</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+
+                    <table class="table-county  table-countystriped" style="width:100%;">
+                        <tr class="" style="border:none;">
+                            <th>County</th>
+
+                                        <th class="text-right">Byron Donalds and Bryan Avila <br /> (REP) </th>
+                                        <th class="text-right">David Jolly and Gwen Graham <br /> (DEM) </th>
+                                        <th class="text-right">Scott Eckhard Jewett and Nicole Skelly <br /> (LPF) </th>
+                                        <th class="text-right">Charles Burkett and Ruben A. Coto <br /> (NPA) </th>
+                                        <th class="text-right">Frank J. Russo and Rachel Rodriguez <br /> (NPA) </th>
+                                        <th class="text-right">Moliere &quot;Moe&quot; Dimanche and Benjiman Rojas <br /> (NPA) </th>
+                                        <th class="text-right">Dean Ocean Abrams and Joe Van Vactor <br /> (NPA) </th>
+                                        <th class="text-right">Jeffrey Peter &quot;Dr. Jeff&quot; Datto and Juan Santana <br /> (NPA) </th>
+                                        <th class="text-right">Kathy Anderson and Daniel Nokovich <br /> (WRI) </th>
+                                        <th class="text-right">Erik Morris and LeRoy Alaways <br /> (WRI) </th>
+
+                        </tr>
+
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Alachua</td>
+
+                                    <td class="text-right">34,491 </td>
+                                    <td class="text-right">69,456 </td>
+                                    <td class="text-right">504 </td>
+                                    <td class="text-right">178 </td>
+                                    <td class="text-right">185 </td>
+                                    <td class="text-right">112 </td>
+                                    <td class="text-right">219 </td>
+                                    <td class="text-right">75 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Baker</td>
+
+                                    <td class="text-right">7,977 </td>
+                                    <td class="text-right">1,637 </td>
+                                    <td class="text-right">50 </td>
+                                    <td class="text-right">25 </td>
+                                    <td class="text-right">22 </td>
+                                    <td class="text-right">3 </td>
+                                    <td class="text-right">14 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Bay</td>
+
+                                    <td class="text-right">48,387 </td>
+                                    <td class="text-right">20,687 </td>
+                                    <td class="text-right">412 </td>
+                                    <td class="text-right">152 </td>
+                                    <td class="text-right">163 </td>
+                                    <td class="text-right">65 </td>
+                                    <td class="text-right">108 </td>
+                                    <td class="text-right">61 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Bradford</td>
+
+                                    <td class="text-right">7,090 </td>
+                                    <td class="text-right">2,421 </td>
+                                    <td class="text-right">48 </td>
+                                    <td class="text-right">20 </td>
+                                    <td class="text-right">24 </td>
+                                    <td class="text-right">3 </td>
+                                    <td class="text-right">22 </td>
+                                    <td class="text-right">10 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Brevard</td>
+
+                                    <td class="text-right">147,649 </td>
+                                    <td class="text-right">117,623 </td>
+                                    <td class="text-right">1,650 </td>
+                                    <td class="text-right">522 </td>
+                                    <td class="text-right">776 </td>
+                                    <td class="text-right">210 </td>
+                                    <td class="text-right">524 </td>
+                                    <td class="text-right">242 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Broward</td>
+
+                                    <td class="text-right">220,739 </td>
+                                    <td class="text-right">432,761 </td>
+                                    <td class="text-right">2,237 </td>
+                                    <td class="text-right">990 </td>
+                                    <td class="text-right">1,798 </td>
+                                    <td class="text-right">708 </td>
+                                    <td class="text-right">883 </td>
+                                    <td class="text-right">704 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Calhoun</td>
+
+                                    <td class="text-right">3,374 </td>
+                                    <td class="text-right">834 </td>
+                                    <td class="text-right">25 </td>
+                                    <td class="text-right">15 </td>
+                                    <td class="text-right">9 </td>
+                                    <td class="text-right">1 </td>
+                                    <td class="text-right">4 </td>
+                                    <td class="text-right">10 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Charlotte</td>
+
+                                    <td class="text-right">66,194 </td>
+                                    <td class="text-right">32,728 </td>
+                                    <td class="text-right">493 </td>
+                                    <td class="text-right">255 </td>
+                                    <td class="text-right">294 </td>
+                                    <td class="text-right">69 </td>
+                                    <td class="text-right">179 </td>
+                                    <td class="text-right">88 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Citrus</td>
+
+                                    <td class="text-right">51,958 </td>
+                                    <td class="text-right">21,773 </td>
+                                    <td class="text-right">440 </td>
+                                    <td class="text-right">174 </td>
+                                    <td class="text-right">207 </td>
+                                    <td class="text-right">68 </td>
+                                    <td class="text-right">150 </td>
+                                    <td class="text-right">87 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Clay</td>
+
+                                    <td class="text-right">59,200 </td>
+                                    <td class="text-right">32,232 </td>
+                                    <td class="text-right">541 </td>
+                                    <td class="text-right">233 </td>
+                                    <td class="text-right">223 </td>
+                                    <td class="text-right">87 </td>
+                                    <td class="text-right">198 </td>
+                                    <td class="text-right">73 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Collier</td>
+
+                                    <td class="text-right">108,539 </td>
+                                    <td class="text-right">61,693 </td>
+                                    <td class="text-right">531 </td>
+                                    <td class="text-right">266 </td>
+                                    <td class="text-right">309 </td>
+                                    <td class="text-right">86 </td>
+                                    <td class="text-right">164 </td>
+                                    <td class="text-right">103 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Columbia</td>
+
+                                    <td class="text-right">15,634 </td>
+                                    <td class="text-right">6,496 </td>
+                                    <td class="text-right">114 </td>
+                                    <td class="text-right">67 </td>
+                                    <td class="text-right">90 </td>
+                                    <td class="text-right">12 </td>
+                                    <td class="text-right">50 </td>
+                                    <td class="text-right">17 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Desoto</td>
+
+                                    <td class="text-right">5,698 </td>
+                                    <td class="text-right">3,210 </td>
+                                    <td class="text-right">43 </td>
+                                    <td class="text-right">29 </td>
+                                    <td class="text-right">40 </td>
+                                    <td class="text-right">12 </td>
+                                    <td class="text-right">20 </td>
+                                    <td class="text-right">10 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Dixie</td>
+
+                                    <td class="text-right">4,520 </td>
+                                    <td class="text-right">926 </td>
+                                    <td class="text-right">44 </td>
+                                    <td class="text-right">22 </td>
+                                    <td class="text-right">15 </td>
+                                    <td class="text-right">5 </td>
+                                    <td class="text-right">16 </td>
+                                    <td class="text-right">9 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Duval</td>
+
+                                    <td class="text-right">156,995 </td>
+                                    <td class="text-right">196,058 </td>
+                                    <td class="text-right">1,828 </td>
+                                    <td class="text-right">577 </td>
+                                    <td class="text-right">935 </td>
+                                    <td class="text-right">469 </td>
+                                    <td class="text-right">598 </td>
+                                    <td class="text-right">328 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Escambia</td>
+
+                                    <td class="text-right">62,602 </td>
+                                    <td class="text-right">51,407 </td>
+                                    <td class="text-right">676 </td>
+                                    <td class="text-right">238 </td>
+                                    <td class="text-right">347 </td>
+                                    <td class="text-right">150 </td>
+                                    <td class="text-right">215 </td>
+                                    <td class="text-right">104 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Flagler</td>
+
+                                    <td class="text-right">38,807 </td>
+                                    <td class="text-right">24,272 </td>
+                                    <td class="text-right">287 </td>
+                                    <td class="text-right">108 </td>
+                                    <td class="text-right">165 </td>
+                                    <td class="text-right">37 </td>
+                                    <td class="text-right">67 </td>
+                                    <td class="text-right">65 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Franklin</td>
+
+                                    <td class="text-right">3,377 </td>
+                                    <td class="text-right">1,603 </td>
+                                    <td class="text-right">20 </td>
+                                    <td class="text-right">5 </td>
+                                    <td class="text-right">10 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">12 </td>
+                                    <td class="text-right">3 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Gadsden</td>
+
+                                    <td class="text-right">5,360 </td>
+                                    <td class="text-right">12,241 </td>
+                                    <td class="text-right">59 </td>
+                                    <td class="text-right">25 </td>
+                                    <td class="text-right">33 </td>
+                                    <td class="text-right">18 </td>
+                                    <td class="text-right">20 </td>
+                                    <td class="text-right">18 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Gilchrist</td>
+
+                                    <td class="text-right">6,195 </td>
+                                    <td class="text-right">1,413 </td>
+                                    <td class="text-right">44 </td>
+                                    <td class="text-right">32 </td>
+                                    <td class="text-right">23 </td>
+                                    <td class="text-right">7 </td>
+                                    <td class="text-right">21 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Glades</td>
+
+                                    <td class="text-right">2,630 </td>
+                                    <td class="text-right">1,094 </td>
+                                    <td class="text-right">16 </td>
+                                    <td class="text-right">17 </td>
+                                    <td class="text-right">16 </td>
+                                    <td class="text-right">2 </td>
+                                    <td class="text-right">8 </td>
+                                    <td class="text-right">1 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Gulf</td>
+
+                                    <td class="text-right">5,101 </td>
+                                    <td class="text-right">1,505 </td>
+                                    <td class="text-right">31 </td>
+                                    <td class="text-right">26 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">2 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Hamilton</td>
+
+                                    <td class="text-right">2,649 </td>
+                                    <td class="text-right">1,401 </td>
+                                    <td class="text-right">19 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">21 </td>
+                                    <td class="text-right">3 </td>
+                                    <td class="text-right">5 </td>
+                                    <td class="text-right">4 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Hardee</td>
+
+                                    <td class="text-right">3,962 </td>
+                                    <td class="text-right">1,933 </td>
+                                    <td class="text-right">27 </td>
+                                    <td class="text-right">24 </td>
+                                    <td class="text-right">26 </td>
+                                    <td class="text-right">8 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Hendry</td>
+
+                                    <td class="text-right">5,533 </td>
+                                    <td class="text-right">4,335 </td>
+                                    <td class="text-right">49 </td>
+                                    <td class="text-right">21 </td>
+                                    <td class="text-right">51 </td>
+                                    <td class="text-right">18 </td>
+                                    <td class="text-right">17 </td>
+                                    <td class="text-right">19 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Hernando</td>
+
+                                    <td class="text-right">50,082 </td>
+                                    <td class="text-right">28,611 </td>
+                                    <td class="text-right">468 </td>
+                                    <td class="text-right">150 </td>
+                                    <td class="text-right">269 </td>
+                                    <td class="text-right">59 </td>
+                                    <td class="text-right">127 </td>
+                                    <td class="text-right">82 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Highlands</td>
+
+                                    <td class="text-right">26,048 </td>
+                                    <td class="text-right">13,068 </td>
+                                    <td class="text-right">147 </td>
+                                    <td class="text-right">95 </td>
+                                    <td class="text-right">92 </td>
+                                    <td class="text-right">23 </td>
+                                    <td class="text-right">66 </td>
+                                    <td class="text-right">57 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Hillsborough</td>
+
+                                    <td class="text-right">224,268 </td>
+                                    <td class="text-right">284,062 </td>
+                                    <td class="text-right">2,957 </td>
+                                    <td class="text-right">812 </td>
+                                    <td class="text-right">1,586 </td>
+                                    <td class="text-right">578 </td>
+                                    <td class="text-right">814 </td>
+                                    <td class="text-right">641 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Holmes</td>
+
+                                    <td class="text-right">5,285 </td>
+                                    <td class="text-right">773 </td>
+                                    <td class="text-right">32 </td>
+                                    <td class="text-right">21 </td>
+                                    <td class="text-right">19 </td>
+                                    <td class="text-right">5 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Indian River</td>
+
+                                    <td class="text-right">46,211 </td>
+                                    <td class="text-right">30,293 </td>
+                                    <td class="text-right">286 </td>
+                                    <td class="text-right">131 </td>
+                                    <td class="text-right">161 </td>
+                                    <td class="text-right">46 </td>
+                                    <td class="text-right">98 </td>
+                                    <td class="text-right">60 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Jackson</td>
+
+                                    <td class="text-right">10,596 </td>
+                                    <td class="text-right">4,756 </td>
+                                    <td class="text-right">72 </td>
+                                    <td class="text-right">42 </td>
+                                    <td class="text-right">38 </td>
+                                    <td class="text-right">10 </td>
+                                    <td class="text-right">35 </td>
+                                    <td class="text-right">21 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Jefferson</td>
+
+                                    <td class="text-right">3,861 </td>
+                                    <td class="text-right">2,999 </td>
+                                    <td class="text-right">42 </td>
+                                    <td class="text-right">8 </td>
+                                    <td class="text-right">18 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">8 </td>
+                                    <td class="text-right">6 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Lafayette</td>
+
+                                    <td class="text-right">2,140 </td>
+                                    <td class="text-right">413 </td>
+                                    <td class="text-right">24 </td>
+                                    <td class="text-right">6 </td>
+                                    <td class="text-right">4 </td>
+                                    <td class="text-right">1 </td>
+                                    <td class="text-right">6 </td>
+                                    <td class="text-right">3 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Lake</td>
+
+                                    <td class="text-right">101,637 </td>
+                                    <td class="text-right">73,646 </td>
+                                    <td class="text-right">939 </td>
+                                    <td class="text-right">292 </td>
+                                    <td class="text-right">399 </td>
+                                    <td class="text-right">147 </td>
+                                    <td class="text-right">274 </td>
+                                    <td class="text-right">129 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Lee</td>
+
+                                    <td class="text-right">182,720 </td>
+                                    <td class="text-right">117,515 </td>
+                                    <td class="text-right">1,191 </td>
+                                    <td class="text-right">545 </td>
+                                    <td class="text-right">820 </td>
+                                    <td class="text-right">174 </td>
+                                    <td class="text-right">369 </td>
+                                    <td class="text-right">257 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Leon</td>
+
+                                    <td class="text-right">39,948 </td>
+                                    <td class="text-right">83,777 </td>
+                                    <td class="text-right">471 </td>
+                                    <td class="text-right">149 </td>
+                                    <td class="text-right">271 </td>
+                                    <td class="text-right">135 </td>
+                                    <td class="text-right">165 </td>
+                                    <td class="text-right">85 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Levy</td>
+
+                                    <td class="text-right">12,785 </td>
+                                    <td class="text-right">4,924 </td>
+                                    <td class="text-right">132 </td>
+                                    <td class="text-right">69 </td>
+                                    <td class="text-right">59 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">38 </td>
+                                    <td class="text-right">18 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Liberty</td>
+
+                                    <td class="text-right">2,062 </td>
+                                    <td class="text-right">510 </td>
+                                    <td class="text-right">14 </td>
+                                    <td class="text-right">14 </td>
+                                    <td class="text-right">11 </td>
+                                    <td class="text-right">2 </td>
+                                    <td class="text-right">5 </td>
+                                    <td class="text-right">7 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Madison</td>
+
+                                    <td class="text-right">4,209 </td>
+                                    <td class="text-right">2,672 </td>
+                                    <td class="text-right">30 </td>
+                                    <td class="text-right">12 </td>
+                                    <td class="text-right">16 </td>
+                                    <td class="text-right">4 </td>
+                                    <td class="text-right">15 </td>
+                                    <td class="text-right">7 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Manatee</td>
+
+                                    <td class="text-right">104,822 </td>
+                                    <td class="text-right">74,843 </td>
+                                    <td class="text-right">740 </td>
+                                    <td class="text-right">326 </td>
+                                    <td class="text-right">439 </td>
+                                    <td class="text-right">121 </td>
+                                    <td class="text-right">318 </td>
+                                    <td class="text-right">159 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Marion</td>
+
+                                    <td class="text-right">100,468 </td>
+                                    <td class="text-right">60,951 </td>
+                                    <td class="text-right">776 </td>
+                                    <td class="text-right">350 </td>
+                                    <td class="text-right">427 </td>
+                                    <td class="text-right">132 </td>
+                                    <td class="text-right">216 </td>
+                                    <td class="text-right">124 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Martin</td>
+
+                                    <td class="text-right">46,506 </td>
+                                    <td class="text-right">28,817 </td>
+                                    <td class="text-right">349 </td>
+                                    <td class="text-right">130 </td>
+                                    <td class="text-right">144 </td>
+                                    <td class="text-right">41 </td>
+                                    <td class="text-right">81 </td>
+                                    <td class="text-right">47 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Miami-Dade</td>
+
+                                    <td class="text-right">360,000 </td>
+                                    <td class="text-right">415,100 </td>
+                                    <td class="text-right">2,603 </td>
+                                    <td class="text-right">1,703 </td>
+                                    <td class="text-right">2,667 </td>
+                                    <td class="text-right">783 </td>
+                                    <td class="text-right">866 </td>
+                                    <td class="text-right">1,059 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Monroe</td>
+
+                                    <td class="text-right">17,179 </td>
+                                    <td class="text-right">14,763 </td>
+                                    <td class="text-right">131 </td>
+                                    <td class="text-right">37 </td>
+                                    <td class="text-right">64 </td>
+                                    <td class="text-right">19 </td>
+                                    <td class="text-right">34 </td>
+                                    <td class="text-right">17 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Nassau</td>
+
+                                    <td class="text-right">34,677 </td>
+                                    <td class="text-right">14,941 </td>
+                                    <td class="text-right">295 </td>
+                                    <td class="text-right">116 </td>
+                                    <td class="text-right">123 </td>
+                                    <td class="text-right">33 </td>
+                                    <td class="text-right">91 </td>
+                                    <td class="text-right">46 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Okaloosa</td>
+
+                                    <td class="text-right">51,359 </td>
+                                    <td class="text-right">24,475 </td>
+                                    <td class="text-right">621 </td>
+                                    <td class="text-right">181 </td>
+                                    <td class="text-right">236 </td>
+                                    <td class="text-right">95 </td>
+                                    <td class="text-right">175 </td>
+                                    <td class="text-right">97 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Okeechobee</td>
+
+                                    <td class="text-right">7,590 </td>
+                                    <td class="text-right">3,352 </td>
+                                    <td class="text-right">37 </td>
+                                    <td class="text-right">32 </td>
+                                    <td class="text-right">42 </td>
+                                    <td class="text-right">7 </td>
+                                    <td class="text-right">16 </td>
+                                    <td class="text-right">15 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Orange</td>
+
+                                    <td class="text-right">163,068 </td>
+                                    <td class="text-right">302,165 </td>
+                                    <td class="text-right">2,222 </td>
+                                    <td class="text-right">698 </td>
+                                    <td class="text-right">1,189 </td>
+                                    <td class="text-right">572 </td>
+                                    <td class="text-right">767 </td>
+                                    <td class="text-right">451 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Osceola</td>
+
+                                    <td class="text-right">52,965 </td>
+                                    <td class="text-right">76,329 </td>
+                                    <td class="text-right">600 </td>
+                                    <td class="text-right">313 </td>
+                                    <td class="text-right">565 </td>
+                                    <td class="text-right">189 </td>
+                                    <td class="text-right">240 </td>
+                                    <td class="text-right">237 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Palm Beach</td>
+
+                                    <td class="text-right">247,479 </td>
+                                    <td class="text-right">317,692 </td>
+                                    <td class="text-right">1,761 </td>
+                                    <td class="text-right">834 </td>
+                                    <td class="text-right">1,806 </td>
+                                    <td class="text-right">555 </td>
+                                    <td class="text-right">769 </td>
+                                    <td class="text-right">616 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Pasco</td>
+
+                                    <td class="text-right">132,473 </td>
+                                    <td class="text-right">103,288 </td>
+                                    <td class="text-right">1,217 </td>
+                                    <td class="text-right">562 </td>
+                                    <td class="text-right">799 </td>
+                                    <td class="text-right">232 </td>
+                                    <td class="text-right">435 </td>
+                                    <td class="text-right">279 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Pinellas</td>
+
+                                    <td class="text-right">189,537 </td>
+                                    <td class="text-right">208,126 </td>
+                                    <td class="text-right">1,985 </td>
+                                    <td class="text-right">929 </td>
+                                    <td class="text-right">1,239 </td>
+                                    <td class="text-right">374 </td>
+                                    <td class="text-right">642 </td>
+                                    <td class="text-right">385 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Polk</td>
+
+                                    <td class="text-right">133,011 </td>
+                                    <td class="text-right">120,257 </td>
+                                    <td class="text-right">1,234 </td>
+                                    <td class="text-right">577 </td>
+                                    <td class="text-right">866 </td>
+                                    <td class="text-right">274 </td>
+                                    <td class="text-right">437 </td>
+                                    <td class="text-right">286 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Putnam</td>
+
+                                    <td class="text-right">17,967 </td>
+                                    <td class="text-right">8,012 </td>
+                                    <td class="text-right">159 </td>
+                                    <td class="text-right">79 </td>
+                                    <td class="text-right">66 </td>
+                                    <td class="text-right">20 </td>
+                                    <td class="text-right">46 </td>
+                                    <td class="text-right">39 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Santa Rosa</td>
+
+                                    <td class="text-right">52,407 </td>
+                                    <td class="text-right">20,774 </td>
+                                    <td class="text-right">481 </td>
+                                    <td class="text-right">183 </td>
+                                    <td class="text-right">180 </td>
+                                    <td class="text-right">46 </td>
+                                    <td class="text-right">116 </td>
+                                    <td class="text-right">72 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Sarasota</td>
+
+                                    <td class="text-right">124,786 </td>
+                                    <td class="text-right">95,817 </td>
+                                    <td class="text-right">941 </td>
+                                    <td class="text-right">379 </td>
+                                    <td class="text-right">529 </td>
+                                    <td class="text-right">122 </td>
+                                    <td class="text-right">334 </td>
+                                    <td class="text-right">196 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Seminole</td>
+
+                                    <td class="text-right">86,756 </td>
+                                    <td class="text-right">105,232 </td>
+                                    <td class="text-right">1,203 </td>
+                                    <td class="text-right">242 </td>
+                                    <td class="text-right">493 </td>
+                                    <td class="text-right">157 </td>
+                                    <td class="text-right">351 </td>
+                                    <td class="text-right">151 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> St. Johns</td>
+
+                                    <td class="text-right">95,269 </td>
+                                    <td class="text-right">58,577 </td>
+                                    <td class="text-right">826 </td>
+                                    <td class="text-right">232 </td>
+                                    <td class="text-right">326 </td>
+                                    <td class="text-right">83 </td>
+                                    <td class="text-right">202 </td>
+                                    <td class="text-right">99 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> St. Lucie</td>
+
+                                    <td class="text-right">66,075 </td>
+                                    <td class="text-right">69,925 </td>
+                                    <td class="text-right">564 </td>
+                                    <td class="text-right">232 </td>
+                                    <td class="text-right">454 </td>
+                                    <td class="text-right">137 </td>
+                                    <td class="text-right">222 </td>
+                                    <td class="text-right">126 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Sumter</td>
+
+                                    <td class="text-right">66,081 </td>
+                                    <td class="text-right">28,181 </td>
+                                    <td class="text-right">320 </td>
+                                    <td class="text-right">102 </td>
+                                    <td class="text-right">157 </td>
+                                    <td class="text-right">39 </td>
+                                    <td class="text-right">72 </td>
+                                    <td class="text-right">45 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Suwannee</td>
+
+                                    <td class="text-right">11,911 </td>
+                                    <td class="text-right">3,603 </td>
+                                    <td class="text-right">88 </td>
+                                    <td class="text-right">49 </td>
+                                    <td class="text-right">47 </td>
+                                    <td class="text-right">15 </td>
+                                    <td class="text-right">38 </td>
+                                    <td class="text-right">14 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Taylor</td>
+
+                                    <td class="text-right">5,160 </td>
+                                    <td class="text-right">1,667 </td>
+                                    <td class="text-right">34 </td>
+                                    <td class="text-right">14 </td>
+                                    <td class="text-right">18 </td>
+                                    <td class="text-right">3 </td>
+                                    <td class="text-right">10 </td>
+                                    <td class="text-right">12 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Union</td>
+
+                                    <td class="text-right">3,393 </td>
+                                    <td class="text-right">812 </td>
+                                    <td class="text-right">23 </td>
+                                    <td class="text-right">8 </td>
+                                    <td class="text-right">7 </td>
+                                    <td class="text-right">2 </td>
+                                    <td class="text-right">14 </td>
+                                    <td class="text-right">1 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Volusia</td>
+
+                                    <td class="text-right">131,183 </td>
+                                    <td class="text-right">101,722 </td>
+                                    <td class="text-right">1,362 </td>
+                                    <td class="text-right">465 </td>
+                                    <td class="text-right">642 </td>
+                                    <td class="text-right">154 </td>
+                                    <td class="text-right">384 </td>
+                                    <td class="text-right">231 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Wakulla</td>
+
+                                    <td class="text-right">9,792 </td>
+                                    <td class="text-right">5,086 </td>
+                                    <td class="text-right">81 </td>
+                                    <td class="text-right">26 </td>
+                                    <td class="text-right">36 </td>
+                                    <td class="text-right">6 </td>
+                                    <td class="text-right">23 </td>
+                                    <td class="text-right">6 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Walton</td>
+
+                                    <td class="text-right">26,626 </td>
+                                    <td class="text-right">8,128 </td>
+                                    <td class="text-right">176 </td>
+                                    <td class="text-right">30 </td>
+                                    <td class="text-right">63 </td>
+                                    <td class="text-right">14 </td>
+                                    <td class="text-right">42 </td>
+                                    <td class="text-right">30 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+                            <tr class="" style="border:none;">
+                                    <td style="white-space:nowrap;"> Washington</td>
+
+                                    <td class="text-right">7,059 </td>
+                                    <td class="text-right">1,787 </td>
+                                    <td class="text-right">62 </td>
+                                    <td class="text-right">28 </td>
+                                    <td class="text-right">19 </td>
+                                    <td class="text-right">15 </td>
+                                    <td class="text-right">24 </td>
+                                    <td class="text-right">10 </td>
+                                    <td class="text-right">0 </td>
+                                    <td class="text-right">0 </td>
+
+                            </tr>
+
+
+
+                        <tr style="border:none;font-size: 14px;font-family: Calibri, Times New Roman, Times, serif;background-color:white !important;">
+
+                            <td class="totalTd countyWidth"><strong>Total:</strong></td>
+
+                                <td class="totalTd text-right"><strong>4,132,112</strong></td>
+                                <td class="totalTd text-right"><strong>4,024,180</strong></td>
+                                <td class="totalTd text-right"><strong>37,884</strong></td>
+                                <td class="totalTd text-right"><strong>15,235</strong></td>
+                                <td class="totalTd text-right"><strong>23,199</strong></td>
+                                <td class="totalTd text-right"><strong>7,590</strong></td>
+                                <td class="totalTd text-right"><strong>12,532</strong></td>
+                                <td class="totalTd text-right"><strong>8,309</strong></td>
+                                <td class="totalTd text-right"><strong>0</strong></td>
+                                <td class="totalTd text-right"><strong>0</strong></td>
+                        </tr>
+
+                    </table>
+
+                        <p style="color: #a52a2a;" colspan="3"></p>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+                    <br /><br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row star-bar">
+</div>
+
+
+<div class="row" style="background-color: #2C5084;">
+    <div class="container footerstyle">
+        <div class="row pt-2 ">
+            <div class="col-6 col-md pl-5 pr-0 text-left d-none d-sm-none d-md-block">
+                <img src="/Images/Enightfooter.png" alt="">
+            </div>
+            <div class="col-6 col-md pl-5 text-left ">  
+                <p class="p-0 m-0">
+                    <a href="https://dos.fl.gov/" target="_blank" style="color: #fcca65;">Florida Department of State</a>
+                </p>
+                <p class="p-0 m-0">
+                    <a href="https://dos.fl.gov/elections/" target="_blank" style="color: #fcca65;">Division of Elections</a>
+                </p>
+
+                <p style="color: white;">
+                    Room 316, R.A.Gray Building, 500 S.Bronough Street
+                    <br />
+
+                    Tallahassee, FL 32399-0250
+                    <br />
+                    1.850.245.6200
+                </p>
+            </div>
+            <div class="col-6 col-md text-right ">  
+                <ul style="list-style-type: none;">
+                    <li><a href="https://dos.fl.gov/privacy-policy.aspx" target="_blank" style="color: #fcca65;">Privacy Policy</a></li>
+                    <li><a href="https://dos.fl.gov/elections/contacts/contact-us/" target="_blank" style="color: #fcca65;"> Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/Scripts/jquery-3.3.1.js"></script>
+
+    <script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+
+    
+</body>
+</html>

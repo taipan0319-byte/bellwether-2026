@@ -154,10 +154,8 @@ def text_matches_candidate(text: str, cand: dict) -> bool:
     first, last = name_tokens(cand["name"])
     if not last or last not in t:
         return False
-    # Require first name too when the surname is common/short, to avoid false hits.
-    if len(last) <= 5 or last in ("garcia", "taylor", "prince", "flint", "singer"):
-        return first[:3] in t
-    return True
+    # Always require the first-name prefix too (two De La Cruzes are on the Texas ballot).
+    return first[:3] in t
 
 
 def to_int(s: str) -> int | None:
@@ -167,15 +165,22 @@ def to_int(s: str) -> int | None:
         return None
 
 
-def parse_precincts(text: str) -> tuple[int | None, int | None, float | None]:
+def parse_precincts(text: str, last: bool = False) -> tuple[int | None, int | None, float | None]:
+    """Parse 'X of Y precincts' / 'NN% reporting'. With last=True, take the final match (used for
+    the text window preceding a contest, where the nearest statement is the right one)."""
+    def pick(rx):
+        ms = list(rx.finditer(text))
+        if not ms:
+            return None
+        return ms[-1] if last else ms[0]
     for rx in PRECINCT_RES:
-        m = rx.search(text)
+        m = pick(rx)
         if m:
             a, b = to_int(m.group(1)), to_int(m.group(2))
             if a is not None and b:
                 return a, b, round(a / b * 100, 1)
     for rx in PCT_REPORTED_RES:
-        m = rx.search(text)
+        m = pick(rx)
         if m:
             return None, None, float(m.group(1))
     return None, None, None
@@ -260,7 +265,7 @@ def extract_from_html(html: str, race: dict, contest_rx: re.Pattern) -> RaceResu
     # Reporting status: look first in the text immediately preceding the first candidate row
     # (between the contest heading and the candidates), then the contest container, then the page.
     near = " ".join(reversed([str(x) for x in found[0].find_all_previous(string=True, limit=80)]))
-    res.precincts_reporting, res.precincts_total, res.pct_reported = parse_precincts(near[-1500:])
+    res.precincts_reporting, res.precincts_total, res.pct_reported = parse_precincts(near[-1500:], last=True)
     ctext = container.get_text(" ", strip=True) if container is not soup else soup.get_text(" ", strip=True)
     if res.pct_reported is None:
         res.precincts_reporting, res.precincts_total, res.pct_reported = parse_precincts(ctext)

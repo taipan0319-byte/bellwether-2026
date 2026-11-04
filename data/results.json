@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-11-04T01:24:52+00:00",
+  "generated_at": "2026-11-04T01:29:49+00:00",
   "election_date": "2026-11-03",
   "status": "live",
-  "feed_errors": 7,
+  "feed_errors": 5,
   "races": {
     "FL-25": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:03+00:00",
+      "source_updated": "2026-11-04T01:27:43+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -45,7 +45,7 @@
     "GOV-FL": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:03+00:00",
+      "source_updated": "2026-11-04T01:27:43+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -55,19 +55,19 @@
         {
           "name": "Byron Donalds",
           "party": "REP",
-          "votes": 3848859,
+          "votes": 3863790,
           "incumbent": false
         },
         {
           "name": "David Jolly",
           "party": "DEM",
-          "votes": 3821259,
+          "votes": 3831655,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 96513,
+          "votes": 96956,
           "incumbent": false
         }
       ],
@@ -97,13 +97,13 @@
           "incumbent": false
         }
       ],
-      "error": "Could not read MI feed (4 documents tried). Showing last good data.",
+      "error": "Could not read MI feed (9 documents tried). Showing last good data.",
       "source_url": null
     },
     "SEN-MI": {
-      "status": "not_started",
-      "source_status": "error",
-      "source_updated": null,
+      "status": "counting",
+      "source_status": "ok",
+      "source_updated": "2026-11-04T01:28:36+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -113,45 +113,45 @@
         {
           "name": "Mike Rogers",
           "party": "REP",
-          "votes": null,
+          "votes": 2026,
           "incumbent": false
         },
         {
           "name": "Abdul El-Sayed",
           "party": "DEM",
-          "votes": null,
+          "votes": 2026,
           "incumbent": false
         }
       ],
-      "error": "Could not read MI feed (4 documents tried). Showing last good data.",
-      "source_url": null
+      "error": null,
+      "source_url": "https://www.270towin.com/2026-election-results-live/state/michigan/"
     },
     "VA-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:42+00:00",
-      "precincts_reporting": 16,
+      "source_updated": "2026-11-04T01:28:38+00:00",
+      "precincts_reporting": 17,
       "precincts_total": 18,
-      "pct_reported": 88.9,
+      "pct_reported": 94.4,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Rob Wittman",
           "party": "REP",
-          "votes": 94685,
+          "votes": 110152,
           "incumbent": true
         },
         {
           "name": "Shannon Taylor",
           "party": "DEM",
-          "votes": 97366,
+          "votes": 106859,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 537,
+          "votes": 570,
           "incumbent": false
         }
       ],
@@ -161,29 +161,29 @@
     "VA-02": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:42+00:00",
-      "precincts_reporting": 5,
+      "source_updated": "2026-11-04T01:28:38+00:00",
+      "precincts_reporting": 6,
       "precincts_total": 8,
-      "pct_reported": 62.5,
+      "pct_reported": 75.0,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Jen Kiggans",
           "party": "REP",
-          "votes": 48356,
+          "votes": 48746,
           "incumbent": true
         },
         {
           "name": "Elaine Luria",
           "party": "DEM",
-          "votes": 46212,
+          "votes": 46637,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 2658,
+          "votes": 2688,
           "incumbent": false
         }
       ],
@@ -193,7 +193,7 @@
     "NC-11": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:43+00:00",
+      "source_updated": "2026-11-04T01:28:39+00:00",
       "precincts_reporting": 233,
       "precincts_total": 290,
       "pct_reported": 80.3,
@@ -231,7 +231,7 @@
     "TX-35": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:43+00:00",
+      "source_updated": "2026-11-04T01:28:40+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 0.0,
@@ -263,7 +263,7 @@
     "TX-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:43+00:00",
+      "source_updated": "2026-11-04T01:28:40+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 0.0,
@@ -301,7 +301,7 @@
     "TX-15": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:43+00:00",
+      "source_updated": "2026-11-04T01:28:40+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 0.0,
@@ -333,7 +333,7 @@
     "MT-01": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:46+00:00",
+      "source_updated": "2026-11-04T01:28:42+00:00",
       "precincts_reporting": 0,
       "precincts_total": 346,
       "pct_reported": 0.0,
@@ -397,7 +397,7 @@
     "SEN-MN": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:23:57+00:00",
+      "source_updated": "2026-11-04T01:28:52+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 0.0,
@@ -460,72 +460,72 @@
     },
     "SEN-OH": {
       "status": "counting",
-      "source_status": "error",
-      "source_updated": "2026-11-04T01:20:12+00:00",
-      "precincts_reporting": 101,
+      "source_status": "ok",
+      "source_updated": "2026-11-04T01:29:15+00:00",
+      "precincts_reporting": 235,
       "precincts_total": 8834,
-      "pct_reported": 1.1,
+      "pct_reported": 2.7,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Jon Husted",
           "party": "REP",
-          "votes": 602136,
+          "votes": 647492,
           "incumbent": true
         },
         {
           "name": "Sherrod Brown",
           "party": "DEM",
-          "votes": 924082,
+          "votes": 959513,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 23847,
+          "votes": 25600,
           "incumbent": false
         }
       ],
-      "error": "Could not read OH feed (0 documents tried). Showing last good data.",
+      "error": null,
       "source_url": "https://liveresults.ohiosos.gov/Api/v1/Contest/GetContestDetailsObject?contestName=U.S.%20Senator&contestObjectId=&resultsLevel=&countyId="
     },
     "GOV-OH": {
       "status": "counting",
-      "source_status": "error",
-      "source_updated": "2026-11-04T01:20:12+00:00",
-      "precincts_reporting": 101,
+      "source_status": "ok",
+      "source_updated": "2026-11-04T01:29:15+00:00",
+      "precincts_reporting": 235,
       "precincts_total": 8834,
-      "pct_reported": 1.1,
+      "pct_reported": 2.7,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Vivek Ramaswamy",
           "party": "REP",
-          "votes": 589089,
+          "votes": 633752,
           "incumbent": false
         },
         {
           "name": "Amy Acton",
           "party": "DEM",
-          "votes": 948120,
+          "votes": 985337,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 36758,
+          "votes": 39990,
           "incumbent": false
         }
       ],
-      "error": "Could not read OH feed (0 documents tried). Showing last good data.",
+      "error": null,
       "source_url": "https://liveresults.ohiosos.gov/Api/v1/Contest/GetContestDetailsObject?contestName=Governor%20and%20Lieutenant%20Governor&contestObjectId=&resultsLevel=&countyId="
     },
     "SEN-GA": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:24:18+00:00",
+      "source_updated": "2026-11-04T01:29:16+00:00",
       "precincts_reporting": 111,
       "precincts_total": 159,
       "pct_reported": 69.8,
@@ -556,7 +556,7 @@
     },
     "SEN-IA": {
       "status": "not_started",
-      "source_status": "ok",
+      "source_status": "error",
       "source_updated": "2026-11-04T01:24:25+00:00",
       "precincts_reporting": 2,
       "precincts_total": 99,
@@ -589,13 +589,13 @@
           "incumbent": false
         }
       ],
-      "error": null,
+      "error": "Could not read IA feed (0 documents tried). Showing last good data.",
       "source_url": "https://electionresults.iowa.gov/IA/127077/383360/json/en/summary.json"
     },
     "SEN-AK": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:24:33+00:00",
+      "source_updated": "2026-11-04T01:29:31+00:00",
       "precincts_reporting": 0,
       "precincts_total": 403,
       "pct_reported": 0.0,
@@ -659,7 +659,7 @@
     "GOV-NY": {
       "status": "not_started",
       "source_status": "ok",
-      "source_updated": "2026-11-04T01:24:52+00:00",
+      "source_updated": "2026-11-04T01:29:49+00:00",
       "precincts_reporting": 0,
       "precincts_total": 13187,
       "pct_reported": 0.0,

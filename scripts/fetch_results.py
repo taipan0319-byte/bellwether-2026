@@ -390,6 +390,10 @@ def extract(content: bytes, race: dict, source_url: str) -> RaceResult | None:
                 res = extract_from_json(doc, race, rx)
         except json.JSONDecodeError:
             res = None
+    if res is None and race["source"]["adapter"] == "tx" and "electionresults.sos.state.tx.us" in source_url:
+        res = parse_tx_html(text, race, rx)
+        if res is None:
+            return None  # never fall back to the fuzzy extractor on this page
     if res is None and "<" in stripped[:200]:
         res = extract_from_html(text, race, rx)
     if res is not None and race["source"]["adapter"] == "oh" and (not res.precincts_total):
@@ -487,6 +491,46 @@ def parse_tx_office_summary(doc: Any, race: dict, contest_rx: re.Pattern) -> Rac
                 res.precincts_reporting, res.precincts_total = to_int(str(off[k])), to_int(str(off["PT"]))
         if res.precincts_total:
             res.pct_reported = round((res.precincts_reporting or 0) / res.precincts_total * 100, 1)
+        return res
+    return None
+
+
+# --------------------------------------------------------------------------- #
+# Texas SOS static results page (electionresults.sos.state.tx.us/results.html) — strict parser.
+# Structure: <div class="election">CONTEST</div><div class="polling">Polling Locations Reporting: N%</div>
+#            <table class="election"> rows of <td class="party">..<td class="candidate">..<td class="ballot">N or empty
+# --------------------------------------------------------------------------- #
+def parse_tx_html(html: str, race: dict, contest_rx: re.Pattern) -> RaceResult | None:
+    if "November 3, 2026" not in html:
+        return None
+    blocks = re.split(r'<div class="election">', html)
+    for blk in blocks[1:]:
+        title = re.sub(r"<.*?>", "", blk.split("</div>", 1)[0]).strip()
+        if not contest_rx.search(title):
+            continue
+        m = re.search(r"Polling Locations Reporting:?\s*([\d.]+)\s*%", blk)
+        pct = float(m.group(1)) if m else None
+        rows = re.findall(r'<td class="party">(.*?)</td>\s*<td class="candidate">(.*?)</td>\s*<td class="ballot"\s*(?:/>|>(.*?)</td>)', blk, re.S)
+        opts = []
+        for party, cand, ballots in rows:
+            cand = re.sub(r"<.*?>", "", cand).strip()
+            v = to_int(re.sub(r"[^\d,]", "", ballots or "")) if (ballots or "").strip() else None
+            opts.append((cand, party.strip(), v))
+        if not opts:
+            return None
+        res = RaceResult()
+        out, used = [], set()
+        for c in race["candidates"]:
+            votes = None
+            for i, (n, p, v) in enumerate(opts):
+                if i not in used and text_matches_candidate(n, c):
+                    votes = v if v is not None else (0 if pct == 0 else None)
+                    used.add(i); break
+            out.append(asdict(CandResult(c["name"], c["party"], votes, c.get("incumbent", False))))
+        other = sum((v or 0) for i, (n, p, v) in enumerate(opts) if i not in used)
+        out.append(asdict(CandResult("Other / write-in", "OTH", other, False)))
+        res.candidates = out
+        res.pct_reported = pct
         return res
     return None
 

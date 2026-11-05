@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T08:33:17+00:00",
+  "generated_at": "2026-11-05T16:43:45+00:00",
   "election_date": "2026-11-03",
   "status": "live",
   "feed_errors": 0,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:28+00:00",
+      "source_updated": "2026-11-05T16:41:49+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -45,7 +45,7 @@
     "GOV-FL": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:29+00:00",
+      "source_updated": "2026-11-05T16:41:50+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -77,7 +77,7 @@
     "MI-04": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:39+00:00",
+      "source_updated": "2026-11-05T16:41:58+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 97.0,
@@ -109,7 +109,7 @@
     "SEN-MI": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:39+00:00",
+      "source_updated": "2026-11-05T16:41:58+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 98.0,
@@ -141,7 +141,7 @@
     "VA-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:41+00:00",
+      "source_updated": "2026-11-05T16:42:00+00:00",
       "precincts_reporting": 18,
       "precincts_total": 18,
       "pct_reported": 100.0,
@@ -157,7 +157,7 @@
         {
           "name": "Shannon Taylor",
           "party": "DEM",
-          "votes": 207877,
+          "votes": 207882,
           "incumbent": false
         },
         {
@@ -173,7 +173,7 @@
     "VA-02": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:41+00:00",
+      "source_updated": "2026-11-05T16:42:00+00:00",
       "precincts_reporting": 8,
       "precincts_total": 8,
       "pct_reported": 100.0,
@@ -195,7 +195,7 @@
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 8020,
+          "votes": 8111,
           "incumbent": false
         }
       ],
@@ -205,7 +205,7 @@
     "NC-11": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:42+00:00",
+      "source_updated": "2026-11-05T16:42:01+00:00",
       "precincts_reporting": 290,
       "precincts_total": 290,
       "pct_reported": 100.0,
@@ -243,7 +243,7 @@
     "TX-35": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:54+00:00",
+      "source_updated": "2026-11-05T16:42:23+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -275,7 +275,7 @@
     "TX-01": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:54+00:00",
+      "source_updated": "2026-11-05T16:42:23+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -313,7 +313,7 @@
     "TX-15": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:54+00:00",
+      "source_updated": "2026-11-05T16:42:23+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -345,7 +345,7 @@
     "MT-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:31:57+00:00",
+      "source_updated": "2026-11-05T16:42:26+00:00",
       "precincts_reporting": 346,
       "precincts_total": 346,
       "pct_reported": 100.0,
@@ -383,29 +383,29 @@
     "SEN-ME": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:32:02+00:00",
+      "source_updated": "2026-11-05T16:42:32+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
-      "pct_reported": 91.0,
+      "pct_reported": 92.0,
       "called": "DEM",
       "winner": "Troy Jackson",
       "candidates": [
         {
           "name": "Susan Collins",
           "party": "REP",
-          "votes": 320926,
+          "votes": 325082,
           "incumbent": true
         },
         {
           "name": "Troy Jackson",
           "party": "DEM",
-          "votes": 368429,
+          "votes": 371255,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 301,
+          "votes": 303,
           "incumbent": false
         }
       ],
@@ -415,7 +415,7 @@
     "SEN-MN": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:32:05+00:00",
+      "source_updated": "2026-11-05T16:42:35+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -425,7 +425,7 @@
         {
           "name": "Peggy Flanagan",
           "party": "DEM",
-          "votes": 1520865,
+          "votes": 1520867,
           "incumbent": false
         },
         {
@@ -441,10 +441,10 @@
     "SEN-KS": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:32:15+00:00",
-      "precincts_reporting": 4168,
-      "precincts_total": 4168,
-      "pct_reported": 100.0,
+      "source_updated": "2026-11-05T16:42:45+00:00",
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": 99.0,
       "called": "DEM",
       "winner": "Adam Hamilton",
       "candidates": [
@@ -474,12 +474,12 @@
         }
       ],
       "error": null,
-      "source_url": "https://ent.sos.ks.gov/"
+      "source_url": "https://apnews.com/projects/elections-2026/kansas-us-senate-results/"
     },
     "SEN-OH": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:32:20+00:00",
+      "source_updated": "2026-11-05T16:42:49+00:00",
       "precincts_reporting": 8834,
       "precincts_total": 8834,
       "pct_reported": 100.0,
@@ -511,7 +511,7 @@
     "GOV-OH": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:32:20+00:00",
+      "source_updated": "2026-11-05T16:42:49+00:00",
       "precincts_reporting": 8834,
       "precincts_total": 8834,
       "pct_reported": 100.0,
@@ -543,7 +543,7 @@
     "SEN-GA": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:32:22+00:00",
+      "source_updated": "2026-11-05T16:42:49+00:00",
       "precincts_reporting": 159,
       "precincts_total": 159,
       "pct_reported": 100.0,
@@ -553,13 +553,13 @@
         {
           "name": "Jon Ossoff",
           "party": "DEM",
-          "votes": 2463134,
+          "votes": 2463160,
           "incumbent": true
         },
         {
           "name": "Mike Collins",
           "party": "REP",
-          "votes": 1711327,
+          "votes": 1711635,
           "incumbent": false
         },
         {
@@ -575,7 +575,7 @@
     "SEN-IA": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:32:29+00:00",
+      "source_updated": "2026-11-05T16:42:56+00:00",
       "precincts_reporting": 95,
       "precincts_total": 99,
       "pct_reported": 96.0,
@@ -613,7 +613,7 @@
     "SEN-AK": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:32:37+00:00",
+      "source_updated": "2026-11-05T16:43:04+00:00",
       "precincts_reporting": 400,
       "precincts_total": 403,
       "pct_reported": 99.3,
@@ -651,7 +651,7 @@
     "GOV-WI": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:32:41+00:00",
+      "source_updated": "2026-11-05T16:43:08+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 99.0,
@@ -661,13 +661,13 @@
         {
           "name": "David Crowley",
           "party": "DEM",
-          "votes": 1438721,
+          "votes": 1440990,
           "incumbent": false
         },
         {
           "name": "Tom Tiffany",
           "party": "REP",
-          "votes": 1221668,
+          "votes": 1227674,
           "incumbent": false
         },
         {
@@ -683,7 +683,7 @@
     "GOV-NY": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T08:33:06+00:00",
+      "source_updated": "2026-11-05T16:43:33+00:00",
       "precincts_reporting": 12179,
       "precincts_total": 13187,
       "pct_reported": 92.4,

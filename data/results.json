@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T01:42:45+00:00",
+  "generated_at": "2026-11-05T08:33:17+00:00",
   "election_date": "2026-11-03",
   "status": "live",
   "feed_errors": 0,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:00+00:00",
+      "source_updated": "2026-11-05T08:31:28+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -45,7 +45,7 @@
     "GOV-FL": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:00+00:00",
+      "source_updated": "2026-11-05T08:31:29+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -77,7 +77,7 @@
     "MI-04": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:08+00:00",
+      "source_updated": "2026-11-05T08:31:39+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 97.0,
@@ -109,7 +109,7 @@
     "SEN-MI": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:08+00:00",
+      "source_updated": "2026-11-05T08:31:39+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 98.0,
@@ -141,7 +141,7 @@
     "VA-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:10+00:00",
+      "source_updated": "2026-11-05T08:31:41+00:00",
       "precincts_reporting": 18,
       "precincts_total": 18,
       "pct_reported": 100.0,
@@ -173,7 +173,7 @@
     "VA-02": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:10+00:00",
+      "source_updated": "2026-11-05T08:31:41+00:00",
       "precincts_reporting": 8,
       "precincts_total": 8,
       "pct_reported": 100.0,
@@ -205,7 +205,7 @@
     "NC-11": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:11+00:00",
+      "source_updated": "2026-11-05T08:31:42+00:00",
       "precincts_reporting": 290,
       "precincts_total": 290,
       "pct_reported": 100.0,
@@ -243,7 +243,7 @@
     "TX-35": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:23+00:00",
+      "source_updated": "2026-11-05T08:31:54+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -275,7 +275,7 @@
     "TX-01": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:23+00:00",
+      "source_updated": "2026-11-05T08:31:54+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -313,7 +313,7 @@
     "TX-15": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:23+00:00",
+      "source_updated": "2026-11-05T08:31:54+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -345,29 +345,29 @@
     "MT-01": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:26+00:00",
-      "precincts_reporting": 300,
+      "source_updated": "2026-11-05T08:31:57+00:00",
+      "precincts_reporting": 346,
       "precincts_total": 346,
-      "pct_reported": 86.7,
+      "pct_reported": 100.0,
       "called": null,
       "winner": null,
       "candidates": [
         {
           "name": "Aaron Flint",
           "party": "REP",
-          "votes": 120108,
+          "votes": 122694,
           "incumbent": false
         },
         {
           "name": "Sam Forstag",
           "party": "DEM",
-          "votes": 127263,
+          "votes": 132003,
           "incumbent": false
         },
         {
           "name": "Nick Sheedy",
           "party": "LIB",
-          "votes": 7289,
+          "votes": 7522,
           "incumbent": false
         },
         {
@@ -383,7 +383,7 @@
     "SEN-ME": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:32+00:00",
+      "source_updated": "2026-11-05T08:32:02+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 91.0,
@@ -415,7 +415,7 @@
     "SEN-MN": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:35+00:00",
+      "source_updated": "2026-11-05T08:32:05+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -441,7 +441,7 @@
     "SEN-KS": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:45+00:00",
+      "source_updated": "2026-11-05T08:32:15+00:00",
       "precincts_reporting": 4168,
       "precincts_total": 4168,
       "pct_reported": 100.0,
@@ -479,7 +479,7 @@
     "SEN-OH": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:49+00:00",
+      "source_updated": "2026-11-05T08:32:20+00:00",
       "precincts_reporting": 8834,
       "precincts_total": 8834,
       "pct_reported": 100.0,
@@ -511,7 +511,7 @@
     "GOV-OH": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:49+00:00",
+      "source_updated": "2026-11-05T08:32:20+00:00",
       "precincts_reporting": 8834,
       "precincts_total": 8834,
       "pct_reported": 100.0,
@@ -543,7 +543,7 @@
     "SEN-GA": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:50+00:00",
+      "source_updated": "2026-11-05T08:32:22+00:00",
       "precincts_reporting": 159,
       "precincts_total": 159,
       "pct_reported": 100.0,
@@ -575,7 +575,7 @@
     "SEN-IA": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:41:57+00:00",
+      "source_updated": "2026-11-05T08:32:29+00:00",
       "precincts_reporting": 95,
       "precincts_total": 99,
       "pct_reported": 96.0,
@@ -613,7 +613,7 @@
     "SEN-AK": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:42:05+00:00",
+      "source_updated": "2026-11-05T08:32:37+00:00",
       "precincts_reporting": 400,
       "precincts_total": 403,
       "pct_reported": 99.3,
@@ -651,7 +651,7 @@
     "GOV-WI": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:42:09+00:00",
+      "source_updated": "2026-11-05T08:32:41+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 99.0,
@@ -683,7 +683,7 @@
     "GOV-NY": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T01:42:34+00:00",
+      "source_updated": "2026-11-05T08:33:06+00:00",
       "precincts_reporting": 12179,
       "precincts_total": 13187,
       "pct_reported": 92.4,
@@ -693,19 +693,19 @@
         {
           "name": "Kathy Hochul",
           "party": "DEM",
-          "votes": 3493435,
+          "votes": 3499396,
           "incumbent": true
         },
         {
           "name": "Bruce Blakeman",
           "party": "REP",
-          "votes": 2344000,
+          "votes": 2349047,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 71684,
+          "votes": 71828,
           "incumbent": false
         }
       ],

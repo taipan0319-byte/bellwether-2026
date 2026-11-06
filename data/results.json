@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T22:19:22+00:00",
+  "generated_at": "2026-11-06T02:34:09+00:00",
   "election_date": "2026-11-03",
   "status": "live",
   "feed_errors": 0,
@@ -7,7 +7,7 @@
     "FL-25": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:17:35+00:00",
+      "source_updated": "2026-11-06T02:32:28+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -45,7 +45,7 @@
     "GOV-FL": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:17:35+00:00",
+      "source_updated": "2026-11-06T02:32:28+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": null,
@@ -77,7 +77,7 @@
     "MI-04": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:17:50+00:00",
+      "source_updated": "2026-11-06T02:32:37+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 97.0,
@@ -109,7 +109,7 @@
     "SEN-MI": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:17:50+00:00",
+      "source_updated": "2026-11-06T02:32:37+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 98.0,
@@ -119,19 +119,19 @@
         {
           "name": "Mike Rogers",
           "party": "REP",
-          "votes": 2172814,
+          "votes": 2173595,
           "incumbent": false
         },
         {
           "name": "Abdul El-Sayed",
           "party": "DEM",
-          "votes": 2507616,
+          "votes": 2507906,
           "incumbent": false
         },
         {
           "name": "Other / write-in",
           "party": "OTH",
-          "votes": 75911,
+          "votes": 75943,
           "incumbent": false
         }
       ],
@@ -141,7 +141,7 @@
     "VA-01": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:17:53+00:00",
+      "source_updated": "2026-11-06T02:32:39+00:00",
       "precincts_reporting": 18,
       "precincts_total": 18,
       "pct_reported": 100.0,
@@ -168,13 +168,12 @@
         }
       ],
       "error": null,
-      "source_url": "https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items",
-      "call_source": "AP race call 4:59 p.m. on Nov. 5, 2026"
+      "source_url": "https://enr.elections.virginia.gov/results/public/api/elections/virginia/2026-November-General/ballot-items"
     },
     "VA-02": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:17:53+00:00",
+      "source_updated": "2026-11-06T02:32:39+00:00",
       "precincts_reporting": 8,
       "precincts_total": 8,
       "pct_reported": 100.0,
@@ -206,7 +205,7 @@
     "NC-11": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:17:53+00:00",
+      "source_updated": "2026-11-06T02:32:40+00:00",
       "precincts_reporting": 290,
       "precincts_total": 290,
       "pct_reported": 100.0,
@@ -244,7 +243,7 @@
     "TX-35": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:05+00:00",
+      "source_updated": "2026-11-06T02:32:57+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -276,7 +275,7 @@
     "TX-01": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:05+00:00",
+      "source_updated": "2026-11-06T02:32:57+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -314,7 +313,7 @@
     "TX-15": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:05+00:00",
+      "source_updated": "2026-11-06T02:32:57+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -346,7 +345,7 @@
     "MT-01": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:07+00:00",
+      "source_updated": "2026-11-06T02:32:59+00:00",
       "precincts_reporting": 346,
       "precincts_total": 346,
       "pct_reported": 100.0,
@@ -379,13 +378,12 @@
         }
       ],
       "error": null,
-      "source_url": "https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY",
-      "call_source": "AP race call 5:02 p.m. on Nov. 5, 2026"
+      "source_url": "https://electionresults.mt.gov/ResultsSW.aspx?type=FED&map=CTY"
     },
     "SEN-ME": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:10+00:00",
+      "source_updated": "2026-11-06T02:33:04+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 93.0,
@@ -395,13 +393,13 @@
         {
           "name": "Susan Collins",
           "party": "REP",
-          "votes": 329231,
+          "votes": 329531,
           "incumbent": true
         },
         {
           "name": "Troy Jackson",
           "party": "DEM",
-          "votes": 374442,
+          "votes": 374585,
           "incumbent": false
         },
         {
@@ -417,7 +415,7 @@
     "SEN-MN": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:13+00:00",
+      "source_updated": "2026-11-06T02:33:06+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 100.0,
@@ -427,13 +425,13 @@
         {
           "name": "Peggy Flanagan",
           "party": "DEM",
-          "votes": 1520867,
+          "votes": 1520864,
           "incumbent": false
         },
         {
           "name": "Michele Tafoya",
           "party": "REP",
-          "votes": 1233462,
+          "votes": 1233460,
           "incumbent": false
         }
       ],
@@ -443,10 +441,10 @@
     "SEN-KS": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:23+00:00",
-      "precincts_reporting": 4168,
-      "precincts_total": 4168,
-      "pct_reported": 100.0,
+      "source_updated": "2026-11-06T02:33:16+00:00",
+      "precincts_reporting": null,
+      "precincts_total": null,
+      "pct_reported": 99.0,
       "called": "DEM",
       "winner": "Adam Hamilton",
       "candidates": [
@@ -476,12 +474,12 @@
         }
       ],
       "error": null,
-      "source_url": "https://ent.sos.ks.gov/"
+      "source_url": "https://apnews.com/projects/elections-2026/kansas-us-senate-results/"
     },
     "SEN-OH": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:27+00:00",
+      "source_updated": "2026-11-06T02:33:21+00:00",
       "precincts_reporting": 8834,
       "precincts_total": 8834,
       "pct_reported": 100.0,
@@ -513,7 +511,7 @@
     "GOV-OH": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:27+00:00",
+      "source_updated": "2026-11-06T02:33:21+00:00",
       "precincts_reporting": 8834,
       "precincts_total": 8834,
       "pct_reported": 100.0,
@@ -545,7 +543,7 @@
     "SEN-GA": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:27+00:00",
+      "source_updated": "2026-11-06T02:33:22+00:00",
       "precincts_reporting": 159,
       "precincts_total": 159,
       "pct_reported": 100.0,
@@ -577,7 +575,7 @@
     "SEN-IA": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:34+00:00",
+      "source_updated": "2026-11-06T02:33:29+00:00",
       "precincts_reporting": 95,
       "precincts_total": 99,
       "pct_reported": 96.0,
@@ -615,7 +613,7 @@
     "SEN-AK": {
       "status": "counting",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:43+00:00",
+      "source_updated": "2026-11-06T02:33:37+00:00",
       "precincts_reporting": 400,
       "precincts_total": 403,
       "pct_reported": 99.3,
@@ -653,7 +651,7 @@
     "GOV-WI": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:18:46+00:00",
+      "source_updated": "2026-11-06T02:33:41+00:00",
       "precincts_reporting": null,
       "precincts_total": null,
       "pct_reported": 99.0,
@@ -685,7 +683,7 @@
     "GOV-NY": {
       "status": "called",
       "source_status": "ok",
-      "source_updated": "2026-11-05T22:19:11+00:00",
+      "source_updated": "2026-11-06T02:34:06+00:00",
       "precincts_reporting": 12179,
       "precincts_total": 13187,
       "pct_reported": 92.4,
@@ -695,13 +693,13 @@
         {
           "name": "Kathy Hochul",
           "party": "DEM",
-          "votes": 3506085,
+          "votes": 3506143,
           "incumbent": true
         },
         {
           "name": "Bruce Blakeman",
           "party": "REP",
-          "votes": 2354315,
+          "votes": 2354320,
           "incumbent": false
         },
         {
